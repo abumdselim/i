@@ -1,0 +1,10 @@
+﻿import pathlib
+b = pathlib.Path('_build/build.py')
+s = b.read_text(encoding='utf-8')
+s = s.replace('assets/img/intactic-blue.png', 'assets/img/logo-blue-500.png')
+s = s.replace('assets/img/intactic-white.png', 'assets/img/logo-white-500.png')
+s = s.replace('width="111" height="19"', 'width="125" height="19"')
+s = s.replace('<link rel="icon" type="image/png" href="assets/img/intactic-mark.png">', '<link rel="icon" type="image/png" sizes="32x32" href="assets/img/icon-32.png">')
+s = s.replace('<link rel="apple-touch-icon" href="assets/img/intactic-mark.png">', '<link rel="apple-touch-icon" href="assets/img/icon-180.png">')
+b.write_text(s, encoding='utf-8')
+print('refs', s.count('logo-blue-500'), s.count('icon-32'))
