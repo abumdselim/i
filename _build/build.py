@@ -2,8 +2,9 @@ import pathlib, re, sys, html
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from cats import CATS
 from catpage import cat_body
-from products import PRODUCTS, INDUSTRIES
+from products import PRODUCTS, INDUSTRIES, STACK
 from prodpage import prod_body, prods_hub, prods_strip
+from sections import industries_section, stack_section
 
 B = pathlib.Path('_build')
 OUT = pathlib.Path('.')
@@ -359,12 +360,14 @@ def build():
         if p.get('prod'):
             body = prod_body(p['prod'])
         elif p.get('hub'):
-            body = prods_hub(PRODUCTS, INDUSTRIES)
+            body = prods_hub(PRODUCTS)
         elif p.get('cat'):
             body = cat_body(p['cat'])
         else:
             body = read('pages/' + p['frag'])
         body = body.replace('{{PRODUCTS_HOME}}', prods_strip(PRODUCTS))
+        body = body.replace('{{INDUSTRIES_HOME}}', industries_section(INDUSTRIES))
+        body = body.replace('{{STACK_HOME}}', stack_section(STACK, tint=True))
         body = (body.replace('{{PLATE}}', pl)
                     .replace('{{FIG_PLATFORM}}', FIG_PLATFORM)
                     .replace('{{FIG_EMBEDDED}}', FIG_EMBEDDED)

@@ -44,20 +44,22 @@ paper → mist → ink. Cards and plates are always white, and always sit on a t
 
 | Role | Face | Size | Weight | Tracking | Leading |
 |---|---|---|---|---|---|
-| Display | Archivo | `clamp(2.7rem, 5.4vw, 4.35rem)` | 600 | `-.03em` | `.96` |
-| H2 | Archivo | `clamp(1.95rem, 3.35vw, 2.9rem)` | 600 | `-.032em` | `1.04` |
-| H3 | Archivo | `clamp(1.15rem, 1.5vw, 1.375rem)` | 600 | `-.021em` | `1.28` |
-| Lead | Archivo | `clamp(1.03rem, 1.15vw, 1.19rem)` | 400 | `-.012em` | `1.58` |
-| Body | Archivo | `1rem` | 400 | `-.006em` | `1.68` |
+| Display | Geist | `clamp(2.7rem, 5.4vw, 4.35rem)` | 600 | `-.025em` | `.96` |
+| H2 | Geist | `clamp(1.95rem, 3.35vw, 2.9rem)` | 600 | `-.024em` | `1.04` |
+| H3 | Geist | `clamp(1.15rem, 1.5vw, 1.375rem)` | 600 | `-.016em` | `1.28` |
+| Lead | Geist | `clamp(1.03rem, 1.15vw, 1.19rem)` | 400 | `-.008em` | `1.58` |
+| Body | Geist | `1rem` | 400 | `-.003em` | `1.68` |
 | Eyebrow | IBM Plex Mono | `.6875rem` | 400 | `.1em` caps | `1` |
 | Mono label | IBM Plex Mono | `.625rem` | 400 | `.08–.1em` caps | `1.4` |
 
-Both families are embedded as base64 WOFF2 in `_build/fonts/fonts.css` (Archivo
+Both families are embedded as base64 WOFF2 in `_build/fonts/fonts.css` (Geist
 variable 400–700, Plex Mono 400/500). There is no runtime font request, so text never
 shifts after load.
 
 Rules: all-caps always gets positive tracking; display sizes always get negative
 tracking; body copy never exceeds `65ch`; paragraphs use `text-wrap: pretty`.
+Display headings use the word "and" rather than "&": the ampersand is allowed only in
+small labels and footer links, where it reads as a sign, not a glyph.
 
 ## Layout
 

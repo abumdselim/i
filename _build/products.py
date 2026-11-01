@@ -126,8 +126,16 @@ PRODUCTS = [
 ]
 
 INDUSTRIES = [
-    ('01', 'Retail &amp; wholesale', 'Counters, stock, dues and a daily profit figure, with or without a connection.'),
+    ('01', 'Retail &amp; wholesale', 'Counters, stock, supplier dues and a daily profit figure, with or without a connection.'),
     ('02', 'Pharmacy &amp; healthcare', 'Generic alternatives, DGDA checks and stock counted down to the piece.'),
     ('03', 'Legal practice', 'Cause lists, limitation dates and judgment summaries for chambers.'),
-    ('04', 'Document-heavy offices', 'Contracts, filings and archives that must not leave the building.'),
+    ('04', 'Commerce &amp; marketplaces', 'Vendors, commissions, payouts and fulfilment that reconcile before the storefront is drawn.'),
+    ('05', 'Professional offices', 'Contracts, filings and archives that must not leave the building.'),
+]
+
+STACK = [
+    ('Languages', ['TypeScript', 'Python', 'Kotlin', 'Swift', 'Dart', 'SQL']),
+    ('Frameworks', ['Next.js', 'React', 'Node', 'Django', 'Flutter', 'React Native']),
+    ('Data', ['PostgreSQL', 'SQLite', 'Redis', 'pgvector', 'Cloudflare D1', 'R2']),
+    ('Infrastructure', ['Cloudflare Workers', 'AWS', 'Docker', 'Temporal', 'Firebase', 'GitHub Actions']),
 ]

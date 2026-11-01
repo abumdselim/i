@@ -15,6 +15,35 @@ Format:
 
 ---
 
+## 2026-11-01 — Typeface, hero, industries and stack
+
+**Why:** The Archivo ampersand read as a mismatched glyph in display headings, the
+typeface felt short of the corporate bar, the hero carried a redundant label, and the
+site lacked the industries and stack sections the client asked for.
+
+**Changed:**
+- Typeface replaced: Geist variable (400–700, latin subset, 29 KB) now carries display and
+  body; IBM Plex Mono stays for labels. Tracking retuned for the new metrics
+  (`-.025em` display, `-.024em` h2, `-.016em` h3).
+- Display headings use "and" instead of "&" (ERP and operations, Automation and models,
+  Assessment and augmentation). Ampersands remain in small labels only.
+- Home hero: the "Software engineering studio" eyebrow removed; the headline now opens
+  the page.
+- New **Industries** section on the home page: five sectors plus a call-to-action cell.
+- New **Stack** section on the home page: four columns (languages, frameworks, data,
+  infrastructure) with a note about working in the client's existing stack.
+- `products.html` no longer repeats the industries band; that content now lives once, on
+  the home page.
+- `_build/prodpage.py` was rebuilt after a patch duplicated `prods_hub` four times; the
+  file now defines each function once.
+- New `_build/sections.py` for the industries and stack sections.
+
+**Verified:** build writes 19 pages; link checker reports zero missing targets; Geist
+reports as loaded and covers `&`; the home page renders both new sections at 473 px with
+no horizontal overflow.
+
+---
+
 ## 2026-11-01 — Products, documentation and repository
 
 **Why:** The studio's four own products (Shamlai, Pharmasys, Pdfing Pro, iCounsel) were

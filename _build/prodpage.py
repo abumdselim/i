@@ -136,7 +136,7 @@ def prod_body(p):
     )
 
 
-def prods_hub(products, industries):
+def prods_hub(products):
     cards = []
     for p in products:
         tags = ''.join('<span class="tag">%s</span>' % t for _, t, _ in p['features'][:3])
@@ -151,16 +151,6 @@ def prods_hub(products, industries):
             '<a class="linkarrow" href="https://%s" target="_blank" rel="noopener">Visit %s<svg class="icon" aria-hidden="true"><use href="#i-arrow-ur"></use></svg></a>'
             '</div></article>' % (p['num'], p['domain'], p['name'], p['card'], tags, p['slug'], p['domain'], p['domain'])
         )
-
-    inds = ''.join(
-        '<div class="ind"><span class="mono">%s</span><h3>%s</h3><p>%s</p></div>' % (n, t_, d)
-        for n, t_, d in industries
-    )
-    inds += ('<div class="ind ind--cta"><span class="mono">Your sector</span>'
-             '<h3>Somewhere else?</h3>'
-             '<p>If the problem is operational, it can be scoped. Tell us where the work piles up.</p>'
-             '<a class="linkarrow" href="contact.html">Start a conversation'
-             '<svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a></div>')
 
     return """<section class="page-head" data-od-id="page-head" aria-labelledby="prods-title">
   <div class="shell">
@@ -179,21 +169,6 @@ def prods_hub(products, industries):
 <section class="section">
   <div class="shell">
     <div class="prods">%(cards)s</div>
-  </div>
-</section>
-
-<section class="section section--tint" data-od-id="industries">
-  <div class="shell">
-    <div class="sec-head">
-      <div>
-        <p class="eyebrow" data-reveal>Industries</p>
-        <h2 class="h2" data-reveal style="--d:.05s">Where they sit today.</h2>
-      </div>
-      <div class="sec-head__aside" data-reveal style="--d:.1s">
-        <p class="lead">The same four products are used across counters, dispensaries, chambers and back offices. The sector changes the vocabulary, not the engineering.</p>
-      </div>
-    </div>
-    <div class="inds" data-reveal>%(inds)s</div>
   </div>
 </section>
 
@@ -219,7 +194,7 @@ def prods_hub(products, industries):
       </div>
     </div>
   </div>
-</section>""" % dict(cards=''.join(cards), inds=inds)
+</section>""" % dict(cards=''.join(cards))
 
 
 def prods_strip(products):

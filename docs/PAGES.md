@@ -24,7 +24,7 @@ Footer columns: brand + Capabilities (6) + Products (4 + all) + Studio (5) + Dir
 
 | # | File | Title | Purpose | Primary sections |
 |---|---|---|---|---|
-| 1 | `index.html` | Intactic — software engineering studio | The thesis, the six capabilities, the products, how we work, how to engage | Hero + plate, Capabilities, Intelligence (dark), Products, Process, Engagements + standards |
+| 1 | `index.html` | Intactic — software engineering studio | The thesis, the six capabilities, the products, how we work, how to engage | Hero + plate, Capabilities, Intelligence (dark), Products, Industries, Stack, Process, Engagements + standards |
 | 2 | `services.html` | Capabilities — Intactic | Hub for the six disciplines | Six capability cards, three combinations, link-outs |
 | 3 | `custom-software.html` | Custom software — Intactic | Capability C/01 | Problem + system map, six deliverables, three rules, stack, related |
 | 4 | `ecommerce.html` | Multi-vendor commerce — Intactic | Capability C/02 | as above, commerce-specific |
@@ -32,7 +32,7 @@ Footer columns: brand + Capabilities (6) + Products (4 + all) + Studio (5) + Dir
 | 6 | `web-platforms.html` | Web platforms — Intactic | Capability C/04 | as above, web-specific |
 | 7 | `mobile-apps.html` | Mobile products — Intactic | Capability C/05 | as above, mobile-specific |
 | 8 | `automation.html` | Automation & models — Intactic | Capability C/06 | as above, automation-specific |
-| 9 | `products.html` | Products — Intactic | Hub for the four products + industries | Four product cards, industries band, one-standard section |
+| 9 | `products.html` | Products — Intactic | Hub for the four products | Four product cards, one-standard section |
 | 10 | `shamlai.html` | Shamlai — Intactic | Product P/01 | Problem + map, six features, engineering, stack, built-for, more products |
 | 11 | `pharmasys.html` | Pharmasys — Intactic | Product P/02 | as above |
 | 12 | `pdfing-pro.html` | Pdfing Pro — Intactic | Product P/03 | as above |

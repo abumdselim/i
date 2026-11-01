@@ -29,7 +29,7 @@ _build/
   catpage.py        capability page template
   prodpage.py       product page template, products hub, home band
   build.py          assembles head, header, footer, CTA and writes the pages
-  fonts/fonts.css   Archivo + IBM Plex Mono, base64 embedded
+  fonts/fonts.css   Geist + IBM Plex Mono, base64 embedded
 ```
 
 Build:
