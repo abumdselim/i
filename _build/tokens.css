@@ -27,8 +27,9 @@
   --shadow-focus:0 0 0 3px rgba(17,95,200,.28);
 
   /* type */
-  --font-sans:'Geist','Segoe UI',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
-  --font-mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,Consolas,'Liberation Mono',monospace;
+  --font-sans:'Barlow','Segoe UI',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
+  --font-display:'Titillium Web','Barlow','Segoe UI','Helvetica Neue',Arial,sans-serif;
+  --font-mono:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace;
 
   /* metrics */
   --shell:1320px;
@@ -36,6 +37,15 @@
   --sec:clamp(72px,8.4vw,124px);
   --head-h:74px;
   --r:2px;
+
+  /* type scale (fluid, rem + vw; see docs/TYPOGRAPHY-SPEC.md 4.4) */
+  --text-sm:clamp(.875rem,.850rem + .109vw,.9375rem);
+  --text-base:clamp(1.0625rem,1.038rem + .109vw,1.125rem);
+  --text-lead:clamp(1.125rem,1.027rem + .435vw,1.375rem);
+  --text-h4:clamp(1.25rem,1.152rem + .435vw,1.5rem);
+  --text-h3:clamp(1.5rem,1.304rem + .870vw,2rem);
+  --text-h2:clamp(1.875rem,1.435rem + 1.957vw,3rem);
+  --text-h1:clamp(2.25rem,1.565rem + 3.043vw,4rem);
 }
 
 html[data-theme="dark"]{

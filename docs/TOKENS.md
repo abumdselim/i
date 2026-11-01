@@ -68,8 +68,8 @@ every page in the site reads these values. This file and `tokens.json` are gener
 
 | Token | Light | Dark | Role |
 |---|---|---|---|
-| `--font-sans` | `'Geist','Segoe UI',-apple-syste…` | `'Geist','Segoe UI',-apple-syste…` | display and body family |
-| `--font-mono` | `'IBM Plex Mono',ui-monospace,SF…` | `'IBM Plex Mono',ui-monospace,SF…` | labels, metadata, diagram annotation |
+| `--font-sans` | `'Barlow','Segoe UI',-apple-syst…` | `'Barlow','Segoe UI',-apple-syst…` | display and body family |
+| `--font-mono` | `ui-monospace,SFMono-Regular,Men…` | `ui-monospace,SFMono-Regular,Men…` | labels, metadata, diagram annotation |
 
 Every colour in the site comes from these tokens. Hard-coded hex values outside this file
 are a defect. Contrast targets: body text ≥ 4.5:1, large display text ≥ 3:1, UI borders
