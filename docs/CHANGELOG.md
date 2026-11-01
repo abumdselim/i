@@ -15,6 +15,27 @@ Format:
 
 ---
 
+## 2026-11-01 — Design tokens extracted and documented
+
+**Why:** Tokens lived only inside the compiled stylesheet, so a designer or a future
+framework had no reference for them, and documentation could drift from the CSS.
+
+**Changed:**
+- `_build/tokens.css` — new single source for all 26 tokens (light + dark blocks).
+- `_build/styles.css` — token blocks removed; the build now prepends `tokens.css`.
+- `_build/tokens_doc.py` — parses the token file and writes `docs/TOKENS.md` and
+  `docs/tokens.json` on every build, so the reference cannot go stale.
+- `docs/TOKENS.md` — colour tables per group with light/dark values and roles, type scale,
+  space and layout, border/shadow/motion rules, breakpoints, and how to change the brand
+  colour.
+- `docs/README.md` — token links added; `_build/` tree updated.
+
+**Verified:** build reports 26 tokens documented; `docs/tokens.json` parses; the inlined
+CSS on every page still carries `--accent:#115fc8`; token extraction changed no rendered
+value (same declarations, different file).
+
+---
+
 ## 2026-11-01 — Stack section, logo wall and a curated stack
 
 **Why:** The client wanted an Industries and a Stack section in the spirit of the

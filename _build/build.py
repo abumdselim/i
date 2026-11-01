@@ -5,6 +5,7 @@ from catpage import cat_body
 from products import PRODUCTS, INDUSTRIES, STACK
 from prodpage import prod_body, prods_hub, prods_strip
 from sections import industries_section, stack_section
+from tokens_doc import write_token_docs
 
 B = pathlib.Path('_build')
 OUT = pathlib.Path('.')
@@ -21,7 +22,7 @@ def meta_desc_from(text, limit=158):
 def read(p):
     return (B / p).read_text(encoding='utf-8')
 
-CSS = read('styles.css')
+CSS = read('tokens.css') + '\n' + read('styles.css')
 FONTS = read('fonts/fonts.css')
 JS = read('app.js')
 SPRITE = read('icons.svg')
@@ -389,3 +390,5 @@ def build():
 
 if __name__ == '__main__':
     build()
+    n = write_token_docs()
+    print('tokens documented:', n)

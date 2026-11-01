@@ -9,6 +9,7 @@ inlined, so the site renders identically offline and on any static host.
 - **Local master copy:** `D:\The Intactic Atelier`
 - **Pages:** 19 (see [docs/PAGES.md](docs/PAGES.md))
 - **Design system:** [docs/DESIGN-SYSTEM.md](docs/DESIGN-SYSTEM.md)
+- **Design tokens:** [docs/TOKENS.md](docs/TOKENS.md) · [tokens.json](docs/tokens.json)
 - **Decisions:** [docs/DECISIONS.md](docs/DECISIONS.md)
 - **History:** [docs/CHANGELOG.md](docs/CHANGELOG.md)
 - **Product facts:** [docs/PRODUCTS.md](docs/PRODUCTS.md)
@@ -29,6 +30,8 @@ _build/
   catpage.py        capability page template
   prodpage.py       product page template, products hub, home band
   build.py          assembles head, header, footer, CTA and writes the pages
+  tokens.css        design tokens (single source), prepended at build
+  tokens_doc.py     writes docs/TOKENS.md and docs/tokens.json from tokens.css
   fonts/fonts.css   Geist + IBM Plex Mono, base64 embedded
 ```
 
