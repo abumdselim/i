@@ -36,7 +36,7 @@ def cat_body(c):
   <div class="shell">
     <div class="page-head__grid">
       <div>
-        <p class="eyebrow" data-reveal>Capability C/%(num)s</p>
+        <p class="eyebrow" data-reveal>Capability</p>
         <h1 class="display" id="cat-title" data-reveal style="--d:.05s">%(h1)s</h1>
       </div>
       <div data-reveal style="--d:.1s">
@@ -58,7 +58,7 @@ def cat_body(c):
         %(problem)s
       </div>
       <div class="map" data-reveal style="--d:.08s">
-        <div class="plate__bar"><span>System map</span><span>C/%(num)s</span></div>
+        <div class="plate__bar"><span>System map</span><span>Fig.</span></div>
         <div class="map__grid">%(cells)s</div>
         <div class="plate__foot"><span>%(map_core)s at the centre</span><span>%(slug)s</span></div>
       </div>

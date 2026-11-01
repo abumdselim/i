@@ -134,8 +134,12 @@ INDUSTRIES = [
 ]
 
 STACK = [
-    ('Languages', ['TypeScript', 'Python', 'Kotlin', 'Swift', 'Dart', 'SQL']),
-    ('Frameworks', ['Next.js', 'React', 'Node', 'Django', 'Flutter', 'React Native']),
-    ('Data', ['PostgreSQL', 'SQLite', 'Redis', 'pgvector', 'Cloudflare D1', 'R2']),
-    ('Infrastructure', ['Cloudflare Workers', 'AWS', 'Docker', 'Temporal', 'Firebase', 'GitHub Actions']),
+    ('Languages', [('TypeScript', 'typescript'), ('Python', 'python'), ('JavaScript', 'javascript'),
+                   ('Kotlin', 'kotlin'), ('Swift', 'swift'), ('Dart', 'dart')]),
+    ('Frameworks &amp; runtimes', [('Next.js', 'nextdotjs'), ('React', 'react'), ('Node.js', 'nodedotjs'),
+                                   ('Django', 'django'), ('Flutter', 'flutter'), ('React Native', 'react')]),
+    ('Data &amp; storage', [('PostgreSQL', 'postgresql'), ('SQLite', 'sqlite'), ('Redis', 'redis'),
+                            ('Prisma', 'prisma'), ('Meilisearch', 'meilisearch')]),
+    ('Infrastructure', [('Cloudflare Workers', 'cloudflare'), ('Vercel', 'vercel'), ('Docker', 'docker'),
+                        ('Temporal', 'temporal'), ('Sentry', 'sentry'), ('GitHub Actions', 'githubactions')]),
 ]

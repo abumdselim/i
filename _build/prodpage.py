@@ -37,7 +37,7 @@ def prod_body(p):
   <div class="shell">
     <div class="page-head__grid">
       <div>
-        <p class="eyebrow" data-reveal>Product P/%(num)s</p>
+        <p class="eyebrow" data-reveal>Product</p>
         <h1 class="display" id="prod-title" data-reveal style="--d:.05s">%(h1)s</h1>
       </div>
       <div data-reveal style="--d:.1s">
@@ -65,7 +65,7 @@ def prod_body(p):
         %(problem)s
       </div>
       <div class="map" data-reveal style="--d:.08s">
-        <div class="plate__bar"><span>System map</span><span>P/%(num)s</span></div>
+        <div class="plate__bar"><span>System map</span><span>Fig.</span></div>
         <div class="map__grid">%(cells)s</div>
         <div class="plate__foot"><span>%(map_core)s at the centre</span><span>%(domain)s</span></div>
       </div>
@@ -142,14 +142,14 @@ def prods_hub(products):
         tags = ''.join('<span class="tag">%s</span>' % t for _, t, _ in p['features'][:3])
         cards.append(
             '<article class="prod" data-reveal>'
-            '<div class="prod__top"><span class="mono">P/%s</span><span class="prod__domain">%s</span></div>'
+            '<div class="prod__top"><span class="prod__domain">%s</span></div>'
             '<h3 class="h3">%s</h3>'
             '<p class="prod__line">%s</p>'
             '<div class="svc__stack" style="margin-top:6px">%s</div>'
             '<div class="prod__links">'
             '<a class="linkarrow" href="%s.html">Read more<svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>'
             '<a class="linkarrow" href="https://%s" target="_blank" rel="noopener">Visit %s<svg class="icon" aria-hidden="true"><use href="#i-arrow-ur"></use></svg></a>'
-            '</div></article>' % (p['num'], p['domain'], p['name'], p['card'], tags, p['slug'], p['domain'], p['domain'])
+            '</div></article>' % (p['domain'], p['name'], p['card'], tags, p['slug'], p['domain'], p['domain'])
         )
 
     return """<section class="page-head" data-od-id="page-head" aria-labelledby="prods-title">
@@ -202,11 +202,11 @@ def prods_strip(products):
     for prod in products:
         cards.append(
             '<a class="prod" href="%s.html" data-reveal>'
-            '<div class="prod__top"><span class="mono">P/%s</span><span class="prod__domain">%s</span></div>'
+            '<div class="prod__top"><span class="prod__domain">%s</span></div>'
             '<h3 class="h3">%s</h3>'
             '<p class="prod__line">%s</p>'
             '<span class="cap__more" style="margin-top:18px">Read more<svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>'
-            '</a>' % (prod['slug'], prod['num'], prod['domain'], prod['name'], prod['card'])
+            '</a>' % (prod['slug'], prod['domain'], prod['name'], prod['card'])
         )
     return """<section class="section section--tint" id="products" data-od-id="products">
   <div class="shell">

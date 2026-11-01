@@ -251,9 +251,9 @@ h1,h2,h3,h4,p{margin:0}
 }
 .brand{display:flex;align-items:center;gap:12px;flex:none;padding-block:8px}
 .brand img{height:19px;width:auto}
-.brand .logo--white{display:none}
-html[data-theme="dark"] .brand .logo--blue{display:none}
-html[data-theme="dark"] .brand .logo--white{display:block}
+.logo--white{display:none}
+html[data-theme="dark"] .logo--blue{display:none}
+html[data-theme="dark"] .logo--white{display:block}
 
 .nav{display:flex;align-items:center;gap:4px}
 .nav__link{
@@ -429,8 +429,7 @@ html[data-theme="dark"] .theme-btn .icon-sun{display:block}
   transition:background-color .2s ease;
 }
 .cap:hover{background:var(--bg-2)}
-.cap__top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:28px}
-.cap__idx{font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.09em;color:var(--muted-2);font-variant-numeric:tabular-nums}
+.cap__top{display:flex;align-items:flex-start;justify-content:flex-end;margin-bottom:28px}
 .cap .icon{width:24px;height:24px;color:var(--ink);transition:color .2s ease}
 .cap:hover .icon{color:var(--accent)}
 .cap h3{margin-bottom:10px}
@@ -646,7 +645,6 @@ html[data-theme="dark"] .theme-btn .icon-sun{display:block}
 .foot__grid{display:grid;grid-template-columns:minmax(0,1.7fr) repeat(4,minmax(0,1fr));gap:clamp(24px,3.4vw,48px)}
 .foot__brand{display:flex;flex-direction:column;gap:16px;align-items:flex-start}
 .foot__brand img{height:18px;width:auto}
-html[data-theme="dark"] .foot__brand img.logo--blue{display:none}
 .foot__brand p{font-size:.875rem;line-height:1.6;color:var(--muted);max-width:30ch}
 .foot__col h4{
   font-family:var(--font-mono);font-size:.625rem;letter-spacing:.1em;text-transform:uppercase;
@@ -880,7 +878,7 @@ html[data-theme="dark"] .foot__brand img.logo--blue{display:none}
 /* ---------- products hub ---------- */
 .prods{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
 .prod{background:var(--surface);padding:clamp(22px,2.6vw,34px);display:flex;flex-direction:column}
-.prod__top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px}
+.prod__top{display:flex;align-items:center;justify-content:flex-end;gap:16px;margin-bottom:22px}
 .prod__domain{
   font-family:var(--font-mono);font-size:.625rem;letter-spacing:.07em;
   color:var(--accent-ink);border:1px solid var(--line-2);padding:5px 9px;line-height:1;
@@ -910,16 +908,24 @@ html[data-theme="dark"] .foot__brand img.logo--blue{display:none}
 @media (max-width:600px){.inds{grid-template-columns:1fr}}
 
 /* ---------- stack section ---------- */
-.stacksec{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 clamp(24px,3vw,40px);border-top:1px solid var(--line-2)}
-.stackcol{padding-top:20px}
-.stackcol h3{
+.stackgroups{display:flex;flex-direction:column;gap:clamp(22px,2.6vw,32px)}
+.stackgroup__label{
   font-family:var(--font-mono);font-size:.625rem;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--muted-2);font-weight:400;padding-bottom:12px;border-bottom:1px solid var(--line);margin-bottom:2px;
+  color:var(--muted-2);font-weight:400;margin-bottom:10px;
 }
-.stackcol li{font-size:.9375rem;line-height:1.4;padding:9px 0;border-bottom:1px solid var(--line);color:var(--ink-2)}
-.stacknote{margin-top:26px;font-size:.875rem;line-height:1.6;color:var(--muted);max-width:70ch}
-@media (max-width:900px){.stacksec{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:30px}}
-@media (max-width:520px){.stacksec{grid-template-columns:1fr;row-gap:24px}}
+.stackgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.stackcell{
+  background:var(--surface);border:1px solid var(--line);
+  display:flex;align-items:center;gap:12px;
+  padding:clamp(12px,1.4vw,16px) clamp(14px,1.6vw,18px);
+  transition:border-color .18s ease;
+}
+.stackcell:hover{border-color:var(--line-2)}
+.stackcell .slogo{width:20px;height:20px;flex:none;fill:currentColor;color:var(--muted);transition:color .18s ease}
+.stackcell:hover .slogo{color:var(--accent)}
+.stackcell span{font-size:.9375rem;line-height:1.3;letter-spacing:-.006em;color:var(--ink-2)}
+@media (max-width:680px){.stackgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:400px){.stackgrid{grid-template-columns:1fr}}
 
 /* ---------- product page head ---------- */
 .prod-head__actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:26px}

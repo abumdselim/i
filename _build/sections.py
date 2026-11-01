@@ -1,9 +1,9 @@
 def industries_section(industries, tint=False):
     cells = ''.join(
-        '<div class="ind"><span class="mono">%s</span><h3>%s</h3><p>%s</p></div>' % (n, t_, d)
+        '<div class="ind"><h3>%s</h3><p>%s</p></div>' % (t_, d)
         for n, t_, d in industries
     )
-    cells += ('<div class="ind ind--cta"><span class="mono">Your sector</span>'
+    cells += ('<div class="ind ind--cta">'
               '<h3>Is your industry here?</h3>'
               '<p>If the problem is operational, it can be scoped. Tell us where the work piles up.</p>'
               '<a class="linkarrow" href="contact.html">Start a conversation'
@@ -25,10 +25,17 @@ def industries_section(industries, tint=False):
 
 
 def stack_section(groups, tint=False):
-    cols = []
+    blocks = []
     for name, items in groups:
-        lis = ''.join('<li>%s</li>' % i for i in items)
-        cols.append('<div class="stackcol"><h3>%s</h3><ul>%s</ul></div>' % (name, lis))
+        cells = ''.join(
+            '<div class="stackcell"><svg class="slogo" aria-hidden="true"><use href="#s-%s"></use></svg>'
+            '<span>%s</span></div>' % (slug, label)
+            for label, slug in items
+        )
+        blocks.append(
+            '<div class="stackgroup"><h3 class="stackgroup__label">%s</h3>'
+            '<div class="stackgrid">%s</div></div>' % (name, cells)
+        )
     return """<section class="section%(tint)s" id="stack" data-od-id="stack">
   <div class="shell">
     <div class="sec-head">
@@ -43,7 +50,6 @@ def stack_section(groups, tint=False):
         </a>
       </div>
     </div>
-    <div class="stacksec" data-reveal>%(cols)s</div>
-    <p class="stacknote" data-reveal style="--d:.06s">If your team already runs .NET, Java or PHP, we work in that instead. Retraining a team to satisfy a preference is not engineering.</p>
+    <div class="stackgroups" data-reveal>%(blocks)s</div>
   </div>
-</section>""" % dict(tint=' section--tint' if tint else '', cols=''.join(cols))
+</section>""" % dict(tint=' section--tint' if tint else '', blocks=''.join(blocks))
