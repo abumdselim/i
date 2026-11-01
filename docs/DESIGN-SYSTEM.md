@@ -42,24 +42,27 @@ paper → mist → ink. Cards and plates are always white, and always sit on a t
 
 ## Typography
 
-| Role | Face | Size | Weight | Tracking | Leading |
+Governed by [`TYPOGRAPHY-SPEC.md`](TYPOGRAPHY-SPEC.md) — that file wins over anything
+here. Two families, five Latin files, no italics.
+
+| Role | Family | Size | Weight | Tracking | Leading |
 |---|---|---|---|---|---|
-| Display | Geist | `clamp(2.7rem, 5.4vw, 4.35rem)` | 600 | `-.025em` | `.96` |
-| H2 | Geist | `clamp(1.95rem, 3.35vw, 2.9rem)` | 600 | `-.024em` | `1.04` |
-| H3 | Geist | `clamp(1.15rem, 1.5vw, 1.375rem)` | 600 | `-.016em` | `1.28` |
-| Lead | Geist | `clamp(1.03rem, 1.15vw, 1.19rem)` | 400 | `-.008em` | `1.58` |
-| Body | Geist | `1rem` | 400 | `-.003em` | `1.68` |
-| Eyebrow | IBM Plex Mono | `.6875rem` | 400 | `.1em` caps | `1` |
-| Mono label | IBM Plex Mono | `.625rem` | 400 | `.08–.1em` caps | `1.4` |
+| Display / H1 | Titillium Web | `--text-h1` (36→64px) | 700 | `-.01em` | `1.1` |
+| H2 | Titillium Web | `--text-h2` (30→48px) | 700 | `-.01em` | `1.15` |
+| H3 | Titillium Web | `--text-h3` (24→32px) | 600 | `0` | `1.2` |
+| H4 | Titillium Web | `--text-h4` (20→24px) | 600 | `0` | `1.25` |
+| Lead | Barlow | `--text-lead` (18→22px) | 400 | `0` | `1.5` |
+| Body | Barlow | `--text-base` (17→18px) | 400 | `0` | `1.55` |
+| Small / labels | Barlow · system mono | `--text-sm` (14→15px) | 400–500 | `.1em` caps | `1.4–1.6` |
 
-Both families are embedded as base64 WOFF2 in `_build/fonts/fonts.css` (Geist
-variable 400–700, Plex Mono 400/500). There is no runtime font request, so text never
-shifts after load.
+Barlow 400/500/600 and Titillium Web 600/700 are embedded as base64 WOFF2 — five files,
+no runtime request, no layout shift. Mono is the system stack, so it costs nothing.
+Bengali text is safe by construction: `:lang(bn)` resets tracking to `0` and opens the
+leading to `1.75`; the Bengali font itself is not shipped until a Bengali page exists.
 
-Rules: all-caps always gets positive tracking; display sizes always get negative
-tracking; body copy never exceeds `65ch`; paragraphs use `text-wrap: pretty`.
-Display headings use the word "and" rather than "&": the ampersand is allowed only in
-small labels and footer links, where it reads as a sign, not a glyph.
+Rules: all-caps always gets positive tracking; display sizes get `-.01em` and no more;
+body copy never exceeds `68ch`; paragraphs use `text-wrap: pretty`; body never below 17px,
+captions never below 14px. The word "and" replaces "&" in display headings.
 
 ## Layout
 

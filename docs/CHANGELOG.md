@@ -15,6 +15,32 @@ Format:
 
 ---
 
+## 2026-11-01 — Adopt the Barlow + Titillium Web type system
+
+**Why:** The company issued an authoritative typography spec (Barlow for body/UI,
+Titillium Web for display, five Latin weights, no italics). It replaces Geist.
+
+**Changed:**
+- `_build/fonts/fonts.css` — exactly five base64 WOFF2 faces: Barlow 400/500/600,
+  Titillium Web 600/700. IBM Plex Mono removed; mono is now the system stack.
+- `_build/tokens.css` — `--font-sans`, `--font-display`, `--font-mono` plus the spec's
+  fluid scale (`--text-sm` … `--text-h1`, rem + vw).
+- `_build/styles.css` — display/H1–H4, lead, body and buttons rewired to the tokens;
+  heading tracking relaxed to `-.01em`, leading to the spec values; body copy moved to
+  17–18px; every label/caption raised to the 14px floor; icon buttons to 44px targets;
+  `:lang(bn)` tracking/leading rules added.
+- `docs/TYPOGRAPHY-SPEC.md` — the issued spec, kept verbatim, with the static-build
+  adaptation note, the measured font budget (90,824 B of Latin WOFF2) and a changelog row.
+- `docs/DESIGN-SYSTEM.md`, `docs/README.md` — typography sections rewritten.
+- Page weight rose from ~197 KB to ~241 KB because five static faces are inlined instead
+  of one variable file; the trade is the spec's five exact weights.
+
+**Verified:** built pages contain exactly 5 `@font-face` blocks, zero `IBM Plex Mono`
+references, zero requests to `fonts.googleapis.com` / `fonts.gstatic.com`; `--text-base`
+and `var(--font-display)` are present in the compiled CSS.
+
+---
+
 ## 2026-11-01 — Design tokens extracted and documented
 
 **Why:** Tokens lived only inside the compiled stylesheet, so a designer or a future

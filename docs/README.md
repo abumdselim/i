@@ -10,6 +10,7 @@ inlined, so the site renders identically offline and on any static host.
 - **Pages:** 19 (see [docs/PAGES.md](docs/PAGES.md))
 - **Design system:** [docs/DESIGN-SYSTEM.md](docs/DESIGN-SYSTEM.md)
 - **Design tokens:** [docs/TOKENS.md](docs/TOKENS.md) · [tokens.json](docs/tokens.json)
+- **Typography (authoritative):** [docs/TYPOGRAPHY-SPEC.md](docs/TYPOGRAPHY-SPEC.md)
 - **Decisions:** [docs/DECISIONS.md](docs/DECISIONS.md)
 - **History:** [docs/CHANGELOG.md](docs/CHANGELOG.md)
 - **Product facts:** [docs/PRODUCTS.md](docs/PRODUCTS.md)
@@ -32,7 +33,7 @@ _build/
   build.py          assembles head, header, footer, CTA and writes the pages
   tokens.css        design tokens (single source), prepended at build
   tokens_doc.py     writes docs/TOKENS.md and docs/tokens.json from tokens.css
-  fonts/fonts.css   Geist + IBM Plex Mono, base64 embedded
+  fonts/fonts.css   Barlow 400/500/600 + Titillium Web 600/700, base64
 ```
 
 Build:

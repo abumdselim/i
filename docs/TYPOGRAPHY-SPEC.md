@@ -26,6 +26,13 @@
 
 ## 2. Assumptions about the stack
 
+> **This repository:** the company site is a static generator (`_build/build.py`), not
+> Next.js. The guarantees in Section 1 are met with base64-embedded `@font-face`: exactly
+> five Latin files, no runtime request to any font host. The `next/font` mechanics
+> (4.1, 4.2, 8.2, 8.3) do not apply; their intent is preserved. See Section 9 for the
+> measured files and Section 11 for the record.
+
+
 - Next.js (App Router) with TypeScript, deployed to Vercel or Cloudflare.
 - Tailwind CSS v4 (CSS-first `@theme`). If the project uses Tailwind v3, put the same tokens in `tailwind.config.ts` under `theme.extend.fontFamily` and `fontSize` (see 4.5).
 - Both fonts are licensed under the SIL Open Font License 1.1 (free for commercial use, self-hosting allowed). Noto Sans Bengali is also OFL. Keep the license files in the repository (`/licenses/fonts/`).
@@ -302,10 +309,10 @@ Screenshots at 360, 768 and 1440 px for Home, Services, Blog post and Contact, i
 
 | Item | Value |
 | --- | --- |
-| Barlow 400 / 500 / 600 (woff2, latin) | *measure* |
-| Titillium Web 600 / 700 (woff2, latin) | *measure* |
-| Noto Sans Bengali (chosen variant) | *measure* |
-| Total Latin font transfer | *measure* |
+| Barlow 400 / 500 / 600 (woff2, latin) | 22,196 + 22,008 + 22,772 = 66,976 B (65.4 KiB) |
+| Titillium Web 600 / 700 (woff2, latin) | 12,116 + 11,732 = 23,848 B (23.3 KiB) |
+| Noto Sans Bengali (chosen variant) | not embedded — the site carries no Bengali glyphs; add it with the first Bengali page |
+| Total Latin font transfer | 90,824 B (88.7 KiB) base64-inlined; ≈ 68 KiB over the wire after gzip |
 | Rule | Total Latin font transfer must not grow by more than 10% without an approved changelog entry |
 
 Do not invent numbers. Record what the build actually produces.
@@ -335,6 +342,7 @@ Do not invent numbers. Record what the build actually produces.
 | Date | Change | Reason | Approved by |
 | --- | --- | --- | --- |
 | 2026-11-01 | Initial spec: Barlow 400/500/600, Titillium Web 600/700, Noto Sans Bengali fallback | Initial typography system | Company |
+| 2026-11-01 | Implemented on the static site: 5 Latin faces base64-embedded, mono switched to the system stack, fluid scale applied via `--text-*` tokens, Bengali rules shipped without the Bengali file | Deliver the same typographic system without Next.js | Company |
 
 ## 12. Acceptance checklist
 

@@ -68,8 +68,21 @@ every page in the site reads these values. This file and `tokens.json` are gener
 
 | Token | Light | Dark | Role |
 |---|---|---|---|
-| `--font-sans` | `'Barlow','Segoe UI',-apple-syst…` | `'Barlow','Segoe UI',-apple-syst…` | display and body family |
-| `--font-mono` | `ui-monospace,SFMono-Regular,Men…` | `ui-monospace,SFMono-Regular,Men…` | labels, metadata, diagram annotation |
+| `--font-sans` | `'Barlow','Segoe UI',-apple-syst…` | `'Barlow','Segoe UI',-apple-syst…` | body and UI family (Barlow) |
+| `--font-display` | `'Titillium Web','Barlow','Segoe…` | `'Titillium Web','Barlow','Segoe…` | headings and buttons (Titillium Web) |
+| `--font-mono` | `ui-monospace,SFMono-Regular,Men…` | `ui-monospace,SFMono-Regular,Men…` | labels, metadata (system monospace stack) |
+
+### Type scale
+
+| Token | Light | Dark | Role |
+|---|---|---|---|
+| `--text-sm` | `clamp(.875rem,.850rem + .109vw,…` | `clamp(.875rem,.850rem + .109vw,…` | small text, captions, labels (14–15px) |
+| `--text-base` | `clamp(1.0625rem,1.038rem + .109…` | `clamp(1.0625rem,1.038rem + .109…` | body copy (17–18px) |
+| `--text-lead` | `clamp(1.125rem,1.027rem + .435v…` | `clamp(1.125rem,1.027rem + .435v…` | introduction paragraphs (18–22px) |
+| `--text-h4` | `clamp(1.25rem,1.152rem + .435vw…` | `clamp(1.25rem,1.152rem + .435vw…` | H4 (20–24px) |
+| `--text-h3` | `clamp(1.5rem,1.304rem + .870vw,…` | `clamp(1.5rem,1.304rem + .870vw,…` | H3 (24–32px) |
+| `--text-h2` | `clamp(1.875rem,1.435rem + 1.957…` | `clamp(1.875rem,1.435rem + 1.957…` | H2 (30–48px) |
+| `--text-h1` | `clamp(2.25rem,1.565rem + 3.043v…` | `clamp(2.25rem,1.565rem + 3.043v…` | H1 / display (36–64px) |
 
 Every colour in the site comes from these tokens. Hard-coded hex values outside this file
 are a defect. Contrast targets: body text ≥ 4.5:1, large display text ≥ 3:1, UI borders
@@ -77,18 +90,22 @@ are a defect. Contrast targets: body text ≥ 4.5:1, large display text ≥ 3:1,
 
 ## Typography
 
-| Role | Family | Size | Weight | Tracking | Leading |
-|---|---|---|---|---|---|
-| Display | `--font-sans` | `clamp(2.7rem, 5.4vw, 4.35rem)` | 600 | `-.025em` | `.96` |
-| H2 | `--font-sans` | `clamp(1.95rem, 3.35vw, 2.9rem)` | 600 | `-.024em` | `1.04` |
-| H3 | `--font-sans` | `clamp(1.15rem, 1.5vw, 1.375rem)` | 600 | `-.016em` | `1.28` |
-| Lead | `--font-sans` | `clamp(1.03rem, 1.15vw, 1.19rem)` | 400 | `-.008em` | `1.58` |
-| Body | `--font-sans` | `1rem` | 400 | `-.003em` | `1.68` |
-| Small | `--font-sans` | `.875rem` | 400 | `0` | `1.6` |
-| Eyebrow / label | `--font-mono` | `.6875rem` / `.625rem` | 400 | `.1em` caps | `1–1.4` |
+Authoritative source: [`TYPOGRAPHY-SPEC.md`](TYPOGRAPHY-SPEC.md). Two families only.
 
-Weights are limited to 400 (read), 500 (emphasise) and 600 (announce). Fonts are embedded
-as base64 WOFF2 — there is no runtime font request.
+| Role | Family | Token | Weight | Tracking | Leading |
+|---|---|---|---|---|---|
+| Display / H1 | Titillium Web | `--text-h1` (36→64px) | 700 | `-.01em` | `1.1` |
+| H2 | Titillium Web | `--text-h2` (30→48px) | 700 | `-.01em` | `1.15` |
+| H3 | Titillium Web | `--text-h3` (24→32px) | 600 | `0` | `1.2` |
+| H4 | Titillium Web | `--text-h4` (20→24px) | 600 | `0` | `1.25` |
+| Buttons | Titillium Web | `--text-base` | 600 | `+.01em` | `1` |
+| Lead | Barlow | `--text-lead` (18→22px) | 400 | `0` | `1.5` |
+| Body | Barlow | `--text-base` (17→18px) | 400 | `0` | `1.55` |
+| Small / label | Barlow · system mono | `--text-sm` (14→15px) | 400/500 | `.1em` (caps, mono only) | `1.4–1.6` |
+
+Weight budget: Barlow 400/500/600, Titillium Web 600/700 — five Latin files, no italics,
+no other subsets. Mono is the system stack (`ui-monospace … Consolas`), so it adds no
+download. Body copy never drops below 17px; captions never below 14px.
 
 ## Space and layout
 
