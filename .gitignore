@@ -1,4 +1,9 @@
-﻿_repos/
+_repos/
 .zwork/
 *.log
+
+# Local scratch from earlier sessions — never part of the site and not build input.
+_probe.html
+_shots/
+legacy/_build/_*.py
 
