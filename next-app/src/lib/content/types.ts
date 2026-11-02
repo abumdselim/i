@@ -1,4 +1,4 @@
-import type { IconName } from '@/components/icons.generated';
+import type { IconName } from '@/components/icons';
 
 /**
  * The shape of the capability and product content — the typed literals in

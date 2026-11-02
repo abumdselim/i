@@ -4,9 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "sync": "node scripts/sync-assets.mjs",
     "dev": "next dev",
-    "build": "npm run sync && next build",
+    "build": "next build",
     "start": "next start",
     "preview": "node scripts/serve.mjs",
     "qa:capture": "node scripts/capture.mjs",

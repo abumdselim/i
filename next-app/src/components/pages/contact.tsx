@@ -1,6 +1,6 @@
 import { BriefForm } from '@/components/BriefForm';
 import { Icon } from '@/components/Icon';
-import type { IconName } from '@/components/icons.generated';
+import type { IconName } from '@/components/icons';
 import { css } from '@/lib/css';
 
 /* -------------------------------------------------------------- direct lines */

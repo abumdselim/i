@@ -1,7 +1,7 @@
 # Intactic — Next.js + TypeScript build
 
-এই ফোল্ডারটা সাইটের নতুন ইমপ্লিমেন্টেশন। পুরনো জেনারেটর (`_build/` + রুটের `*.html`) **অপরিবর্তিত**
-আছে এবং ডিজাইন সিস্টেমের একমাত্র সোর্স সেটাই — এখান থেকে কপি করা হয়, উল্টোটা নয়।
+এই ফোল্ডারটা সাইটের নতুন ইমপ্লিমেন্টেশন — স্টেপ ২-এর পর **ডিজাইন সিস্টেমও এখানেই থাকে**: CSS, আইকন
+স্প্রাইট আর ফন্ট আর `_build/` থেকে কপি হয় না। পুরনো জেনারেটর শুধু ইতিহাস (`legacy/`, স্টেপ ৩)।
 
 ## চালানো
 
@@ -9,24 +9,24 @@
 cd next-app
 npm install
 npm run dev        # http://localhost:3000
-npm run build      # sync → next build → out/
+npm run build      # next build → out/
 npm run gate       # out/ বনাম qa/reference, রুট ধরে ধরে
 npm run verify     # build + gate একসাথে
 ```
 
-`npm run build` আগে `node scripts/sync-assets.mjs` চালায়, তাই CSS/ফন্ট/আইকন সবসময় `_build/` থেকে
-নতুন করে আসে। `out/` হলো পাবলিশ আর্টিফ্যাক্ট (static)।
+`npm run build` আর কিছু সিঙ্ক করে না: CSS/ফন্ট/আইকন তিনটাই এখন রেপোর ভিতরের সোর্স।
+`out/` হলো পাবলিশ আর্টিফ্যাক্ট (static)।
 
 ## কোন ফাইল কোথা থেকে আসে
 
 | এখানে | সোর্স | নিয়ম |
 |---|---|---|
-| `src/styles/globals.css` | `_build/tokens.css` + `_build/styles.css` | জেনারেটেড, হাতে এডিট নয় |
-| `src/fonts/*.woff2` | `_build/fonts/fonts.css`-এর base64 | জেনারেটেড |
-| `src/components/icons.generated.ts` | `_build/icons.svg` | জেনারেটেড (স্প্রাইট + `IconName` ইউনিয়ন) |
+| `src/styles/globals.css` | **এখন এটাই সোর্স** (স্টেপ ২) | হাতে এডিট; নিচের অংশ পুরনো `styles.css`-এর সাথে বাইট-সমান |
+| `src/fonts/*.woff2` | `_build/fonts/fonts.css`-এর base64 | একবার ডিকোড করা, এখন রেপোর ফাইল |
+| `src/components/icons.ts` | **হাতে-এডিটেবল** (স্টেপ ২) | ৬৮টা `<symbol>` + `IconName` ইউনিয়ন |
 | `src/components/pages/*.tsx` | হাতে-লেখা | **সব ১৯টা রুট কম্পোনেন্ট**; `scripts/import-page.mjs` আর ব্যবহৃত হয় না (স্টেপ ৪.১-এ মুছে ফেলা হবে) |
 | `src/lib/content/*.ts` | `_build/cats.py`, `_build/products.py`, `_build/build.py`-এর `PAGES` ও ফিগার | **এখন এটাই সোর্স** — এক্সপোর্টার অবসর, JSON আর নেই (স্টেপ ১) |
-| `public/_redirects` | `src/lib/content/pages.ts` (`scripts/manifest.mjs`) | জেনারেটেড |
+| `public/_redirects` | `src/lib/content/pages.ts` | **স্ট্যাটিক** (স্টেপ ২) — নতুন রুট হলে হাতে যোগ করতে হয়; গেট না থাকলে ফেল করে |
 
 ## কনটেন্ট লেয়ার
 
@@ -80,7 +80,7 @@ npm run verify     # build + gate একসাথে
 - থিম/রিভিল bootstrap হেডারের আগে চলে কি না,
 - `globals.css`-এ `.reveal-ready [data-reveal]` আছে আর পুরনো `.js [data-reveal]` নেই,
 - `--font-barlow` / `--font-titillium` / `--accent:#115fc8` / `--head-h:74px` অটুট আছে কি না,
-- `public/_redirects` এক্সপোর্ট হয়েছে কি না।
+- `public/_redirects` এক্সপোর্ট হয়েছে কি না, আর ম্যানিফেস্টের **প্রতিটা রুটের** নিয়ম আছে কি না,
 
 ## যাচাই
 

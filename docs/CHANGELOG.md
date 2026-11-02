@@ -15,6 +15,36 @@ Format:
 
 ---
 
+## 2026-11-02 — Step 2: the design system becomes the source
+
+**Why:** Every build re-copied the design system out of `_build/` and rewrote it with two
+transforms. That made the legacy generator the owner of the CSS, the sprite and the fonts, and it
+kept a sync script — the one place the port was allowed to diverge — in the critical path of every
+build. The port has to own its design system before `_build/` can retire.
+
+**Changed:**
+- `next-app/src/styles/globals.css` — the header now declares it the source and records the two
+  permanent divergences: font families resolve through `next/font`'s variables, and the reveal
+  gate hangs off `html.reveal-ready` with `[data-revealed]` as the shown state.
+- `next-app/src/components/icons.ts` (was `icons.generated.ts`) — hand-editable; the 68 symbols
+  are unchanged and `IconName` still derives from them. Twelve import sites updated.
+- `next-app/package.json` — `build` is plain `next build`; the `sync` script is gone.
+- `next-app/scripts/sync-assets.mjs` — deleted.
+- `next-app/public/_redirects` — a static file now, and `gate.py` fails when a route in the
+  manifest has no rule there, so the redirects cannot drift from the routes.
+- `next-app/README.md` — provenance table and build description follow.
+
+**Verified:** `npm run build` → 20 static pages without a sync step; `python scripts/gate.py` →
+`ported: 19/19   warnings: 0   errors: 0`; `npx tsc --noEmit` exit 0. `git diff` on
+`globals.css` is 11 insertions / 3 deletions, all of them banner — no rule changed. Negative test
+for the redirect check: deleting the `/erp.html` rule from `out/_redirects` produced
+`_redirects: no rule for /erp.html`; restored, 0 errors. Visual diff after the change:
+**114 pairs, 0 failures**, max 0.043%, 74 pixel-identical — unchanged, which is the point.
+
+**Not run:** `qa:device`.
+
+---
+
 ## 2026-11-02 — Step 1: the content layer is TypeScript
 
 **Why:** Capability and product copy, the route manifest and the figure geometry were JSON files

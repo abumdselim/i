@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Icon } from '@/components/Icon';
-import type { IconName } from '@/components/icons.generated';
+import type { IconName } from '@/components/icons';
 import { Figure } from '@/components/sections/Figure';
 import { SectionHead } from '@/components/sections/Blocks';
 import { PRODUCTS } from '@/lib/content';

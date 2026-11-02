@@ -1,4 +1,4 @@
-import type { IconName } from './icons.generated';
+import type { IconName } from './icons';
 
 /**
  * A typed wrapper around the inline sprite. `name` is a union of the 68 symbol

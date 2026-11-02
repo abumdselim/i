@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { Icon } from '@/components/Icon';
-import type { IconName } from '@/components/icons.generated';
+import type { IconName } from '@/components/icons';
 import type { ContentItem, RelatedItem } from '@/lib/content/types';
 import { css } from '@/lib/css';
 

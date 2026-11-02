@@ -171,6 +171,16 @@ else:
 # ------------------------------------------------------------- static files
 if not (OUT / '_redirects').exists():
     errors.append('public/_redirects was not exported')
+else:
+    # `_redirects` is a static file now (step 2 retired the generator), so a route
+    # added to the manifest without a rule here would 404 on a static host.
+    redirects = (OUT / '_redirects').read_text(encoding='utf-8')
+    for page in MANIFEST['pages']:
+        if page['kind'] == 'not-found':
+            continue
+        legacy = '/index.html' if page['slug'] == '' else f"/{page['slug']}.html"
+        if not re.search(rf'^{re.escape(legacy)}\s', redirects, re.M):
+            errors.append(f'_redirects: no rule for {legacy}')
 
 # ------------------------------------------------------------------ report
 print(f"{'route':<20}{'file':<24}{'legacy':>8}{'port':>8}")

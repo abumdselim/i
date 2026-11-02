@@ -31,12 +31,12 @@
 | Check | Result |
 |---|---|
 | Routes | 19 (all hand-written TypeScript, **zero** generated components) |
-| `src/` | 52 files · 7,038 lines · zero `.html`/`.js`/`.jsx`/`.json` |
+| `src/` | 52 files · 7,050 lines · zero `.html`/`.js`/`.jsx`/`.json` |
 | `npm run verify` (sync+build+gate) | **19/19 routes, 0 errors** |
 | `tsc --noEmit` | exit 0 |
 | Visual diff | 114 image pairs, **0 failures**, max 0.043%, 74 pairs pixel-identical |
 | Device pass | 60 flags — **byte-identical list on the legacy build**, zero regressions |
-| Pipeline | Step 0.1–0.4 + step 1 done: the reference is frozen and the gate reads it, all content is TypeScript; 0.5 (commit + tag) still open |
+| Pipeline | Steps 0–2 done: frozen reference, TypeScript content, design system in the app; steps 3–5 open |
 
 ## 3. How we got here — history
 
@@ -51,6 +51,7 @@
 | 2026-11-02 | Visual diff + device pass | same entry |
 | 2026-11-02 | **Step 0:** the legacy build frozen into `qa/reference/` with per-page digests, 114 screenshots beside it; the gate now judges against the frozen copy | `docs/CHANGELOG.md`, 2026-11-02 |
 | 2026-11-02 | **Step 1:** all content is TypeScript — `capabilities.ts` · `products.ts` · `figures.ts` · `pages.ts`; JSON, `resolveJsonModule` and the three exporters are gone | same entry |
+| 2026-11-02 | **Step 2:** `globals.css` and `icons.ts` are the source; `sync-assets.mjs` deleted, `build` is plain `next build` | same entry |
 
 **Everything in detail:** `docs/CHANGELOG.md` — every change has a why / what changed / what
 was run. New work gets its entry there too (project rule D-11).
@@ -60,9 +61,9 @@ was run. New work gets its entry there too (project rule D-11).
 ```
 D:\The Intactic Atelier
 ├─ *.html, sitemap.xml, robots.txt     ← legacy generated site (still live on the domain; never edit)
-├─ _build/                             ← legacy generator + design source (retired in steps 2–3)
+├─ _build/                             ← legacy generator (history since step 3; moved to legacy/)
 │   ├─ tokens.css, styles.css, icons.svg, fonts/fonts.css
-│   └─ cats.py, products.py            ← the real source of capability/product content
+│   └─ cats.py, products.py            ← where the content came from
 ├─ docs/                               ← DECISIONS · DESIGN-SYSTEM · CHANGELOG · PAGES · PRODUCTS
 │   └─ Go.md                           ← this file
 └─ next-app/                           ← ★ the new site
@@ -77,9 +78,8 @@ D:\The Intactic Atelier
     │   ├─ gate.py                     parity gate (text + markup signature) — the judge
     │   ├─ capture.mjs / compare.py    visual diff (Playwright + Pillow)
     │   ├─ device-pass.mjs             device emulation pass (--legacy = baseline)
-    │   ├─ sync-assets.mjs             _build → CSS/fonts/icons (retired in step 2)
     │   └─ manifest.mjs                the typed route manifest, readable by node + gate.py
-    ├─ public/                          assets/img/*, _redirects (generated)
+    ├─ public/                          assets/img/*, _redirects (static since step 2)
     └─ src/
         ├─ app/
         │   ├─ layout.tsx              theme+reveal bootstrap (first node in body), sprite, header/footer
@@ -89,7 +89,7 @@ D:\The Intactic Atelier
         │   └─ not-found.tsx
         ├─ components/
         │   ├─ bootstrap-script.ts     inline JS: no-js→js, theme, reveal gate (fail-open)
-        │   ├─ IconSprite/Icon         the sprite once + typed icons
+        │   ├─ IconSprite/Icon         the sprite once + typed icons (icons.ts owns IconName)
         │   ├─ SiteHeader/SiteFooter/SiteCta/Year/BriefForm
         │   ├─ sections/               PageHead(+MetaRail) · SystemMap · Figure(+Plate) ·
         │   │                          Blocks (SectionHead, DeliverableGrid, RulesList,
@@ -101,7 +101,7 @@ D:\The Intactic Atelier
         │   ├─ fonts.ts                next/font/local (Barlow+Titillium, variable)
         │   └─ content/                capabilities · products · figures · pages — typed
         │                              literals; this is where content is edited now
-        └─ styles/globals.css          tokens+styles, generated (becomes the source in step 2)
+        └─ styles/globals.css          **the design system, the source since step 2**
 ```
 
 ## 5. The decisions and why — a new agent will get this wrong without them
@@ -238,13 +238,18 @@ Without freezing the reference first, retiring `_build/` blinds the parity check
 
 ### Step 2 — the design system becomes the source (~2–4h)
 
-- [ ] 2.1 CSS: the synced `src/styles/globals.css` is **declared the source** (update the
+- [x] 2.1 CSS: the synced `src/styles/globals.css` is **declared the source** (update the
       header comment); the two transforms (font vars, reveal gate) become permanent in the file
-- [ ] 2.2 Icons: `icons.generated.ts` → `icons.ts` (hand-editable), `IconName` lives there
-- [ ] 2.3 Fonts: nothing to do
-- [ ] 2.4 Drop `sync` from the build script in `package.json`; delete `sync-assets.mjs`
-- [ ] 2.5 **Mandatory:** `git diff` shows globals.css content unchanged + `qa:compare` 114
+      — header rewritten; `git diff` on the file is 11 insertions / 3 deletions, all banner
+- [x] 2.2 Icons: `icons.generated.ts` → `icons.ts` (hand-editable), `IconName` lives there
+      — `git mv`; 12 import sites updated; 68 symbols unchanged
+- [x] 2.3 Fonts: nothing to do
+- [x] 2.4 Drop `sync` from the build script in `package.json`; delete `sync-assets.mjs`
+      — `build` is now `next build`; `_redirects` is a static file and the gate fails if a
+      manifest route has no rule there (negative test: removing `/erp.html` → 1 error)
+- [x] 2.5 **Mandatory:** `git diff` shows globals.css content unchanged + `qa:compare` 114
       pairs, 0 failures
+      — diff is the banner only; 114 pairs, **0 failures**, max 0.043%, 74 pixel-identical
 
 ### Step 3 — retire `_build/` (~1–2h)
 

@@ -1,4 +1,4 @@
-import { SPRITE } from './icons.generated';
+import { SPRITE } from './icons';
 
 /**
  * The 68 symbols, rendered once per document from the root layout.

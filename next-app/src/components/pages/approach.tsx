@@ -1,5 +1,5 @@
 import { Icon } from '@/components/Icon';
-import type { IconName } from '@/components/icons.generated';
+import type { IconName } from '@/components/icons';
 import { SectionHead } from '@/components/sections/Blocks';
 import { css } from '@/lib/css';
 
