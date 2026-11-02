@@ -1,5 +1,8 @@
+import ui
+
+
 def cat_body(c):
-    meta = ''.join('<div><span class="mono">%s</span><span class="meta-val">%s</span></div>' % (k, v) for k, v in c['meta'])
+    meta = ui.meta_rail(c['meta'])
 
     nodes = c['map_nodes']
     order = [nodes[0], nodes[1], nodes[2], nodes[3], None, nodes[4], nodes[5], nodes[6], nodes[7]]
@@ -13,13 +16,14 @@ def cat_body(c):
             cells.append('<div class="map__cell"><span class="mono">%02d</span><b>%s</b></div>' % (n, item))
 
     deliv = ''.join(
-        '<div class="deliv__item"><svg class="icon" aria-hidden="true"><use href="#%s"></use></svg>'
-        '<div><h3>%s</h3><p>%s</p></div></div>' % (i, t_, d) for i, t_, d in c['deliv']
+        '<div class="deliv__item"><span class="deliv__mark">%s</span>'
+        '<div><h3>%s</h3><p>%s</p></div></div>' % (ui.icon(i), t_, d) for i, t_, d in c['deliv']
     )
 
     rules = ''.join(
-        '<div class="rule"><span class="mono">A/%02d</span><h3 class="h4">%s</h3><p>%s</p></div>' % (i + 1, t_, d)
-        for i, (t_, d) in enumerate(c['rules'])
+        '<div class="rule"><div class="rule__id">%s<span class="mono">A/%02d</span></div>'
+        '<h3 class="h4">%s</h3><p>%s</p></div>' % (ui.icon(i), n + 1, t_, d)
+        for n, (i, t_, d) in enumerate(c['rules'])
     )
 
     stack = ''.join('<span class="tag">%s</span>' % x for x in c['stack'])
@@ -36,12 +40,13 @@ def cat_body(c):
   <div class="shell">
     <div class="page-head__grid">
       <div>
-        <p class="eyebrow" data-reveal>Capability</p>
+        <div class="page-head__mark">%(mark)s</div>
+        <p class="eyebrow eyebrow--i" data-reveal>%(icon)s Capability <span class="eyebrow__tag">C/%(num)s</span></p>
         <h1 class="display" id="cat-title" data-reveal style="--d:.05s">%(h1)s</h1>
       </div>
       <div data-reveal style="--d:.1s">
         <p class="lead">%(lead)s</p>
-        <div class="page-head__meta">%(meta)s</div>
+        %(meta)s
         <p style="margin-top:26px"><a class="linkarrow" href="services.html">All capabilities
           <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a></p>
       </div>
@@ -53,7 +58,7 @@ def cat_body(c):
   <div class="shell">
     <div class="split">
       <div data-reveal>
-        <p class="eyebrow" style="margin-bottom:20px">The problem</p>
+        <p class="eyebrow eyebrow--i" style="margin-bottom:20px">%(i_target)s The problem</p>
         <h2 class="h2" style="margin-bottom:22px">%(problem_head)s</h2>
         %(problem)s
       </div>
@@ -70,7 +75,7 @@ def cat_body(c):
   <div class="shell">
     <div class="sec-head">
       <div>
-        <p class="eyebrow" data-reveal>Deliverables</p>
+        <p class="eyebrow eyebrow--i" data-reveal>%(i_check)s Deliverables</p>
         <h2 class="h2" data-reveal style="--d:.05s">What we build.</h2>
       </div>
       <div class="sec-head__aside" data-reveal style="--d:.1s">
@@ -85,7 +90,7 @@ def cat_body(c):
   <div class="shell">
     <div class="sec-head">
       <div>
-        <p class="eyebrow" data-reveal>Approach</p>
+        <p class="eyebrow eyebrow--i" data-reveal>%(i_compass)s Approach</p>
         <h2 class="h2" data-reveal style="--d:.05s">How we work on it.</h2>
       </div>
       <div class="sec-head__aside" data-reveal style="--d:.1s">
@@ -95,12 +100,12 @@ def cat_body(c):
     <div class="rules" data-reveal>%(rules)s</div>
     <div class="split" style="margin-top:clamp(40px,5vw,64px)">
       <div data-reveal>
-        <h3 class="svc__label">Typical stack</h3>
+        <h3 class="svc__label">%(i_layers)s Typical stack</h3>
         <div class="svc__stack">%(stack)s</div>
         <p class="svc__note">%(stack_note)s</p>
       </div>
       <div data-reveal style="--d:.06s">
-        <h3 class="svc__label">How it starts</h3>
+        <h3 class="svc__label">%(i_start)s How it starts</h3>
         <p class="body" style="margin-bottom:22px">%(start)s</p>
         <a class="linkarrow" href="contact.html">Scope this work
           <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a>
@@ -113,7 +118,7 @@ def cat_body(c):
   <div class="shell">
     <div class="sec-head">
       <div>
-        <p class="eyebrow" data-reveal>Related</p>
+        <p class="eyebrow eyebrow--i" data-reveal>%(i_plug)s Related</p>
         <h2 class="h2" data-reveal style="--d:.05s">Usually built alongside.</h2>
       </div>
       <div class="sec-head__aside" data-reveal style="--d:.1s">
@@ -124,8 +129,11 @@ def cat_body(c):
   </div>
 </section>""" % dict(
         num=c['num'], h1=c['h1'], lead=c['lead'], meta=meta,
+        mark=ui.icon(c['icon']), icon=ui.icon(c['icon']),
         problem_head=c['problem_head'], problem=problem,
         cells=''.join(cells), map_core=c['map_core'], slug=c['slug'],
         deliv=deliv, rules=rules, stack=stack, stack_note=c['stack_note'],
         start=c['start'], related=related,
+        i_target=ui.icon('target'), i_check=ui.icon('check'), i_compass=ui.icon('compass'),
+        i_layers=ui.icon('layers'), i_start=ui.icon('calendar'), i_plug=ui.icon('plug'),
     )

@@ -36,7 +36,7 @@
 | `tsc --noEmit` | exit 0 |
 | Visual diff | 114 image pairs, **0 failures**, max 0.043%, 74 pairs pixel-identical |
 | Device pass | 60 flags — **byte-identical list on the legacy build**, zero regressions |
-| Pipeline | Steps 0–2 done: frozen reference, TypeScript content, design system in the app; steps 3–5 open |
+| Pipeline | Steps 0–3 done: frozen reference, TypeScript content, design system in the app, generator retired; steps 4–5 open |
 
 ## 3. How we got here — history
 
@@ -52,6 +52,7 @@
 | 2026-11-02 | **Step 0:** the legacy build frozen into `qa/reference/` with per-page digests, 114 screenshots beside it; the gate now judges against the frozen copy | `docs/CHANGELOG.md`, 2026-11-02 |
 | 2026-11-02 | **Step 1:** all content is TypeScript — `capabilities.ts` · `products.ts` · `figures.ts` · `pages.ts`; JSON, `resolveJsonModule` and the three exporters are gone | same entry |
 | 2026-11-02 | **Step 2:** `globals.css` and `icons.ts` are the source; `sync-assets.mjs` deleted, `build` is plain `next build` | same entry |
+| 2026-11-02 | **Step 3:** `_build/` → `legacy/_build/`, root README rewritten, D-13 supersedes D-01/D-02 | same entry |
 
 **Everything in detail:** `docs/CHANGELOG.md` — every change has a why / what changed / what
 was run. New work gets its entry there too (project rule D-11).
@@ -61,7 +62,7 @@ was run. New work gets its entry there too (project rule D-11).
 ```
 D:\The Intactic Atelier
 ├─ *.html, sitemap.xml, robots.txt     ← legacy generated site (still live on the domain; never edit)
-├─ _build/                             ← legacy generator (history since step 3; moved to legacy/)
+├─ legacy/_build/                      ← the retired generator + the CSS/icons it fed (history)
 │   ├─ tokens.css, styles.css, icons.svg, fonts/fonts.css
 │   └─ cats.py, products.py            ← where the content came from
 ├─ docs/                               ← DECISIONS · DESIGN-SYSTEM · CHANGELOG · PAGES · PRODUCTS
@@ -253,11 +254,16 @@ Without freezing the reference first, retiring `_build/` blinds the parity check
 
 ### Step 3 — retire `_build/` (~1–2h)
 
-- [ ] 3.1 Decision: delete, or move to `legacy/` (**recommended: move** — it is content history)
-- [ ] 3.2 The living site in the root: keep until deployment (step 5)
-- [ ] 3.3 Update the root `README.md`
-- [ ] 3.4 Prove with the gate: the only source is now `next-app/src`
-- [ ] 3.5 A supersede entry in `docs/DECISIONS.md` for D-01/D-02
+- [x] 3.1 Decision: delete, or move to `legacy/` (**recommended: move** — it is content history)
+      — moved to `legacy/_build/` with a `legacy/README.md` that says it is history and must not run
+- [x] 3.2 The living site in the root: keep until deployment (step 5)
+      — 19 pages, 404, `sitemap.xml`, `robots.txt` untouched
+- [x] 3.3 Update the root `README.md`
+- [x] 3.4 Prove with the gate: the only source is now `next-app/src`
+      — `npm run verify` green **with `_build/` gone**; no script references `_build/` or `legacy/`
+      except in comments
+- [x] 3.5 A supersede entry in `docs/DECISIONS.md` for D-01/D-02
+      — D-13, including why D-01 was right when it was written
 
 ### Step 4 — cleanup and CI (~1–3h, recommended)
 

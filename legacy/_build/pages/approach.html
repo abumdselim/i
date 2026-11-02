@@ -2,33 +2,46 @@
   <div class="shell">
     <div class="page-head__grid">
       <div>
-        <p class="eyebrow" data-reveal>Approach</p>
+        <div class="page-head__mark">{{I:compass}}</div>
+        <p class="eyebrow eyebrow--i" data-reveal>{{I:compass}} Approach</p>
         <h1 class="display" id="approach-title" data-reveal style="--d:.05s">How we decide what to build.</h1>
       </div>
       <div data-reveal style="--d:.1s">
         <p class="lead">Most software is lost before it is written: the wrong problem, the wrong boundary, a data model that cannot carry the business as it grows. We spend the first phase on those decisions, and we write them down.</p>
       </div>
     </div>
+    <nav class="page-index" aria-label="On this page">
+      <span class="page-index__label mono">On this page</span>
+      <ul>
+        <li><a href="#system">{{I:compass}}System first</a></li>
+        <li><a href="#fit">{{I:target}}Fit</a></li>
+        <li><a href="#layers">{{I:layers}}Three layers</a></li>
+        <li><a href="#rules">{{I:flag}}Rules</a></li>
+      </ul>
+    </nav>
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="system" data-od-id="system">
   <div class="shell">
     <div class="split">
       <div data-reveal>
-        <p class="eyebrow" style="margin-bottom:20px">The system comes first</p>
+        <p class="eyebrow eyebrow--i" style="margin-bottom:20px">{{I:compass}} The system comes first</p>
         <h2 class="h2" style="margin-bottom:22px">Architecture is a business decision.</h2>
         <p class="body" style="margin-bottom:16px">A system is a set of agreements: what a customer is, what an order means, which record wins when two disagree, who is allowed to reverse a decision. Those agreements outlive every framework we might choose. When they are wrong, no amount of clean code rescues the product.</p>
         <p class="body" style="margin-bottom:16px">So we ask uncomfortable questions early. What happens when the payment provider is unavailable for an hour? What does the warehouse team do when the stock count is wrong? Who reviews an automated decision, and what do they see on screen? A build that skips these questions does not avoid them. It postpones them to a worse moment, usually the week after launch.</p>
         <p class="body">The output of that work is short and unglamorous: a written architecture, a scope, a list of risks and a number. You can take it to another team, or to your board, without asking our permission.</p>
       </div>
       <div class="contact-card" data-reveal style="--d:.08s">
-        <h2 class="h2" style="font-size:var(--text-h4);letter-spacing:0;margin-bottom:14px">What we look for before we start</h2>
-        <ul class="donts" style="border-top:0">
-          <li style="padding-top:0">A problem that someone in the business owns, with the authority to change it.</li>
-          <li>Access to the people who do the work today, not only the people who sponsor it.</li>
-          <li>A deadline you can name, even if it is uncomfortable.</li>
-          <li>Permission to change the process, not just the software around it.</li>
+        <div class="card-head">
+          <span class="tile tile--sm">{{I:check}}</span>
+          <h2 class="h2 card-head__title">What we look for before we start</h2>
+        </div>
+        <ul class="speclist speclist--tight" style="border-top:0">
+          <li>{{I:users}}<span>A problem that someone in the business owns, with the authority to change it.</span></li>
+          <li>{{I:link}}<span>Access to the people who do the work today, not only the people who sponsor it.</span></li>
+          <li>{{I:calendar}}<span>A deadline you can name, even if it is uncomfortable.</span></li>
+          <li>{{I:workflow}}<span>Permission to change the process, not just the software around it.</span></li>
         </ul>
         <p style="margin-top:22px"><a class="linkarrow" href="contact.html">Talk to us about yours
           <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></a></p>
@@ -37,11 +50,11 @@
   </div>
 </section>
 
-<section class="section section--tint" data-od-id="fit">
+<section class="section section--tint" id="fit" data-od-id="fit">
   <div class="shell">
     <div class="sec-head">
       <div>
-        <p class="eyebrow" data-reveal>Fit</p>
+        <p class="eyebrow eyebrow--i" data-reveal>{{I:target}} Fit</p>
         <h2 class="h2" data-reveal style="--d:.05s">Where a model helps, and where it gets in the way.</h2>
       </div>
       <div class="sec-head__aside" data-reveal style="--d:.1s">
@@ -53,30 +66,30 @@
       <div class="fit__col" data-reveal>
         <h3 class="fit__title"><span class="dot-mark" aria-hidden="true"></span>Worth building</h3>
         <dl class="fit__list">
-          <div><dt>Reading and routing documents</dt><dd>Invoices, claims, applications. High volume, consistent format, a person checking exceptions.</dd></div>
-          <div><dt>Search across your own material</dt><dd>Contracts, policies, support history. The answer has to cite the passage it came from.</dd></div>
-          <div><dt>Drafting a first version</dt><dd>Proposals, replies, summaries. A person edits, and nothing leaves the building without review.</dd></div>
-          <div><dt>First-line support</dt><dd>Repetitive questions with known answers, and escalation rules that stay explicit.</dd></div>
+          <div><dt>{{I:upload}}Reading and routing documents</dt><dd>Invoices, claims, applications. High volume, consistent format, a person checking exceptions.</dd></div>
+          <div><dt>{{I:search}}Search across your own material</dt><dd>Contracts, policies, support history. The answer has to cite the passage it came from.</dd></div>
+          <div><dt>{{I:pen}}Drafting a first version</dt><dd>Proposals, replies, summaries. A person edits, and nothing leaves the building without review.</dd></div>
+          <div><dt>{{I:help}}First-line support</dt><dd>Repetitive questions with known answers, and escalation rules that stay explicit.</dd></div>
         </dl>
       </div>
       <div class="fit__col fit__col--muted" data-reveal style="--d:.06s">
         <h3 class="fit__title"><span class="dot-mark dot-mark--hollow" aria-hidden="true"></span>Better solved another way</h3>
         <dl class="fit__list">
-          <div><dt>Decisions with money or safety attached</dt><dd>Pricing exceptions, credit, clinical or legal judgement. A person decides, and signs their name.</dd></div>
-          <div><dt>Problems nobody can score</dt><dd>If the team cannot describe a good answer, there is no way to know whether the system works.</dd></div>
-          <div><dt>Anything that must repeat exactly</dt><dd>Deterministic rules belong in code, where they can be tested and audited line by line.</dd></div>
-          <div><dt>Data you would not show a new hire</dt><dd>Permission problems are not solved by a prompt, and access is not a feature we can add later.</dd></div>
+          <div><dt>{{I:shield}}Decisions with money or safety attached</dt><dd>Pricing exceptions, credit, clinical or legal judgement. A person decides, and signs their name.</dd></div>
+          <div><dt>{{I:gauge}}Problems nobody can score</dt><dd>If the team cannot describe a good answer, there is no way to know whether the system works.</dd></div>
+          <div><dt>{{I:workflow}}Anything that must repeat exactly</dt><dd>Deterministic rules belong in code, where they can be tested and audited line by line.</dd></div>
+          <div><dt>{{I:key}}Data you would not show a new hire</dt><dd>Permission problems are not solved by a prompt, and access is not a feature we can add later.</dd></div>
         </dl>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section ink-block" data-od-id="layers" aria-labelledby="layers-title">
+<section class="section ink-block" id="layers" data-od-id="layers" aria-labelledby="layers-title">
   <div class="shell">
     <div class="sec-head" style="margin-bottom:clamp(32px,4vw,52px)">
       <div>
-        <p class="eyebrow" data-reveal>Three layers</p>
+        <p class="eyebrow eyebrow--i" data-reveal>{{I:layers}} Three layers</p>
         <h2 class="h2" id="layers-title" data-reveal style="--d:.05s">Designed together, or not at all.</h2>
       </div>
       <div class="sec-head__aside" data-reveal style="--d:.1s">
@@ -119,11 +132,11 @@
   </div>
 </section>
 
-<section class="section" data-od-id="rules">
+<section class="section" id="rules" data-od-id="rules">
   <div class="shell">
     <div class="sec-head">
       <div>
-        <p class="eyebrow" data-reveal>Rules</p>
+        <p class="eyebrow eyebrow--i" data-reveal>{{I:flag}} Rules</p>
         <h2 class="h2" data-reveal style="--d:.05s">Five rules we apply to every build.</h2>
       </div>
       <div class="sec-head__aside" data-reveal style="--d:.1s">
@@ -133,27 +146,27 @@
 
     <div class="rules" data-reveal>
       <div class="rule">
-        <span class="mono">R/01</span>
+        <div class="rule__id">{{I:approval}}<span class="mono">R/01</span></div>
         <h3 class="h4">No decision without a reviewer</h3>
         <p>If a person cannot inspect an automated decision and reverse it, that decision does not go live. The reviewer sees the input, the reasoning and the record.</p>
       </div>
       <div class="rule">
-        <span class="mono">R/02</span>
+        <div class="rule__id">{{I:gauge}}<span class="mono">R/02</span></div>
         <h3 class="h4">Evaluation before launch</h3>
         <p>A set of cases with known correct answers, written with your team, run on every change. If the score drops, the release stops.</p>
       </div>
       <div class="rule">
-        <span class="mono">R/03</span>
+        <div class="rule__id">{{I:database}}<span class="mono">R/03</span></div>
         <h3 class="h4">Data before models</h3>
         <p>If the source records disagree, the first work is reconciliation. A better model over inconsistent data produces confident nonsense.</p>
       </div>
       <div class="rule">
-        <span class="mono">R/04</span>
+        <div class="rule__id">{{I:sync}}<span class="mono">R/04</span></div>
         <h3 class="h4">A fallback that has run</h3>
         <p>A path that has never been exercised in production is not a fallback. We test the failure case on purpose, during working hours.</p>
       </div>
       <div class="rule">
-        <span class="mono">R/05</span>
+        <div class="rule__id">{{I:coin}}<span class="mono">R/05</span></div>
         <h3 class="h4">Cost is a design constraint</h3>
         <p>Token cost and latency decide which approaches are viable. We model both before choosing, so the system is still affordable at ten times the volume.</p>
       </div>

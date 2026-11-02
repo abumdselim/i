@@ -2,56 +2,64 @@
   <div class="shell">
     <div class="page-head__grid">
       <div>
-        <p class="eyebrow" data-reveal>Capabilities</p>
+        <div class="page-head__mark">{{I:layers}}</div>
+        <p class="eyebrow eyebrow--i" data-reveal>{{I:layers}} Capabilities</p>
         <h1 class="display" id="cap-title" data-reveal style="--d:.05s">Six disciplines, one standard of work.</h1>
       </div>
       <div data-reveal style="--d:.1s">
         <p class="lead">Each capability has its own page, because the questions inside them are different. Most engagements combine two or three, and the seams between them are where the real work sits.</p>
       </div>
     </div>
+    <nav class="page-index" aria-label="On this page">
+      <span class="page-index__label mono">On this page</span>
+      <ul>
+        <li><a href="#disciplines">{{I:layers}}Disciplines</a></li>
+        <li><a href="#combinations">{{I:plug}}Combinations</a></li>
+      </ul>
+    </nav>
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="disciplines" data-od-id="disciplines">
   <div class="shell">
     <div class="caps caps--2" data-reveal>
       <a class="cap cap--lg" href="custom-software.html">
-        <div class="cap__top"><svg class="icon" aria-hidden="true"><use href="#i-custom"></use></svg></div>
+        <div class="cap__top"><span class="tile">{{I:custom}}</span><span class="cap__num">C/01</span></div>
         <h3 class="h3">Custom software</h3>
         <p>For the process that no product can hold: a domain model, a service architecture, and internal tools that match how the business actually runs.</p>
         <div class="cap__tags"><span class="tag">Domain modelling</span><span class="tag">APIs</span><span class="tag">Legacy migration</span></div>
         <span class="cap__more">Read the capability <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
       </a>
       <a class="cap cap--lg" href="ecommerce.html">
-        <div class="cap__top"><svg class="icon" aria-hidden="true"><use href="#i-commerce"></use></svg></div>
+        <div class="cap__top"><span class="tile">{{I:commerce}}</span><span class="cap__num">C/02</span></div>
         <h3 class="h3">Multi-vendor commerce</h3>
         <p>Marketplaces where vendors, commissions, payouts and fulfilment are first-class parts of the system, and the ledger reconciles before the storefront is drawn.</p>
         <div class="cap__tags"><span class="tag">Payouts</span><span class="tag">Catalogue</span><span class="tag">Checkout</span></div>
         <span class="cap__more">Read the capability <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
       </a>
       <a class="cap cap--lg" href="erp.html">
-        <div class="cap__top"><svg class="icon" aria-hidden="true"><use href="#i-erp"></use></svg></div>
+        <div class="cap__top"><span class="tile">{{I:erp}}</span><span class="cap__num">C/03</span></div>
         <h3 class="h3">ERP and operations</h3>
         <p>Finance, inventory, purchasing and people in one reconciled record, with reporting people open every morning rather than a quarterly project.</p>
         <div class="cap__tags"><span class="tag">Ledger</span><span class="tag">Inventory</span><span class="tag">Reporting</span></div>
         <span class="cap__more">Read the capability <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
       </a>
       <a class="cap cap--lg" href="web-platforms.html">
-        <div class="cap__top"><svg class="icon" aria-hidden="true"><use href="#i-web"></use></svg></div>
+        <div class="cap__top"><span class="tile">{{I:web}}</span><span class="cap__num">C/04</span></div>
         <h3 class="h3">Web platforms</h3>
         <p>Sites, portals and dashboards where the design system is real, the content team can publish without a ticket, and the page weight was measured before launch.</p>
         <div class="cap__tags"><span class="tag">Design systems</span><span class="tag">CMS</span><span class="tag">Accessibility</span></div>
         <span class="cap__more">Read the capability <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
       </a>
       <a class="cap cap--lg" href="mobile-apps.html">
-        <div class="cap__top"><svg class="icon" aria-hidden="true"><use href="#i-mobile"></use></svg></div>
+        <div class="cap__top"><span class="tile">{{I:mobile}}</span><span class="cap__num">C/05</span></div>
         <h3 class="h3">Mobile products</h3>
         <p>iOS and Android apps designed around the offline case first, with a sync policy, a release plan and monitoring that catches failures before users report them.</p>
         <div class="cap__tags"><span class="tag">Offline sync</span><span class="tag">Push</span><span class="tag">Release</span></div>
         <span class="cap__more">Read the capability <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
       </a>
       <a class="cap cap--lg" href="automation.html">
-        <div class="cap__top"><svg class="icon" aria-hidden="true"><use href="#i-ai"></use></svg></div>
+        <div class="cap__top"><span class="tile">{{I:ai}}</span><span class="cap__num">C/06</span></div>
         <h3 class="h3">Automation and models</h3>
         <p>Document handling, triage, search and drafting, placed inside the systems your team already uses, with review steps, evaluation and a way back.</p>
         <div class="cap__tags"><span class="tag">Retrieval</span><span class="tag">Workflows</span><span class="tag">Evaluation</span></div>
@@ -61,11 +69,11 @@
   </div>
 </section>
 
-<section class="section section--tint">
+<section class="section section--tint" id="combinations" data-od-id="combinations">
   <div class="shell">
     <div class="sec-head">
       <div>
-        <p class="eyebrow" data-reveal>Combinations</p>
+        <p class="eyebrow eyebrow--i" data-reveal>{{I:plug}} Combinations</p>
         <h2 class="h2" data-reveal style="--d:.05s">The seams are where projects fail.</h2>
       </div>
       <div class="sec-head__aside" data-reveal style="--d:.1s">
@@ -74,17 +82,17 @@
     </div>
     <div class="rules" data-reveal>
       <div class="rule">
-        <span class="mono">X/01</span>
+        <div class="rule__id">{{I:ledger}}<span class="mono">X/01</span></div>
         <h3 class="h4">Marketplace, with a real ledger</h3>
         <p>Vendor payouts, tax treatment and refunds modelled before the storefront. The commerce engine writes to an accounting structure your finance team recognises.</p>
       </div>
       <div class="rule">
-        <span class="mono">X/02</span>
+        <div class="rule__id">{{I:mobile}}<span class="mono">X/02</span></div>
         <h3 class="h4">ERP, with a field application</h3>
         <p>Stock, pricing and approvals that work in a warehouse with no signal, then reconcile when the device comes back online.</p>
       </div>
       <div class="rule">
-        <span class="mono">X/03</span>
+        <div class="rule__id">{{I:doc}}<span class="mono">X/03</span></div>
         <h3 class="h4">Portal, with document handling</h3>
         <p>A customer or partner portal where documents arrive, get read, and route to a person who decides. The review queue is part of the product, not an inbox.</p>
       </div>

@@ -2,6 +2,8 @@
   <div class="shell">
     <div class="hero__grid">
       <div class="hero__copy">
+        <div class="page-head__mark" data-reveal>{{I:cube}}</div>
+        <p class="eyebrow eyebrow--i" data-reveal>{{I:building}} Software engineering studio</p>
         <h1 class="display" id="hero-title" data-reveal style="--d:.02s">We build the systems your business runs on<span class="dot">.</span></h1>
         <p class="lead" data-reveal style="--d:.12s">Custom platforms, multi-vendor commerce, ERP and product interfaces for companies that have outgrown off-the-shelf software. We design the architecture, write the code, and stay accountable for what happens in production.</p>
         <div class="hero__actions" data-reveal style="--d:.18s">
@@ -13,10 +15,10 @@
           </a>
         </div>
         <p class="hero__meta" data-reveal style="--d:.24s">
-          <span>Custom software</span>
-          <span>Commerce</span>
-          <span>ERP</span>
-          <span>Product engineering</span>
+          <span>{{I:custom}}Custom software</span>
+          <span>{{I:commerce}}Commerce</span>
+          <span>{{I:erp}}ERP</span>
+          <span>{{I:web}}Product engineering</span>
         </p>
       </div>
 
@@ -38,15 +40,15 @@
 
     <div class="facts">
       <div class="facts__item">
-        <span class="mono">Discovery</span>
+        <div class="facts__top">{{I:search}}<span class="mono">Discovery</span></div>
         <p>A written architecture and a fixed scope before any code.</p>
       </div>
       <div class="facts__item">
-        <span class="mono">Team</span>
+        <div class="facts__top">{{I:users}}<span class="mono">Team</span></div>
         <p>The people who scope the work are the people who build it.</p>
       </div>
       <div class="facts__item">
-        <span class="mono">Ownership</span>
+        <div class="facts__top">{{I:key}}<span class="mono">Ownership</span></div>
         <p>Code, cloud accounts and keys stay in your name.</p>
       </div>
     </div>
@@ -57,7 +59,7 @@
   <div class="shell">
     <div class="sec-head">
       <div>
-        <p class="eyebrow" data-reveal>Capabilities</p>
+        <p class="eyebrow eyebrow--i" data-reveal>{{I:layers}} Capabilities</p>
         <h2 class="h2" id="cap-title" data-reveal style="--d:.05s">Six disciplines, one engineering standard.</h2>
       </div>
       <div class="sec-head__aside" data-reveal style="--d:.1s">
@@ -70,58 +72,46 @@
 
     <div class="caps" data-reveal>
       <a class="cap" href="custom-software.html">
-        <div class="cap__top">
-          <svg class="icon" aria-hidden="true"><use href="#i-custom"></use></svg>
-        </div>
+        <div class="cap__fig"><span class="cap__num">C/01</span>{{FIG_CAP_CUSTOM}}</div>
         <h3 class="h3">Custom software</h3>
         <p>Systems shaped around how your business operates, not around what a template can do.</p>
         <div class="cap__tags"><span class="tag">Domain modelling</span><span class="tag">APIs</span><span class="tag">Legacy migration</span></div>
-        <span class="cap__go" aria-hidden="true"><svg class="icon"><use href="#i-arrow-ur"></use></svg></span>
+        <span class="cap__more">Read the capability<svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
       </a>
       <a class="cap" href="ecommerce.html">
-        <div class="cap__top">
-          <svg class="icon" aria-hidden="true"><use href="#i-commerce"></use></svg>
-        </div>
+        <div class="cap__fig"><span class="cap__num">C/02</span>{{FIG_CAP_COMMERCE}}</div>
         <h3 class="h3">Multi-vendor commerce</h3>
         <p>Marketplaces where vendors, commissions, payouts and fulfilment are first-class parts of the system.</p>
         <div class="cap__tags"><span class="tag">Payouts</span><span class="tag">Catalog</span><span class="tag">Checkout</span></div>
-        <span class="cap__go" aria-hidden="true"><svg class="icon"><use href="#i-arrow-ur"></use></svg></span>
+        <span class="cap__more">Read the capability<svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
       </a>
       <a class="cap" href="erp.html">
-        <div class="cap__top">
-          <svg class="icon" aria-hidden="true"><use href="#i-erp"></use></svg>
-        </div>
+        <div class="cap__fig"><span class="cap__num">C/03</span>{{FIG_CAP_ERP}}</div>
         <h3 class="h3">ERP and operations</h3>
         <p>One reconciled record across finance, inventory, purchasing and people.</p>
         <div class="cap__tags"><span class="tag">Finance</span><span class="tag">Inventory</span><span class="tag">Reporting</span></div>
-        <span class="cap__go" aria-hidden="true"><svg class="icon"><use href="#i-arrow-ur"></use></svg></span>
+        <span class="cap__more">Read the capability<svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
       </a>
       <a class="cap" href="web-platforms.html">
-        <div class="cap__top">
-          <svg class="icon" aria-hidden="true"><use href="#i-web"></use></svg>
-        </div>
+        <div class="cap__fig"><span class="cap__num">C/04</span>{{FIG_CAP_WEB}}</div>
         <h3 class="h3">Web platforms</h3>
         <p>Sites, portals and dashboards that carry the brand and hold up under real traffic.</p>
         <div class="cap__tags"><span class="tag">Design systems</span><span class="tag">CMS</span><span class="tag">Accessibility</span></div>
-        <span class="cap__go" aria-hidden="true"><svg class="icon"><use href="#i-arrow-ur"></use></svg></span>
+        <span class="cap__more">Read the capability<svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
       </a>
       <a class="cap" href="mobile-apps.html">
-        <div class="cap__top">
-          <svg class="icon" aria-hidden="true"><use href="#i-mobile"></use></svg>
-        </div>
+        <div class="cap__fig"><span class="cap__num">C/05</span>{{FIG_CAP_MOBILE}}</div>
         <h3 class="h3">Mobile products</h3>
         <p>iOS and Android apps that stay in step with the core system, online or off.</p>
         <div class="cap__tags"><span class="tag">Offline sync</span><span class="tag">Push</span><span class="tag">Store release</span></div>
-        <span class="cap__go" aria-hidden="true"><svg class="icon"><use href="#i-arrow-ur"></use></svg></span>
+        <span class="cap__more">Read the capability<svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
       </a>
       <a class="cap" href="automation.html">
-        <div class="cap__top">
-          <svg class="icon" aria-hidden="true"><use href="#i-ai"></use></svg>
-        </div>
+        <div class="cap__fig"><span class="cap__num">C/06</span>{{FIG_CAP_AI}}</div>
         <h3 class="h3">Automation and models</h3>
         <p>Model-assisted workflows where the work is repetitive and measurable, with a review step built in.</p>
         <div class="cap__tags"><span class="tag">Retrieval</span><span class="tag">Workflows</span><span class="tag">Evaluation</span></div>
-        <span class="cap__go" aria-hidden="true"><svg class="icon"><use href="#i-arrow-ur"></use></svg></span>
+        <span class="cap__more">Read the capability<svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
       </a>
     </div>
   </div>
@@ -131,7 +121,7 @@
   <div class="shell">
     <div class="ai-grid">
       <div class="ai-copy">
-        <p class="eyebrow" data-reveal>Where intelligence belongs</p>
+        <p class="eyebrow eyebrow--i" data-reveal>{{I:ai}} Where intelligence belongs</p>
         <h2 class="h2" id="approach-title" data-reveal style="--d:.05s">Intelligence belongs in the system, not in the pitch.</h2>
         <p class="body" data-reveal style="--d:.1s">A model earns its place where the work is repetitive, text-heavy and measurable. That is a narrower set of problems than the market suggests, and it is where we spend our effort: document handling, triage, search, drafting and first-line support.</p>
         <p class="body" data-reveal style="--d:.14s">The rest is ordinary engineering: clean data, a workflow with an exit, and an interface that shows where an answer came from. The model is rarely the difficult part. The system around it is.</p>
@@ -144,21 +134,21 @@
         <div class="stack__row">
           <div class="stack__mark"><i></i></div>
           <div>
-            <div class="stack__label">Model layer</div>
+            <div class="stack__label">{{I:ai}} Model layer</div>
             <p class="stack__text">Chosen against a sample of your real work, evaluated against your edge cases, with a fallback that is tested before launch.</p>
           </div>
         </div>
         <div class="stack__row">
           <div class="stack__mark"><i></i></div>
           <div>
-            <div class="stack__label">Workflow layer</div>
+            <div class="stack__label">{{I:workflow}} Workflow layer</div>
             <p class="stack__text">Volume goes to the machine. Exceptions come to a person, with the context to decide and a record of what was decided.</p>
           </div>
         </div>
         <div class="stack__row">
           <div class="stack__mark"><i></i></div>
           <div>
-            <div class="stack__label">Interface layer</div>
+            <div class="stack__label">{{I:web}} Interface layer</div>
             <p class="stack__text">Answers show their sources. Suggestions stay editable. The screen says plainly what it does not know.</p>
           </div>
         </div>
@@ -177,7 +167,7 @@
   <div class="shell">
     <div class="sec-head">
       <div>
-        <p class="eyebrow" data-reveal>Process</p>
+        <p class="eyebrow eyebrow--i" data-reveal>{{I:workflow}} Process</p>
         <h2 class="h2" id="process-title" data-reveal style="--d:.05s">A short path from brief to production.</h2>
       </div>
       <div class="sec-head__aside" data-reveal style="--d:.1s">
@@ -190,25 +180,25 @@
 
     <ol class="steps">
       <li class="step" data-reveal>
-        <span class="step__n">01</span>
+        <div class="step__head"><span class="tile tile--sm">{{I:search}}</span><span class="step__n">01</span></div>
         <h3 class="h3">Frame</h3>
         <p>Workshops, a system audit and a written definition of what success looks like.</p>
         <span class="step__meta">1&ndash;2 weeks</span>
       </li>
       <li class="step" data-reveal style="--d:.06s">
-        <span class="step__n">02</span>
+        <div class="step__head"><span class="tile tile--sm">{{I:layers}}</span><span class="step__n">02</span></div>
         <h3 class="h3">Architect</h3>
         <p>Data model, integrations, interface direction and a scope you can budget against.</p>
         <span class="step__meta">2&ndash;3 weeks</span>
       </li>
       <li class="step" data-reveal style="--d:.12s">
-        <span class="step__n">03</span>
+        <div class="step__head"><span class="tile tile--sm">{{I:custom}}</span><span class="step__n">03</span></div>
         <h3 class="h3">Build</h3>
         <p>Working software in two-week increments, reviewed live with your team.</p>
         <span class="step__meta">6&ndash;16 weeks</span>
       </li>
       <li class="step" data-reveal style="--d:.18s">
-        <span class="step__n">04</span>
+        <div class="step__head"><span class="tile tile--sm">{{I:pulse}}</span><span class="step__n">04</span></div>
         <h3 class="h3">Operate</h3>
         <p>Monitoring, iteration and a handover your next team can actually use.</p>
         <span class="step__meta">Ongoing</span>
@@ -221,7 +211,7 @@
   <div class="shell">
     <div class="sec-head">
       <div>
-        <p class="eyebrow" data-reveal>Engagements</p>
+        <p class="eyebrow eyebrow--i" data-reveal>{{I:card}} Engagements</p>
         <h2 class="h2" id="eng-title" data-reveal style="--d:.05s">Three ways to work with the studio.</h2>
       </div>
       <div class="sec-head__aside" data-reveal style="--d:.1s">
@@ -236,6 +226,7 @@
       <article class="eng" data-reveal>
         <div class="eng__fig">{{FIG_PLATFORM}}</div>
         <div class="eng__body">
+          <div class="eng__top"><span class="tile tile--sm">{{I:layers}}</span><span class="mono">M/01</span></div>
           <h3 class="h3">Platform build</h3>
           <p>A complete system, from architecture to first release, owned end to end.</p>
           <dl class="eng__spec">
@@ -252,6 +243,7 @@
       <article class="eng" data-reveal style="--d:.06s">
         <div class="eng__fig">{{FIG_EMBEDDED}}</div>
         <div class="eng__body">
+          <div class="eng__top"><span class="tile tile--sm">{{I:users}}</span><span class="mono">M/02</span></div>
           <h3 class="h3">Embedded team</h3>
           <p>Our engineers and designers inside your product organisation, working to your roadmap.</p>
           <dl class="eng__spec">
@@ -268,6 +260,7 @@
       <article class="eng" data-reveal style="--d:.12s">
         <div class="eng__fig">{{FIG_AI}}</div>
         <div class="eng__body">
+          <div class="eng__top"><span class="tile tile--sm">{{I:gauge}}</span><span class="mono">M/03</span></div>
           <h3 class="h3">Assessment and augmentation</h3>
           <p>A short, fixed-scope look at a system that already runs, and one improvement shipped.</p>
           <dl class="eng__spec">
@@ -284,22 +277,22 @@
 
     <div class="standards" data-od-id="standards" style="margin-top:clamp(48px,6vw,80px)">
       <div class="std" data-reveal>
-        <span class="mono">Accessibility</span>
+        <div class="std__top">{{I:users}}<span class="mono">Accessibility</span></div>
         <h3 class="h4">WCAG 2.2 AA is the floor</h3>
         <p>Keyboard, screen reader and contrast checks before anything ships.</p>
       </div>
       <div class="std" data-reveal style="--d:.05s">
-        <span class="mono">Performance</span>
+        <div class="std__top">{{I:gauge}}<span class="mono">Performance</span></div>
         <h3 class="h4">Measured, not assumed</h3>
         <p>Budgets per page, tested on real devices rather than a desktop score.</p>
       </div>
       <div class="std" data-reveal style="--d:.1s">
-        <span class="mono">Ownership</span>
+        <div class="std__top">{{I:key}}<span class="mono">Ownership</span></div>
         <h3 class="h4">Yours from day one</h3>
         <p>Repositories, cloud accounts and keys are opened in your name.</p>
       </div>
       <div class="std" data-reveal style="--d:.15s">
-        <span class="mono">Handover</span>
+        <div class="std__top">{{I:doc}}<span class="mono">Handover</span></div>
         <h3 class="h4">Documentation that works</h3>
         <p>Architecture notes, runbooks and a recorded walkthrough with every build.</p>
       </div>

@@ -183,7 +183,7 @@ h1,h2,h3,h4,p{margin:0}
 .fig{width:100%;height:auto}
 .fig .cell-s{stroke:var(--line-2);fill:none}
 .fig .cell-a{fill:var(--accent);stroke:none}
-.fig .cell-soft{fill:var(--accent-tint);stroke:none}
+.fig .cell-soft{fill:var(--accent-tint);stroke:var(--accent);stroke-opacity:.3;stroke-width:1}
 .fig .dash{stroke:var(--line-2);fill:none;stroke-dasharray:3 4}
 
 /* ---------- header ---------- */
@@ -368,9 +368,10 @@ html[data-theme="dark"] .theme-btn .icon-sun{display:block}
   gap:1px;
 }
 .cap{
+  --pad:clamp(22px,2.3vw,32px);
   position:relative;
   background:var(--surface);
-  padding:clamp(22px,2.3vw,32px);
+  padding:var(--pad);
   display:flex;flex-direction:column;
   min-height:278px;
   transition:background-color .2s ease;
@@ -410,6 +411,16 @@ html[data-theme="dark"] .theme-btn .icon-sun{display:block}
 }
 .cap__more .icon{width:13px;height:13px;color:currentColor;transition:transform .2s cubic-bezier(.16,1,.3,1)}
 .cap:hover .cap__more .icon{transform:translateX(3px)}
+.cap__fig{
+  position:relative;
+  margin:calc(var(--pad)*-1) calc(var(--pad)*-1) clamp(22px,2.2vw,26px);
+  padding:20px 16px 8px;
+  border-bottom:1px solid var(--line);
+  background:var(--bg-3);
+}
+.cap__fig svg{display:block}
+.cap__fig .cap__num{position:absolute;top:9px;left:12px;margin:0;padding-top:0}
+
 @media (max-width:820px){.caps--2{grid-template-columns:1fr}.caps--2 .cap{min-height:0}}
 
 /* ---------- ink block (AI-first) ---------- */
@@ -666,9 +677,11 @@ html[data-theme="dark"] .theme-btn .icon-sun{display:block}
 .principle p{font-size:var(--text-base);color:var(--muted);line-height:1.6;max-width:42ch}
 @media (max-width:760px){.principles{grid-template-columns:1fr}}
 
-.donts{border-top:1px solid var(--line-2)}
-.donts li{display:flex;gap:16px;padding:14px 0;border-bottom:1px solid var(--line);font-size:var(--text-base);color:var(--muted);line-height:1.55}
-.donts li::before{content:'';flex:none;width:8px;height:1px;background:var(--line-2);margin-top:11px}
+.speclist{border-top:1px solid var(--line-2)}
+.speclist li{display:grid;grid-template-columns:18px minmax(0,1fr);gap:12px;padding:13px 0;border-bottom:1px solid var(--line);font-size:var(--text-base);color:var(--muted);line-height:1.55}
+.speclist li .icon{width:16px;height:16px;color:var(--accent);margin-top:3px}
+.speclist--no li .icon{color:var(--muted-2)}
+.speclist--tight li:first-child{padding-top:0}
 
 .stat-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--line-2)}
 .stat{padding:22px 24px 24px 0;border-right:1px solid var(--line)}
@@ -712,6 +725,8 @@ html[data-theme="dark"] .theme-btn .icon-sun{display:block}
 .contact-card h2{font-size:1.0625rem;margin-bottom:18px}
 .contact-lines div{display:flex;justify-content:space-between;gap:20px;padding:13px 0;border-bottom:1px solid var(--line)}
 .contact-lines dt{font-family:var(--font-mono);font-size:var(--text-sm);letter-spacing:.09em;text-transform:uppercase;color:var(--muted-2);padding-top:3px}
+.contact-lines dt .icon{width:15px;height:15px;color:var(--muted-2);flex:none}
+.contact-lines dt span{display:inline-block}
 .contact-lines dd{margin:0;font-size:var(--text-sm);text-align:right;color:var(--ink-2)}
 .contact-lines dd a{border-bottom:1px solid var(--accent);color:var(--accent-ink)}
 .next{margin-top:26px}
@@ -799,7 +814,7 @@ html[data-theme="dark"] .theme-btn .icon-sun{display:block}
 
 /* ---------- rules rows ---------- */
 .rules{border-top:1px solid var(--line-2)}
-.rule{display:grid;grid-template-columns:70px minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(16px,3vw,40px);padding:20px 0;border-bottom:1px solid var(--line);align-items:start}
+.rule{display:grid;grid-template-columns:96px minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(16px,3vw,40px);padding:20px 0;border-bottom:1px solid var(--line);align-items:start}
 .rule h3{letter-spacing:-.012em}
 .rule p{font-size:var(--text-base);line-height:1.6;color:var(--muted);max-width:52ch}
 @media (max-width:760px){
@@ -887,3 +902,162 @@ html[data-theme="dark"] .theme-btn .icon-sun{display:block}
 :lang(bn) button,:lang(bn) .btn{letter-spacing:0}
 .mt-24{margin-top:24px}
 .mb-0{margin-bottom:0}
+
+
+/* ============================================================
+   SPEC LAYER — corporate document components
+   Tiles, page marks, index rails and icon rows. Every icon
+   names the thing beside it; none are ornamental.
+   ============================================================ */
+
+/* ---------- tile ---------- */
+.tile{
+  display:grid;place-items:center;flex:none;
+  width:44px;height:44px;
+  border:1px solid var(--line-2);
+  background:var(--surface);
+  color:var(--accent);
+}
+.tile .icon{width:20px;height:20px;stroke-width:1.4}
+.tile--sm{width:34px;height:34px}
+.tile--sm .icon{width:16px;height:16px}
+.tile--lg{width:52px;height:52px}
+.tile--lg .icon{width:24px;height:24px}
+.ink-block .tile{border-color:var(--on-ink-line);background:transparent;color:#ffffff}
+
+/* ---------- section eyebrow with icon ---------- */
+.eyebrow--i{gap:10px}
+.eyebrow--i::before{display:none}
+.eyebrow--i .icon{width:15px;height:15px;color:var(--accent);stroke-width:1.6}
+.ink-block .eyebrow--i .icon,.cta .eyebrow--i .icon{color:#ffffff}
+.eyebrow__tag{
+  border:1px solid var(--line-2);padding:3px 6px;
+  font-size:.625rem;line-height:1;letter-spacing:.08em;color:var(--muted-2);
+}
+.ink-block .eyebrow__tag{border-color:var(--on-ink-line);color:var(--on-ink-muted)}
+
+/* ---------- page mark ---------- */
+.page-head__mark{
+  display:grid;place-items:center;
+  width:52px;height:52px;
+  border:1px solid var(--line-2);
+  background:var(--surface);
+  color:var(--accent);
+  margin-bottom:clamp(20px,2.4vw,28px);
+}
+.page-head__mark .icon{width:24px;height:24px;stroke-width:1.4}
+
+/* ---------- page index ---------- */
+.page-index{
+  display:flex;align-items:center;gap:clamp(14px,2.4vw,28px);flex-wrap:wrap;
+  margin-top:clamp(28px,3.2vw,40px);padding-top:18px;
+  border-top:1px solid var(--line);
+}
+.page-index__label{color:var(--muted-2);flex:none}
+.page-index ul{display:flex;flex-wrap:wrap;gap:8px}
+.page-index a{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 12px;
+  border:1px solid var(--line);
+  background:var(--bg);
+  font-size:var(--text-sm);line-height:1.3;color:var(--ink-2);
+  transition:border-color .16s ease,background-color .16s ease,color .16s ease;
+}
+.page-index a .icon{width:14px;height:14px;color:var(--accent);stroke-width:1.6}
+.page-index a:hover{border-color:var(--line-2);background:var(--surface);color:var(--ink)}
+
+/* ---------- page head meta rail ---------- */
+.page-head__meta{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);
+  margin-top:26px;
+}
+.page-head__meta div{display:flex;flex-direction:row;align-items:flex-start;gap:10px;background:var(--bg);padding:13px 15px}
+.page-head__meta .icon{width:15px;height:15px;color:var(--accent);margin-top:2px;flex:none}
+.page-head__meta .meta-txt{display:flex;flex-direction:column;gap:4px;min-width:0}
+.page-head__meta .mono{display:block;font-size:.6875rem}
+.page-head__meta .meta-val{font-size:.875rem;line-height:1.45;color:var(--ink-2);letter-spacing:-.008em}
+
+/* ---------- hero meta with icons ---------- */
+.hero__meta span::before{display:none}
+.hero__meta .icon{width:15px;height:15px;color:var(--accent);flex:none}
+
+/* ---------- facts ---------- */
+.facts__top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.facts__top .icon{width:16px;height:16px;color:var(--accent)}
+.facts__top .mono{margin:0}
+
+/* ---------- capability card ---------- */
+.cap__top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:26px}
+.cap__num{font-family:var(--font-mono);font-size:var(--text-sm);letter-spacing:.09em;color:var(--muted-2);padding-top:3px}
+.cap .tile{transition:border-color .2s ease}
+.cap:hover .tile{border-color:var(--accent)}
+
+/* ---------- product card ---------- */
+.prod__top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px}
+.prod__top .tile{transition:border-color .2s ease}
+.prod:hover .tile{border-color:var(--accent)}
+
+/* ---------- engagement card ---------- */
+.eng__top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px}
+.eng__top .mono{margin:0;color:var(--muted-2)}
+
+/* ---------- step ---------- */
+.step__head{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.step__head .tile--sm{background:transparent}
+.step__head .step__n{margin:0}
+
+/* ---------- industry ---------- */
+.ind__top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
+.ind__top .icon{width:20px;height:20px;color:var(--accent)}
+.ind__top .mono{margin:0}
+.ind--cta .ind__top .icon{color:#ffffff}
+
+/* ---------- standard ---------- */
+.std__top{display:flex;align-items:center;gap:9px;margin-bottom:12px}
+.std__top .icon{width:16px;height:16px;color:var(--accent)}
+.std__top .mono{margin:0}
+
+/* ---------- rule id with icon ---------- */
+.rule__id{display:flex;align-items:center;gap:10px}
+.rule__id .icon{width:16px;height:16px;color:var(--accent);flex:none}
+.rule__id .mono{font-size:.6875rem;margin:0}
+
+/* ---------- deliverable row ---------- */
+.deliv__item{grid-template-columns:34px minmax(0,1fr);gap:16px;align-items:start}
+.deliv__mark{display:grid;place-items:center;width:34px;height:34px;border:1px solid var(--line);background:var(--surface);color:var(--accent)}
+.deliv__mark .icon{width:17px;height:17px}
+
+/* ---------- fit rows ---------- */
+.fit__list dt{display:flex;align-items:center;gap:9px}
+.fit__list dt .icon{width:15px;height:15px;color:var(--accent);flex:none}
+.fit__col--muted .fit__list dt .icon{color:var(--muted-2)}
+
+/* ---------- contact lines ---------- */
+.contact-lines dt{padding-top:0}
+
+/* ---------- service mark ---------- */
+.svc__icon{gap:14px}
+.svc__icon .tile{background:transparent}
+
+/* ---------- card head ---------- */
+.card-head{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.card-head__title{font-size:var(--text-h4);line-height:1.25;letter-spacing:0;margin:0}
+
+/* ---------- principle id ---------- */
+.principle__id{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.principle__id .icon{width:16px;height:16px;color:var(--accent);flex:none}
+.principle__id .mono{margin:0}
+
+@media (max-width:560px){
+  .page-index{align-items:flex-start;flex-direction:column}
+  .page-index__label{padding-top:2px}
+}
+
+/* ---------- inline label icons ---------- */
+.svc__label .icon,.stackgroup__label .icon,.stack__label .icon{
+  display:inline-block;vertical-align:-2px;
+  width:14px;height:14px;margin-right:8px;
+}
+.svc__label .icon,.stackgroup__label .icon{color:var(--accent)}
+.stack__label .icon{color:var(--on-ink)}

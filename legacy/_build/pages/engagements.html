@@ -2,17 +2,27 @@
   <div class="shell">
     <div class="page-head__grid">
       <div>
-        <p class="eyebrow" data-reveal>Engagements</p>
+        <div class="page-head__mark">{{I:card}}</div>
+        <p class="eyebrow eyebrow--i" data-reveal>{{I:card}} Engagements</p>
         <h1 class="display" id="eng-title" data-reveal style="--d:.05s">Three ways to work together.</h1>
       </div>
       <div data-reveal style="--d:.1s">
         <p class="lead">The shape of an engagement should follow the problem, not a sales target. These are the three we run, what each one is for, and what it asks of your team as well as your budget.</p>
       </div>
     </div>
+    <nav class="page-index" aria-label="On this page">
+      <span class="page-index__label mono">On this page</span>
+      <ul>
+        <li><a href="#models">{{I:layers}}Models</a></li>
+        <li><a href="#pricing">{{I:coin}}Pricing</a></li>
+        <li><a href="#expectations">{{I:users}}Expectations</a></li>
+        <li><a href="#eng-faq">{{I:help}}Questions</a></li>
+      </ul>
+    </nav>
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="models" data-od-id="models">
   <div class="shell">
     <article class="svc" data-od-id="model-build">
       <div class="svc__head">
@@ -20,12 +30,12 @@
           <span class="mono">M/01 &mdash; Platform build</span>
           <h2 class="h2">A complete system, owned end to end.</h2>
         </div>
-        <div class="svc__icon"><span class="tag">3&ndash;6 months</span></div>
+        <div class="svc__icon"><span class="tile">{{I:layers}}</span><span class="tag">3&ndash;6 months</span></div>
       </div>
       <p class="lead">For a new product, or a replacement of the thing that has become the constraint. We take it from discovery to the first month in production, then hand over a system your team can run.</p>
       <div class="svc__cols">
         <div>
-          <h3 class="svc__label">What is included</h3>
+          <h3 class="svc__label">{{I:check}} What is included</h3>
           <ul class="svc__list">
             <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg><span>Discovery, domain model and architecture</span></li>
             <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg><span>Interface design and a working design system</span></li>
@@ -36,7 +46,7 @@
           </ul>
         </div>
         <div>
-          <h3 class="svc__label">The shape</h3>
+          <h3 class="svc__label">{{I:gauge}} The shape</h3>
           <dl class="eng__spec">
             <div><dt>Team</dt><dd>3&ndash;6 people</dd></div>
             <div><dt>Length</dt><dd>3&ndash;6 months</dd></div>
@@ -54,12 +64,12 @@
           <span class="mono">M/02 &mdash; Embedded team</span>
           <h2 class="h2">Our people inside your product organisation.</h2>
         </div>
-        <div class="svc__icon"><span class="tag">Monthly</span></div>
+        <div class="svc__icon"><span class="tile">{{I:users}}</span><span class="tag">Monthly</span></div>
       </div>
       <p class="lead">For a team that already has a roadmap and needs senior hands on it, without a procurement cycle for every decision. We join your rituals and work to your priorities.</p>
       <div class="svc__cols">
         <div>
-          <h3 class="svc__label">What is included</h3>
+          <h3 class="svc__label">{{I:check}} What is included</h3>
           <ul class="svc__list">
             <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg><span>One to four engineers or designers</span></li>
             <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg><span>Code review and architecture support</span></li>
@@ -69,7 +79,7 @@
           </ul>
         </div>
         <div>
-          <h3 class="svc__label">The shape</h3>
+          <h3 class="svc__label">{{I:gauge}} The shape</h3>
           <dl class="eng__spec">
             <div><dt>Team</dt><dd>1&ndash;4 people</dd></div>
             <div><dt>Length</dt><dd>Rolling, monthly</dd></div>
@@ -87,12 +97,12 @@
           <span class="mono">M/03 &mdash; Assessment &amp; augmentation</span>
           <h2 class="h2">A short, fixed-scope look at what you run.</h2>
         </div>
-        <div class="svc__icon"><span class="tag">4&ndash;10 weeks</span></div>
+        <div class="svc__icon"><span class="tile">{{I:gauge}}</span><span class="tag">4&ndash;10 weeks</span></div>
       </div>
       <p class="lead">For a system in production that has become slow, expensive or difficult to change. We audit it, choose one improvement that pays for itself, and ship it.</p>
       <div class="svc__cols">
         <div>
-          <h3 class="svc__label">What is included</h3>
+          <h3 class="svc__label">{{I:check}} What is included</h3>
           <ul class="svc__list">
             <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg><span>Architecture and running-cost audit</span></li>
             <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg><span>Data quality and reconciliation review</span></li>
@@ -102,7 +112,7 @@
           </ul>
         </div>
         <div>
-          <h3 class="svc__label">The shape</h3>
+          <h3 class="svc__label">{{I:gauge}} The shape</h3>
           <dl class="eng__spec">
             <div><dt>Team</dt><dd>2&ndash;3 people</dd></div>
             <div><dt>Length</dt><dd>4&ndash;10 weeks</dd></div>
@@ -116,11 +126,11 @@
   </div>
 </section>
 
-<section class="section section--tint" data-od-id="pricing">
+<section class="section section--tint" id="pricing" data-od-id="pricing">
   <div class="shell">
     <div class="sec-head">
       <div>
-        <p class="eyebrow" data-reveal>Money</p>
+        <p class="eyebrow eyebrow--i" data-reveal>{{I:coin}} Money</p>
         <h2 class="h2" data-reveal style="--d:.05s">How pricing works.</h2>
       </div>
       <div class="sec-head__aside" data-reveal style="--d:.1s">
@@ -129,17 +139,17 @@
     </div>
     <div class="rules" data-reveal>
       <div class="rule">
-        <span class="mono">P/01</span>
+        <div class="rule__id">{{I:search}}<span class="mono">P/01</span></div>
         <h3 class="h4">Discovery</h3>
         <p>A fixed fee for one to two weeks. Credited against the build if you continue, so the work is not paid for twice.</p>
       </div>
       <div class="rule">
-        <span class="mono">P/02</span>
+        <div class="rule__id">{{I:layers}}<span class="mono">P/02</span></div>
         <h3 class="h4">Build</h3>
         <p>Milestone-based against a written scope. Three or four milestones, invoiced on acceptance rather than on effort.</p>
       </div>
       <div class="rule">
-        <span class="mono">P/03</span>
+        <div class="rule__id">{{I:users}}<span class="mono">P/03</span></div>
         <h3 class="h4">Embedded</h3>
         <p>Monthly, with thirty days notice. Enough commitment to plan around, short enough that a stop is a decision rather than a project.</p>
       </div>
@@ -147,11 +157,11 @@
   </div>
 </section>
 
-<section class="section" data-od-id="expectations">
+<section class="section" id="expectations" data-od-id="expectations">
   <div class="shell">
     <div class="split">
       <div data-reveal>
-        <p class="eyebrow" style="margin-bottom:20px">What we need</p>
+        <p class="eyebrow eyebrow--i" style="margin-bottom:20px">{{I:users}} What we need</p>
         <h2 class="h2" style="margin-bottom:24px">Engagements that work need both sides.</h2>
         <ul class="svc__list">
           <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg><span>A decision-maker in the room, not on a mailing list</span></li>
@@ -162,7 +172,7 @@
         </ul>
       </div>
       <div data-reveal style="--d:.08s">
-        <p class="eyebrow" style="margin-bottom:20px">Contracts</p>
+        <p class="eyebrow eyebrow--i" style="margin-bottom:20px">{{I:doc}} Contracts</p>
         <h2 class="h2" style="margin-bottom:24px">Plain terms, in writing.</h2>
         <p class="body" style="margin-bottom:16px">We sign your NDA and your master agreement, or provide ours. Work is governed by the contract we both sign, not by a proposal deck.</p>
         <p class="body" style="margin-bottom:26px">Deliverables, acceptance criteria and payment terms are stated in the same document. If a change is needed, we write a change note with the cost and the effect on the date before any work starts on it.</p>
@@ -173,11 +183,11 @@
   </div>
 </section>
 
-<section class="section section--tint" data-od-id="eng-faq">
+<section class="section section--tint" id="eng-faq" data-od-id="eng-faq">
   <div class="shell">
     <div class="faq">
       <div class="faq__aside">
-        <p class="eyebrow" data-reveal>Questions</p>
+        <p class="eyebrow eyebrow--i" data-reveal>{{I:help}} Questions</p>
         <h2 class="h2" data-reveal style="--d:.05s">Asked before contracts.</h2>
         <p class="body" data-reveal style="--d:.1s">Something not covered here? Write to <a class="textlink" href="mailto:hello@intactic.net">hello@intactic.net</a> and you will get a direct answer.</p>
       </div>

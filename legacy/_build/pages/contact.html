@@ -2,7 +2,8 @@
   <div class="shell">
     <div class="page-head__grid">
       <div>
-        <p class="eyebrow" data-reveal>Contact</p>
+        <div class="page-head__mark">{{I:mail}}</div>
+        <p class="eyebrow eyebrow--i" data-reveal>{{I:mail}} Contact</p>
         <h1 class="display" id="contact-title" data-reveal style="--d:.05s">Tell us what you're building.</h1>
       </div>
       <div data-reveal style="--d:.1s">
@@ -12,10 +13,11 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="brief" data-od-id="brief">
   <div class="shell">
     <div class="contact-grid">
       <div data-reveal>
+        <h2 class="svc__label">{{I:pen}} Project brief</h2>
         <form class="form" data-brief-form novalidate>
           <div class="field">
             <label for="f-name">Name</label>
@@ -79,12 +81,15 @@
 
       <div data-reveal style="--d:.08s">
         <div class="contact-card">
-          <h2>Direct lines</h2>
+          <div class="card-head">
+            <span class="tile tile--sm">{{I:link}}</span>
+            <h2 class="h2 card-head__title">Direct lines</h2>
+          </div>
           <dl class="contact-lines">
-            <div><dt>Email</dt><dd><a href="mailto:hello@intactic.net">hello@intactic.net</a></dd></div>
-            <div><dt>Response</dt><dd>Within two working days</dd></div>
-            <div><dt>Calls</dt><dd>Booked after the first reply</dd></div>
-            <div><dt>Domain</dt><dd>intactic.net</dd></div>
+            <div><dt>{{I:mail}}<span>Email</span></dt><dd><a href="mailto:hello@intactic.net">hello@intactic.net</a></dd></div>
+            <div><dt>{{I:clock}}<span>Response</span></dt><dd>Within two working days</dd></div>
+            <div><dt>{{I:calendar}}<span>Calls</span></dt><dd>Booked after the first reply</dd></div>
+            <div><dt>{{I:globe}}<span>Domain</span></dt><dd>intactic.net</dd></div>
           </dl>
 
           <div class="next">
@@ -98,19 +103,28 @@
         </div>
 
         <div class="contact-card" style="margin-top:16px">
-          <h2>Before you write</h2>
-          <p class="body">Useful things to include: what the system does today, who uses it, what breaks most often, and whether a deadline is fixed by a contract or a guess. Links to a current site or a repository help.</p>
+          <div class="card-head">
+            <span class="tile tile--sm">{{I:check}}</span>
+            <h2 class="h2 card-head__title">Before you write</h2>
+          </div>
+          <p class="body" style="margin-bottom:16px">Useful things to include:</p>
+          <ul class="speclist speclist--tight" style="border-top:0">
+            <li>{{I:web}}<span>What the system does today, and who uses it.</span></li>
+            <li>{{I:pulse}}<span>What breaks most often, and what it costs when it does.</span></li>
+            <li>{{I:calendar}}<span>Whether a deadline is fixed by a contract or a guess.</span></li>
+            <li>{{I:link}}<span>Links to a current site or a repository, where you can share them.</span></li>
+          </ul>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section section--tint" data-od-id="contact-faq">
+<section class="section section--tint" id="contact-faq" data-od-id="contact-faq">
   <div class="shell">
     <div class="faq">
       <div class="faq__aside">
-        <p class="eyebrow" data-reveal>Before the call</p>
+        <p class="eyebrow eyebrow--i" data-reveal>{{I:help}} Before the call</p>
         <h2 class="h2" data-reveal style="--d:.05s">The three questions we always get.</h2>
         <p class="body" data-reveal style="--d:.1s">Longer answers live in the engagement notes. These are the short versions.</p>
       </div>

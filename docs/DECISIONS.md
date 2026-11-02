@@ -149,3 +149,32 @@ domain is the public link.
 
 **Why:** Invented product claims are a liability, and the repos are the source of truth.
 `docs/PRODUCTS.md` records what was verified and what must not be claimed.
+
+---
+
+## D-13 — The site is a Next.js static export
+
+**Decision:** The site is built by Next.js (`output: 'export'`) from TypeScript in
+`next-app/src`; the publishable artefact is `next-app/out/`. **D-01 and D-02 are superseded.**
+
+**Why:** D-01 chose plain generated HTML because a marketing site has no state to manage, and that
+was right while the site was a dozen templates rendered from fragments. What changed is that ten of
+the nineteen pages are now built from typed content, that changes are made by people who did not
+write the generator, and that the site has a design system with rules to keep. The generator could
+not make a mistyped icon name a compile error, and it kept the CSS outside the app it styled.
+
+**What survives from D-02:** the requirement, not the mechanism. The export is still files on a
+host; `next/font/local` self-hosts the same five faces and preloads them, so nothing comes from a
+CDN and there is still no flash of fallback text. Base64 inlining is gone — it duplicated the fonts
+into every page.
+
+**Cost:** a framework and a build chain (Next 16, React 19, TypeScript) where there was a Python
+script. Accepted because the gate now proves each change page by page instead of a person
+re-reading nineteen files.
+
+**Enforcement:** `npm run verify` — 19/19 routes, 0 errors, text parity at zero characters;
+`qa:compare` — 114 screenshot pairs, 0 failures; `tsc --noEmit` — exit 0. The legacy generator
+is kept in `legacy/` as content history and is not read by any build.
+
+**Supersedes:** D-01 (static multi-page site generated from templates) · D-02 (everything inlined:
+CSS, JS, fonts).

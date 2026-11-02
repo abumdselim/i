@@ -15,6 +15,31 @@ Format:
 
 ---
 
+## 2026-11-02 — Step 3: the legacy generator is retired
+
+**Why:** `_build/` had stopped being a source in step 1 (content) and step 2 (design system), but it
+still sat at the repository root looking authoritative — the README still told people to run it.
+Leaving it there invites someone to edit the wrong file and see no effect.
+
+**Changed:**
+- `_build/` → `legacy/_build/` (moved, not deleted: it is the content history, and the CSS the port
+  proved itself identical to). `legacy/README.md` states that nothing reads it and it must not run.
+- `README.md` (root) — rewritten around the two artefacts: `next-app/` is the source, the root
+  `*.html` is the output the domain serves today, `legacy/` is history.
+- `docs/DECISIONS.md` — **D-13** supersedes D-01 and D-02: static export from Next.js, and what
+  survives of D-02's reasoning (files on a host, self-hosted fonts, no CDN) versus what does not
+  (base64 inlining).
+
+**Verified:** with `_build/` already moved, `npm run verify` → `ported: 19/19   warnings: 0
+errors: 0` and `npx tsc --noEmit` exit 0 — the build does not touch the old generator. `rg` over
+`next-app/scripts` finds `_build` only inside comments and one baseline note. The root pages,
+`sitemap.xml` and `robots.txt` are untouched.
+
+**Not done:** deployment (step 5). `next-app/out/` still has no `robots.txt` or `sitemap.xml` — the
+gap is recorded for step 5 rather than patched silently here.
+
+---
+
 ## 2026-11-02 — Step 2: the design system becomes the source
 
 **Why:** Every build re-copied the design system out of `_build/` and rewrote it with two

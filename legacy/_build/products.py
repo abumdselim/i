@@ -1,6 +1,6 @@
 PRODUCTS = [
     dict(
-        slug='shamlai', num='01', name='Shamlai', domain='shamlai.app',
+        slug='shamlai', num='01', name='Shamlai', domain='shamlai.app', icon='i-commerce',
         h1='A shop that keeps selling when the internet does not.',
         lead='Shamlai is shop management software for Bangladeshi retailers: counter, stock, supplier dues, customer ledgers and profit reporting in one place. It runs at the edge, and the counter keeps working when the connection drops.',
         meta=[('Domain', '<a class="textlink" href="https://shamlai.app">shamlai.app</a>'), ('Status', 'Live'), ('Platforms', 'Web &middot; PWA &middot; mobile')],
@@ -21,9 +21,9 @@ PRODUCTS = [
             ('i-ai', 'An assistant that knows the shop', 'Ask about stock, dues or the day&rsquo;s takings, and dictate entries instead of typing them.'),
         ],
         rules=[
-            ('Local first, server second', 'The counter reads and writes to a local store. The network is a synchroniser, not a dependency.'),
-            ('One ledger for money and stock', 'Sales, purchases, dues and expenses post to the same structure, so profit is derived rather than typed.'),
-            ('Boring infrastructure, owned end to end', 'One Cloudflare account holds the database, media and scheduled jobs. There is no server to patch at two in the morning.'),
+            ('i-sync', 'Local first, server second', 'The counter reads and writes to a local store. The network is a synchroniser, not a dependency.'),
+            ('i-ledger', 'One ledger for money and stock', 'Sales, purchases, dues and expenses post to the same structure, so profit is derived rather than typed.'),
+            ('i-database', 'Boring infrastructure, owned end to end', 'One Cloudflare account holds the database, media and scheduled jobs. There is no server to patch at two in the morning.'),
         ],
         stack=['Next.js', 'React', 'Cloudflare Workers', 'D1', 'R2', 'Workers AI', 'Gemini'],
         stack_note='Deployed at the edge, with D1 as the source of truth and R2 for media. Every push to main runs type checks, the test suite and database migrations before it ships.',
@@ -31,7 +31,7 @@ PRODUCTS = [
         related=[('pharmasys.html', 'Pharmasys', 'P/02'), ('icounsel.html', 'iCounsel', 'P/04')],
     ),
     dict(
-        slug='pharmasys', num='02', name='Pharmasys', domain='pharmasys.app',
+        slug='pharmasys', num='02', name='Pharmasys', domain='pharmasys.app', icon='i-pulse',
         h1='A pharmacy counter that knows the medicine.',
         lead='Pharmasys is a pharmacy ERP, point of sale and regulatory shield for Bangladeshi retail and hospital pharmacies, with 25,929 medicines, generic alternatives, DGDA registration numbers and real packshots. It is usable from the first day with nothing but a stock count.',
         meta=[('Domain', '<a class="textlink" href="https://pharmasys.app">pharmasys.app</a>'), ('Status', 'Live &middot; v3.5'), ('Platforms', 'Web &middot; desktop &middot; mobile')],
@@ -52,9 +52,9 @@ PRODUCTS = [
             ('i-flag', 'Prescription sentinel', 'Antibiotic and controlled-drug warnings, with a record of what was dispensed and to whom.'),
         ],
         rules=[
-            ('Start with what you have', 'There is no catalogue-entry marathon. Record the stock you can see, and the catalogue fills in around it as you sell.'),
-            ('The database is the product', '25,929 medicines, 7,529 registration numbers and 334 factory licences maintained as data, not as a lookup someone updates by hand.'),
-            ('Runs on a modest computer', 'A light front end and a local SQLite store, with media served from a CDN rather than the counter.'),
+            ('i-cube', 'Start with what you have', 'There is no catalogue-entry marathon. Record the stock you can see, and the catalogue fills in around it as you sell.'),
+            ('i-database', 'The database is the product', '25,929 medicines, 7,529 registration numbers and 334 factory licences maintained as data, not as a lookup someone updates by hand.'),
+            ('i-gauge', 'Runs on a modest computer', 'A light front end and a local SQLite store, with media served from a CDN rather than the counter.'),
         ],
         stack=['Vanilla JS', 'Tailwind', 'SQLite (WAL)', 'Cloudflare Workers', 'R2', 'Python tooling'],
         stack_note='Packshots are cleaned, re-indexed and served from the edge. The counter downloads only the images it needs, and keeps working when the network does not.',
@@ -62,7 +62,7 @@ PRODUCTS = [
         related=[('shamlai.html', 'Shamlai', 'P/01'), ('icounsel.html', 'iCounsel', 'P/04')],
     ),
     dict(
-        slug='pdfing-pro', num='03', name='Pdfing Pro', domain='pdfingpro.intactic.net',
+        slug='pdfing-pro', num='03', name='Pdfing Pro', domain='pdfingpro.intactic.net', icon='i-doc',
         h1='A hundred and nine tools for one stubborn format.',
         lead='Pdfing Pro is a document workshop: 109 tools for editing, converting, securing and repairing PDFs. The heavy work happens on the server, so the file never has to be trusted to a browser tab.',
         meta=[('Domain', '<a class="textlink" href="https://pdfingpro.intactic.net">pdfingpro.intactic.net</a>'), ('Status', 'Beta &middot; 1.0'), ('Platforms', 'Web &middot; desktop &middot; PWA')],
@@ -83,9 +83,9 @@ PRODUCTS = [
             ('i-workflow', 'Batch and repeat', 'Chain tools into a workflow and run it across a folder instead of one file at a time.'),
         ],
         rules=[
-            ('Server-side on purpose', 'Heavy work happens where it can be sandboxed, rate-limited and logged, not in a tab that may close halfway.'),
-            ('Nothing is kept longer than the task', 'Files are processed per request, and the workspace is temporary by design.'),
-            ('Works without a network too', 'The same build ships as a desktop application and a PWA for documents that cannot leave the machine.'),
+            ('i-shield', 'Server-side on purpose', 'Heavy work happens where it can be sandboxed, rate-limited and logged, not in a tab that may close halfway.'),
+            ('i-clock', 'Nothing is kept longer than the task', 'Files are processed per request, and the workspace is temporary by design.'),
+            ('i-sync', 'Works without a network too', 'The same build ships as a desktop application and a PWA for documents that cannot leave the machine.'),
         ],
         stack=['Next.js', 'pdf-lib', 'pdf.js', 'Tesseract', 'Electron', 'Cloudflare'],
         stack_note='One codebase produces the web app, the installable PWA and the desktop build. The heavy libraries are shared, so a fix lands everywhere at once.',
@@ -93,7 +93,7 @@ PRODUCTS = [
         related=[('icounsel.html', 'iCounsel', 'P/04'), ('shamlai.html', 'Shamlai', 'P/01')],
     ),
     dict(
-        slug='icounsel', num='04', name='iCounsel', domain='icounsel.intactic.net',
+        slug='icounsel', num='04', name='iCounsel', domain='icounsel.intactic.net', icon='i-clock',
         h1='A chamber that does not miss a date.',
         lead='iCounsel is a practice operating system for Bangladeshi advocates: cause lists, case dossiers, court-fee and limitation calculators, and judgment summaries. Built around the way the Supreme Court and district courts actually run.',
         meta=[('Domain', '<a class="textlink" href="https://icounsel.intactic.net">icounsel.intactic.net</a>'), ('Status', 'Live'), ('Platforms', 'Web &middot; desktop')],
@@ -114,9 +114,9 @@ PRODUCTS = [
             ('i-users', 'Chamber and client work', 'Client records, a fee ledger, and hearing updates sent to clients without retyping.'),
         ],
         rules=[
-            ('Built for this jurisdiction', 'Court terms, fee slabs, limitation periods and vakalatnama formats are Bangladesh-specific, not generic templates.'),
-            ('Dates are the product', 'Every module answers one question: what is due, and when. Anything that does not serve that is left out.'),
-            ('Designed for a weak connection', 'Core records stay usable when the chamber internet drops, and reconcile when it returns.'),
+            ('i-flag', 'Built for this jurisdiction', 'Court terms, fee slabs, limitation periods and vakalatnama formats are Bangladesh-specific, not generic templates.'),
+            ('i-calendar', 'Dates are the product', 'Every module answers one question: what is due, and when. Anything that does not serve that is left out.'),
+            ('i-sync', 'Designed for a weak connection', 'Core records stay usable when the chamber internet drops, and reconcile when it returns.'),
         ],
         stack=['Next.js', 'React', 'PostgreSQL', 'Prisma', 'Gemini', 'Vercel'],
         stack_note='Judgment analysis streams as it is produced, so a long PDF starts answering before it has finished parsing.',
@@ -126,11 +126,11 @@ PRODUCTS = [
 ]
 
 INDUSTRIES = [
-    ('01', 'Retail &amp; wholesale', 'Counters, stock, supplier dues and a daily profit figure, with or without a connection.'),
-    ('02', 'Pharmacy &amp; healthcare', 'Generic alternatives, DGDA checks and stock counted down to the piece.'),
-    ('03', 'Legal practice', 'Cause lists, limitation dates and judgment summaries for chambers.'),
-    ('04', 'Commerce &amp; marketplaces', 'Vendors, commissions, payouts and fulfilment that reconcile before the storefront is drawn.'),
-    ('05', 'Professional offices', 'Contracts, filings and archives that must not leave the building.'),
+    ('01', 'i-commerce', 'Retail &amp; wholesale', 'Counters, stock, supplier dues and a daily profit figure, with or without a connection.'),
+    ('02', 'i-pulse', 'Pharmacy &amp; healthcare', 'Generic alternatives, DGDA checks and stock counted down to the piece.'),
+    ('03', 'i-shield', 'Legal practice', 'Cause lists, limitation dates and judgment summaries for chambers.'),
+    ('04', 'i-payout', 'Commerce &amp; marketplaces', 'Vendors, commissions, payouts and fulfilment that reconcile before the storefront is drawn.'),
+    ('05', 'i-doc', 'Professional offices', 'Contracts, filings and archives that must not leave the building.'),
 ]
 
 STACK = [

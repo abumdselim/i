@@ -6,6 +6,7 @@ from products import PRODUCTS, INDUSTRIES, STACK
 from prodpage import prod_body, prods_hub, prods_strip
 from sections import industries_section, stack_section
 from tokens_doc import write_token_docs
+import ui
 
 B = pathlib.Path('_build')
 OUT = pathlib.Path('.')
@@ -95,6 +96,58 @@ FIG_PLATFORM = fig_modules(
 )
 FIG_EMBEDDED = fig_modules(EMBED_ON, dashed=(2, 0, 8, 3))
 FIG_AI = fig_modules(AI_ON, soft={(8, 1), (8, 2)})
+# Home capability cards — one schematic per discipline (C/01 … C/06),
+# in the same module language as the engagement figures.
+CAP_CUSTOM_ON = ({(c, r) for c in range(0, 5) for r in range(0, 3)}
+                 | {(7, r) for r in range(0, 3)}
+                 | {(8, 0), (8, 2)})
+FIG_CAP_CUSTOM = fig_modules(
+    CAP_CUSTOM_ON,
+    soft={(8, 1)},
+    connectors=[(126, 28, 168), (126, 46, 168), (126, 64, 168)],
+)
+
+CAP_COMMERCE_ON = ({(c, r) for c in (0, 1) for r in (0, 1)}
+                   | {(c, r) for c in (0, 1) for r in (2, 3)}
+                   | {(4, 1), (4, 2), (6, 1), (6, 2)}
+                   | {(10, 1), (10, 2)})
+FIG_CAP_COMMERCE = fig_modules(
+    CAP_COMMERCE_ON,
+    soft={(5, 1), (5, 2)},
+    connectors=[(72, 46, 114), (72, 64, 114), (162, 46, 222), (162, 64, 222)],
+)
+
+CAP_ERP_ON = ({(c, r) for c in (0, 1) for r in (1, 2)}
+              | {(c, r) for c in (6, 7, 8) for r in (1, 2)})
+FIG_CAP_ERP = fig_modules(
+    CAP_ERP_ON,
+    soft={(5, 1), (5, 2)},
+    connectors=[(72, 46, 132), (72, 64, 132)],
+)
+
+CAP_WEB_ON = ({(c, 0) for c in range(0, 9)}
+              | {(c, r) for c in (0, 1, 2) for r in (1, 2, 3)}
+              | {(4, 1), (4, 2), (6, 1), (6, 2)}
+              | {(8, 1), (8, 2)})
+FIG_CAP_WEB = fig_modules(CAP_WEB_ON, soft={(5, 1), (5, 2)})
+
+CAP_MOBILE_ON = ({(0, r) for r in range(0, 4)}
+                 | {(5, 1), (5, 2), (7, 1), (7, 2)})
+FIG_CAP_MOBILE = fig_modules(
+    CAP_MOBILE_ON,
+    soft={(6, 1), (6, 2)},
+    dashed=(2, 1, 3, 2),
+    connectors=[(54, 46, 132), (54, 64, 132)],
+)
+
+CAP_AI_ON = ({(0, 1), (0, 2)}
+             | {(c, r) for c in (2, 3, 4) for r in (1, 2)}
+             | {(7, 1), (8, 1)})
+FIG_CAP_AI = fig_modules(
+    CAP_AI_ON,
+    soft={(7, 2)},
+    connectors=[(54, 46, 78), (54, 64, 78), (126, 46, 168), (126, 64, 168)],
+)
 
 def cta_deco():
     cells = []
@@ -372,7 +425,14 @@ def build():
         body = (body.replace('{{PLATE}}', pl)
                     .replace('{{FIG_PLATFORM}}', FIG_PLATFORM)
                     .replace('{{FIG_EMBEDDED}}', FIG_EMBEDDED)
-                    .replace('{{FIG_AI}}', FIG_AI))
+                    .replace('{{FIG_AI}}', FIG_AI)
+                    .replace('{{FIG_CAP_CUSTOM}}', FIG_CAP_CUSTOM)
+                    .replace('{{FIG_CAP_COMMERCE}}', FIG_CAP_COMMERCE)
+                    .replace('{{FIG_CAP_ERP}}', FIG_CAP_ERP)
+                    .replace('{{FIG_CAP_WEB}}', FIG_CAP_WEB)
+                    .replace('{{FIG_CAP_MOBILE}}', FIG_CAP_MOBILE)
+                    .replace('{{FIG_CAP_AI}}', FIG_CAP_AI))
+        body = re.sub(r'\{\{I:([a-z0-9-]+)\}\}', lambda m: ui.icon(m.group(1)), body)
         doc = HEAD % dict(title=p['title'], desc=p['desc'], slug=p['slug'], robots=p.get('robots', 'index, follow'),
                           fonts=FONTS, css=CSS, sprite=SPRITE)
         doc += header(p['active'])
