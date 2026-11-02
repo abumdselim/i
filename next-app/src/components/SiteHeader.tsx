@@ -2,12 +2,28 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { NAV, navKeyFor } from '@/lib/pages';
 import { Icon } from './Icon';
 
 const THEME_KEY = 'intactic-theme';
 type Theme = 'light' | 'dark';
+
+/**
+ * The theme lives in the DOM (`<html data-theme>`), set by the inline bootstrap
+ * before the first paint so there is no flash. Reading it as an external store is
+ * what keeps the toggle honest without a state-setting effect: the server snapshot
+ * is 'light', and after hydration the real value takes over without a mismatch.
+ */
+function subscribeTheme(onChange: () => void) {
+  const observer = new MutationObserver(onChange);
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  return () => observer.disconnect();
+}
+
+function themeFromDom(): Theme {
+  return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+}
 
 /**
  * Header + full-screen menu.
@@ -17,8 +33,9 @@ type Theme = 'light' | 'dark';
  *     prefix match: ten of the nineteen routes are siblings with no shared
  *     prefix, so startsWith would highlight nothing.
  *   - the scroll lock is restored by the effect cleanup, and the menu closes on
- *     `pathname` because the layout never unmounts — otherwise navigating with
- *     the menu open leaves <body> permanently overflow:hidden.
+ *     `pathname`: the layout never unmounts, so a stale "open" would leave <body>
+ *     locked at overflow:hidden on the next page. That is derived from the route
+ *     rather than reset in an effect (see `open`).
  *   - focus leaves the panel before it becomes aria-hidden, so Chrome does not
  *     block the attribute ("Blocked aria-hidden on an element because its
  *     descendant retained focus").
@@ -27,21 +44,19 @@ export function SiteHeader() {
   const pathname = usePathname() || '/';
   const current = navKeyFor(pathname);
 
-  const [theme, setTheme] = useState<Theme>('light');
-  const [open, setOpen] = useState(false);
+  const theme = useSyncExternalStore(subscribeTheme, themeFromDom, () => 'light' as Theme);
+  /**
+   * The menu belongs to the route it was opened on. Keeping the pathname instead
+   * of a boolean closes it on navigation without an effect: `open` is false the
+   * moment the route changes, before the next paint.
+   */
+  const [openedAt, setOpenedAt] = useState<string | null>(null);
+  const open = openedAt === pathname;
 
   const burgerRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const firstLinkRef = useRef<HTMLAnchorElement>(null);
   const restoreFocus = useRef(false);
-
-  useEffect(() => {
-    setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light');
-  }, []);
-
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
 
   useEffect(() => {
     if (!open) return undefined;
@@ -53,11 +68,11 @@ export function SiteHeader() {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         restoreFocus.current = true;
-        setOpen(false);
+        setOpenedAt(null);
       }
     };
     const onResize = () => {
-      if (window.innerWidth > 1080) setOpen(false);
+      if (window.innerWidth > 1080) setOpenedAt(null);
     };
 
     document.addEventListener('keydown', onKeyDown);
@@ -81,12 +96,11 @@ export function SiteHeader() {
     const active = document.activeElement as HTMLElement | null;
     if (active && menuRef.current?.contains(active)) active.blur();
     restoreFocus.current = restore;
-    setOpen(false);
+    setOpenedAt(null);
   }
 
   function toggleTheme() {
     const next: Theme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(next);
     document.documentElement.setAttribute('data-theme', next);
     try {
       localStorage.setItem(THEME_KEY, next);
@@ -146,7 +160,7 @@ export function SiteHeader() {
               aria-expanded={open}
               aria-controls="site-menu"
               aria-label="Open menu"
-              onClick={() => setOpen(true)}
+              onClick={() => setOpenedAt(pathname)}
             >
               <Icon name="i-menu" />
             </button>

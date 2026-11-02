@@ -11,7 +11,8 @@ npm install
 npm run dev        # http://localhost:3000
 npm run build      # next build → out/
 npm run gate       # out/ বনাম qa/reference, রুট ধরে ধরে
-npm run verify     # build + gate একসাথে
+npm run verify     # build + gate + lint একসাথে
+npm run lint       # eslint (next/core-web-vitals)
 ```
 
 `npm run build` আর কিছু সিঙ্ক করে না: CSS/ফন্ট/আইকন তিনটাই এখন রেপোর ভিতরের সোর্স।
@@ -24,7 +25,7 @@ npm run verify     # build + gate একসাথে
 | `src/styles/globals.css` | **এখন এটাই সোর্স** (স্টেপ ২) | হাতে এডিট; নিচের অংশ পুরনো `styles.css`-এর সাথে বাইট-সমান |
 | `src/fonts/*.woff2` | `_build/fonts/fonts.css`-এর base64 | একবার ডিকোড করা, এখন রেপোর ফাইল |
 | `src/components/icons.ts` | **হাতে-এডিটেবল** (স্টেপ ২) | ৬৮টা `<symbol>` + `IconName` ইউনিয়ন |
-| `src/components/pages/*.tsx` | হাতে-লেখা | **সব ১৯টা রুট কম্পোনেন্ট**; `scripts/import-page.mjs` আর ব্যবহৃত হয় না (স্টেপ ৪.১-এ মুছে ফেলা হবে) |
+| `src/components/pages/*.tsx` | হাতে-লেখা | **সব ১৯টা রুট কম্পোনেন্ট** |
 | `src/lib/content/*.ts` | `_build/cats.py`, `_build/products.py`, `_build/build.py`-এর `PAGES` ও ফিগার | **এখন এটাই সোর্স** — এক্সপোর্টার অবসর, JSON আর নেই (স্টেপ ১) |
 | `public/_redirects` | `src/lib/content/pages.ts` | **স্ট্যাটিক** (স্টেপ ২) — নতুন রুট হলে হাতে যোগ করতে হয়; গেট না থাকলে ফেল করে |
 
@@ -87,7 +88,8 @@ npm run verify     # build + gate একসাথে
 ```powershell
 npm run qa:capture   # ১৯ রুট × ৩ width × ২ theme — দুই বিল্ড থেকে স্ক্রিনশট
 npm run qa:compare  # Pillow দিয়ে পিক্সেল ডিফ
-npm run qa:device   # ডিভাইস ইমুলেশন পাস
+npm run qa:device   # ডিভাইস ইমুলেশন পাস (৬০টা পরিচিত ফ্ল্যাগে exit 1)
+npm run qa:device:diff  # পোর্ট বনাম পুরনো বিল্ড — **নতুন** সমস্যা থাকলেেই ফেল
 ```
 
 `qa:capture`-এর জন্য দুই সার্ভার লাগে: পুরনো সাইট `127.0.0.1:8081` (রিপো রুট) আর নতুন বিল্ড
@@ -98,7 +100,23 @@ npm run qa:device   # ডিভাইস ইমুলেশন পাস
 
 `qa:device` ৩০টা পেজ/ভিউপোর্ট মিলিয়ে দেখে: horizontal overflow, হেডারের ৭৪px, breakpoint-এ
 nav/burger, contrast (WCAG AA 4.5:1), আর 24×24 tap target। ফল: ৬০টা ফ্ল্যাগ — **সবগুলোই
-পুরনো সাইটেও আছে** (ফুটারের লিঙ্কগুলোর উচ্চতা ১৮–২৩px), অর্থাৎ পোর্টে নতুন রিগ্রেশন শূন্য।
+পুরনো সাইটেও আছে** (ফুটারের লিঙ্কগুলোর উচ্চতা ১৮–২৩px), তাই `qa:device` সবসময় exit 1 দেয়।
+তাই CI চালায় `qa:device:diff`: দুই বিল্ডের সমস্যার তালিকা মিলিয়ে শুধু **নতুন** সমস্যায় ফেল করে।
+
+## হুক ও CI
+
+**প্রি-কমিট হুক** (টাইপচেক + গেট) রেপোতে আছে, কিন্তু গ্রাহককে একবার চালু করতে হয়:
+
+```powershell
+git config core.hooksPath .githooks
+```
+
+`out/` না থাকলে হুক গেট বাদ দেয় (শুধু টাইপচেক চালায়) — আগে `npm run build`।
+
+**CI** (`.github/workflows/ci.yml`) push/PR-এ দুইটা জব চালায়: `verify` (build · gate · lint · tsc)
+আর `visual` (১৪৪ পেয়ারের পিক্সেল ডিফ + ডিভাইস ডেল্টা)। ভিজ্যুয়াল জব ৮০৮১-এ **`qa/reference`**
+পরিবেশন করে, রুটের `*.html` নয় — মাপকাঠি একটাই হওয়া উচিত। ফেল করলে `qa/diff` আর্টিফ্যাক্ট
+আপলোড হয়।
 
 ## হোস্টিং
 

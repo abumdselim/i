@@ -1,0 +1,27 @@
+#!/bin/sh
+# Refuse a commit that does not typecheck or that regresses a ported route.
+#
+# The gate judges whatever is in next-app/out from the last build, so this is the
+# fast check, not the full proof — CI runs `npm run verify`, the visual diff and
+# the device delta. Enable it once per clone with:
+#
+#   git config core.hooksPath .githooks
+set -e
+
+root=$(git rev-parse --show-toplevel)
+cd "$root/next-app" || exit 0
+
+if [ ! -d node_modules ]; then
+  echo "pre-commit: next-app/node_modules is missing — run 'npm ci' in next-app/"
+  exit 1
+fi
+
+echo "pre-commit: types"
+npm run --silent typecheck
+
+if [ -d out ]; then
+  echo "pre-commit: parity gate"
+  npm run --silent gate
+else
+  echo "pre-commit: no out/ yet — run 'npm run build' to let the gate check this commit"
+fi

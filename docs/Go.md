@@ -36,7 +36,7 @@
 | `tsc --noEmit` | exit 0 |
 | Visual diff | 114 image pairs, **0 failures**, max 0.043%, 74 pairs pixel-identical |
 | Device pass | 60 flags — **byte-identical list on the legacy build**, zero regressions |
-| Pipeline | Steps 0–3 done: frozen reference, TypeScript content, design system in the app, generator retired; steps 4–5 open |
+| Pipeline | Steps 0–4 done: frozen reference, TypeScript content, design system in the app, generator retired, lint + CI + hooks; step 5 (deployment) open |
 
 ## 3. How we got here — history
 
@@ -53,6 +53,7 @@
 | 2026-11-02 | **Step 1:** all content is TypeScript — `capabilities.ts` · `products.ts` · `figures.ts` · `pages.ts`; JSON, `resolveJsonModule` and the three exporters are gone | same entry |
 | 2026-11-02 | **Step 2:** `globals.css` and `icons.ts` are the source; `sync-assets.mjs` deleted, `build` is plain `next build` | same entry |
 | 2026-11-02 | **Step 3:** `_build/` → `legacy/_build/`, root README rewritten, D-13 supersedes D-01/D-02 | same entry |
+| 2026-11-02 | **Step 4:** eslint in `verify`, 9 real errors fixed, CI workflow, pre-commit hook, `qa:device:diff` | same entry |
 
 **Everything in detail:** `docs/CHANGELOG.md` — every change has a why / what changed / what
 was run. New work gets its entry there too (project rule D-11).
@@ -267,11 +268,16 @@ Without freezing the reference first, retiring `_build/` blinds the parity check
 
 ### Step 4 — cleanup and CI (~1–3h, recommended)
 
-- [ ] 4.1 Delete `scripts/import-page.mjs`
-- [ ] 4.2 Add ESLint + `npm run lint`, include it in verify
-- [ ] 4.3 CI: verify + qa:compare + qa:device on push
-- [ ] 4.4 Pre-commit hook: typecheck + gate
-- [ ] 4.5 Delete `Undone.md` / `WIP-REDESIGN.md` (superseded)
+- [x] 4.1 Delete `scripts/import-page.mjs`
+- [x] 4.2 Add ESLint + `npm run lint`, include it in verify
+      — flat config on `core-web-vitals`; 9 errors fixed (8 `<a>` → `next/link`, the header's two
+      state-setting effects replaced with a derived `open` and `useSyncExternalStore` for the theme)
+- [x] 4.3 CI: verify + qa:compare + qa:device on push
+      — `verify` and `visual` jobs; the device step is `qa:device:diff` (60 known flags on both
+      builds, so a plain `qa:device` could never be green)
+- [x] 4.4 Pre-commit hook: typecheck + gate
+      — `.githooks/pre-commit`, enabled with `git config core.hooksPath .githooks`
+- [x] 4.5 Delete `Undone.md` / `WIP-REDESIGN.md` (superseded)
 
 ### Step 5 — deployment (a separate decision)
 

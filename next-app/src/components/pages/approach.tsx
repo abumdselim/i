@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Icon } from '@/components/Icon';
 import type { IconName } from '@/components/icons';
 import { SectionHead } from '@/components/sections/Blocks';
@@ -174,8 +175,8 @@ export function ApproachBody() {
                     <li key={item.text}><Icon name={item.icon} /><span>{item.text}</span></li>
                   ))}
                 </ul>
-                <p style={css({ marginTop: '22px' })}><a className="linkarrow" href="/contact">Talk to us about yours
-                  <Icon name="i-arrow" /></a></p>
+                <p style={css({ marginTop: '22px' })}><Link className="linkarrow" href="/contact">Talk to us about yours
+                  <Icon name="i-arrow" /></Link></p>
               </div>
             </div>
           </div>

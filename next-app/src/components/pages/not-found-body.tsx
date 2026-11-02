@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Icon } from '@/components/Icon';
 import { css } from '@/lib/css';
 
@@ -29,14 +30,14 @@ export function NotFoundBody() {
                 {LEAD}
               </p>
               <div className="hero__actions" data-reveal style={css({ '--d': '.15s', marginTop: '32px' })}>
-                <a className="btn btn--primary btn--lg" href="/">
+                <Link className="btn btn--primary btn--lg" href="/">
                   {HOME_ACTION}
                   <Icon name="i-arrow" />
-                </a>
-                <a className="linkarrow" href="/services">
+                </Link>
+                <Link className="linkarrow" href="/services">
                   {SERVICES_ACTION}
                   <Icon name="i-arrow" />
-                </a>
+                </Link>
               </div>
             </div>
           </div>

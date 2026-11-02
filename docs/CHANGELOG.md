@@ -15,6 +15,45 @@ Format:
 
 ---
 
+## 2026-11-02 — Step 4: lint, CI and the last of the scaffolding
+
+**Why:** With `_build/` retired the repo could build itself, but nothing stopped a broken commit:
+no linter, no CI, no hook, and `scripts/import-page.mjs` plus two superseded notes still suggested
+workflows that no longer existed.
+
+**Changed:**
+- `next-app/eslint.config.mjs` + `eslint`/`eslint-config-next` — flat config on
+  `core-web-vitals`; `npm run lint`; `verify` is now build → gate → lint.
+- Nine real lint errors fixed rather than silenced:
+  - eight `<a href="/…">` internal links became `next/link` (`about`, `approach`, `engagements`,
+    `not-found-body`) — same rendered markup, client-side navigation;
+  - `SiteHeader` read the theme with a state-setting effect and closed the mobile menu with
+    another. The theme is now `useSyncExternalStore` over `<html data-theme>` (the DOM is the
+    store; the bootstrap script writes it), and the menu is open only on the route it was opened
+    on (`openedAt === pathname`) — a navigation closes it as a fact, not as a follow-up render.
+- `next-app/scripts/device-regress.mjs` + `npm run qa:device:diff` — the device pass exits 1 on 60
+  problems that also exist on the legacy build, so CI compares the two lists and fails only on a
+  problem the port introduces.
+- `.github/workflows/ci.yml` — `verify` job (build · gate · lint · tsc) and a `visual` job that
+  serves **`qa/reference`** on 8081 (the frozen baseline, not the working tree), runs capture and
+  compare, then the device delta; heatmaps upload on failure.
+- `.githooks/pre-commit` — types + gate before a commit; enabled with
+  `git config core.hooksPath .githooks` (set on this clone).
+- Deleted `next-app/scripts/import-page.mjs`, `Undone.md`, `docs/WIP-REDESIGN.md` — superseded.
+
+**Verified:** `npm run verify` → build 20 pages, `ported: 19/19   warnings: 0   errors: 0`, eslint
+clean; `npx tsc --noEmit` exit 0. Header behaviour re-tested in Chromium: theme light→dark with
+`aria-pressed="true"`→light, mobile menu opens with `<body>` locked, and after navigating to
+`/contact` `data-open="false"` with the scroll lock released. `qa:device:diff` → 60 problems on both
+builds, none new, exit 0. Home visual check after the link/header changes: 6 pairs, 0 failures,
+same 0.043%/0.031%/0.024% as before.
+
+**Not run:** the full 114-pair diff for this step (the link swap and header state are covered by the
+gate, the header test and the home capture); it runs after step 5. CI has not executed on GitHub —
+no run has been observed.
+
+---
+
 ## 2026-11-02 — Step 3: the legacy generator is retired
 
 **Why:** `_build/` had stopped being a source in step 1 (content) and step 2 (design system), but it

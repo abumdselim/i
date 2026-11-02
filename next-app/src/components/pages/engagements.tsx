@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Icon } from '@/components/Icon';
 import type { IconName } from '@/components/icons';
 import { SectionHead } from '@/components/sections/Blocks';
@@ -287,7 +288,7 @@ export function EngagementsBody() {
                 <h2 className="h2" style={css({ marginBottom: '24px' })}>Plain terms, in writing.</h2>
                 <p className="body" style={css({ marginBottom: '16px' })}>We sign your NDA and your master agreement, or provide ours. Work is governed by the contract we both sign, not by a proposal deck.</p>
                 <p className="body" style={css({ marginBottom: '26px' })}>Deliverables, acceptance criteria and payment terms are stated in the same document. If a change is needed, we write a change note with the cost and the effect on the date before any work starts on it.</p>
-                <a className="linkarrow" href="/process">See how a build runs<Icon name="i-arrow" /></a>
+                <Link className="linkarrow" href="/process">See how a build runs<Icon name="i-arrow" /></Link>
               </div>
             </div>
           </div>
