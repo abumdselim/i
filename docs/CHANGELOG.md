@@ -15,6 +15,72 @@ Format:
 
 ---
 
+## 2026-11-03 — Intactic Studio: the local admin panel
+
+**Why:** The owner asked for a professional panel that edits, hides and reorders every page and
+section, and that gains the control for any section added later. The site is a static export, so
+the panel cannot be a runtime CMS without contradicting D-13. It is a second application over the
+repository instead: it writes the same JSON the build reads, and the gate still decides.
+
+**Changed:**
+- `admin-app/` — new, a separate Next.js package on `127.0.0.1:3001`, with its own fonts (copied
+  from the site), tokens and shell. Nothing in it reaches `next-app/out/`.
+- `admin-app/src/lib/site.ts` — the only code that touches disk: whitelisted file names, atomic
+  writes, a `.bak` per save, and the section plan (registry + config) the pages display.
+- `admin-app/src/lib/rules.ts` — write-side validation with field paths: page meta, robots, nav,
+  footer, section ids (locked sections cannot be hidden or moved), content fields. Nothing is
+  written until the whole file passes.
+- Dashboard (counts, last build, page table with filter), page detail (meta form and section
+  manager: hide, reorder, locked rows), navigation and footer editors, capability/product
+  editors, build panel with the gate's own table, and a preview frame for `out/` on 8080.
+- `admin-app/src/components/fields.tsx` — the field kit every editor composes; `IconPicker` reads
+  the site's sprite so a picker cannot offer a name the build would reject.
+- API routes under `admin-app/src/app/api/`: pages, nav, footer, content, build (streamed
+  `npm run verify`), preview (start/stop the 8080 server).
+
+**Verified:** studio `tsc --noEmit` exit 0, `npm run build` exit 0, `npm run lint` clean. E2E through
+the studio API: hiding `/erp`'s problem section wrote `site-config.json` and `npm run verify` failed
+with exactly two errors — `erp.html: text differs at char 277` and `markup differs at element 38` —
+while every other route stayed unchanged; reverting restored 19/19, 0 errors. The build panel's
+preview frame loads the exported home page from 8080.
+
+**Not done:** auth (the studio is localhost-only, D-15), deploy wiring, and the gate-approval
+button — `scripts/approve.py` is still run by hand.
+
+---
+
+## 2026-11-03 — Admin phase 2: every section is a registry entry
+
+**Why:** The studio must offer a hide/order control for every section without keeping a second
+list of sections, and a section added later must appear there automatically. That needs one
+registry both applications read, and rendering that takes its order from it.
+
+**Changed:**
+- `next-app/data/sections.json` — new. 105 entries across the 19 routes: id, page, title, kind,
+  mount and `locked`. The head and the closing CTA are locked on every page.
+- `next-app/src/lib/sections.ts` — rewritten as the registry's reader and validator: route
+  coverage, unique ids, a locked head/hero first, exactly one locked `cta` last, and no entry for
+  a route the manifest does not have. The old layouts moved out of this file so the studio, a
+  separate package, can read the same data.
+- `next-app/data/site-config.json` — new. `hidden`, `order`, and the navigation and footer; empty
+  by default, which is byte-for-byte the previous behaviour.
+- `next-app/src/lib/config.ts` — new. Validates the config against the registry (unknown route,
+  unknown id or a locked id is a build error), exports `NAV` and `FOOTER`, and answers the one
+  question the pages ask: which sections, in what order.
+- `next-app/src/components/sections/SectionSlots.tsx` — renders the page's sections in that order,
+  each inside a `Fragment`, so the DOM is identical to writing them out by hand.
+- Every page body (home, six hand-written pages, the two templates, 404) now declares its sections
+  as nodes instead of writing them in sequence; `SiteCtaSlot` makes `showCta` the single switch
+  for the closing block, and `/contact` and `/404` gained a locked CTA slot they do not render.
+- `src/lib/pages.ts` and `SiteFooter.tsx` read `NAV` and `FOOTER` from the config — one source for
+  the header, the mobile menu and the footer.
+
+**Verified:** `npm run verify` 19/19, 0 errors, lint clean; `tsc --noEmit` exit 0; the 114-pair
+visual diff 0 failures, 0 missing — the refactor is invisible. The gate caught the intentional
+section hide and cleared after the revert (see the entry above).
+
+---
+
 ## 2026-11-03 — Admin phase 1: content becomes JSON, validated at load
 
 **Why:** The admin panel (docs/admin.md) needs machine-writable content. The typed TS literals

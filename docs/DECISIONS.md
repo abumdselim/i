@@ -201,3 +201,66 @@ the two cannot drift apart again.
 
 **Enforced by:** `qa/reference/baseline.json` records the approved contact page after the removal,
 with the reason in its `approvals` list; the gate fails if the page drifts back.
+
+---
+
+## D-15 — The admin panel is a local, build-time studio
+
+**Decision:** The panel is a separate application (`admin-app/`) that runs on `127.0.0.1:3001`,
+reads and writes `next-app/data/*.json`, and triggers the site's own build. It is never served from
+the public artefact and has no auth, because it is not reachable from outside the machine.
+
+**Why:** The site is a static export (D-13). A runtime CMS would need a server, a database, sessions
+and a login — a second system to keep patched, and one that would either render the site dynamically
+or write into the build anyway. The studio writes the source and lets the build judge it, so the
+deployed artefact stays files in a folder and git stays the history of every change.
+
+**Cost:** A build (about a minute) stands between a save and a live page, and the panel only works
+where the repository is checked out. Both are acceptable for an owner-operated site; neither is
+acceptable for a multi-author newsroom, which is not what this is.
+
+**Scale-out path:** if the studio ever moves to the LAN or online, only the write layer behind the
+API and the auth change; the UI, the forms and the build panel stay as they are.
+
+**Enforced by:** `admin-app/` has its own `package.json` and never imports from `next-app/out/`;
+the site's `npm run verify` contains no reference to the studio.
+
+---
+
+## D-16 — Content and configuration are JSON, validated in TypeScript
+
+**Decision:** Capabilities, products, figures, the route manifest, the section registry and the site
+configuration live in `next-app/data/*.json`. A runtime schema validates each file once, at import
+time, and fails the build with the JSON path of the first problem.
+
+**Why:** The studio must write these files, and TypeScript literals are not a format a program can
+write safely. JSON is; the schema is what keeps the compile-time guarantee the literals had. Because
+validation runs before a page is emitted, a typo is still a build failure rather than a blank section.
+
+**Cost:** Two layers agree by hand — `types.ts` and `schema.ts` — and the studio keeps its own copy
+of the shapes. The gate and the build validate both sides, which is what keeps that honest.
+
+**Supersedes:** the typed literals introduced with the TypeScript port, not D-13.
+
+---
+
+## D-17 — The section registry is data, not code
+
+**Decision:** Every section of every page is an entry in `next-app/data/sections.json`
+(`page`, `id`, `title`, `kind`, `mount`, `locked`). `src/lib/sections.ts` validates it; the site
+renders from it; the studio lists its controls from it.
+
+**Why:** Both applications need the same list, and they cannot share a module: the studio is a
+separate package, and importing the site's TypeScript would drag its bundle, its aliases and its
+client boundary across the boundary the first decision draws. A JSON file both can read is the only
+arrangement that keeps one source. It also makes the "new section, new control" promise literal: add
+an entry, and the control appears.
+
+**Guardrails:** the head (`head`/`hero`) and the closing CTA are `locked` on every route; the head
+carries the h1 and the CTA is switched by the page's `showCta`, not by `hidden`. A section id in
+`site-config.json` that the registry does not know fails the build, and so does a route without a
+layout.
+
+**Cost:** the section list is explicit rather than derived from a template, so the ten templated
+pages carry their five body entries each. That is the price of a file a program can read and a human
+can diff.

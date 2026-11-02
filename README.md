@@ -12,7 +12,16 @@ system, four product pages, and a written decision log.
 | Source | `next-app/src` — Next.js 16, React 19, TypeScript, `output: 'export'` |
 | Build | `cd next-app` then `npm run build` → `next-app/out/` |
 | Verify | `cd next-app` then `npm run verify` — build + the parity gate |
+| Studio | `admin-app/` — the local admin panel, `http://127.0.0.1:3001` |
 | Legacy | root `*.html` (the build currently live) · `legacy/` (the generator that produced it) |
+
+## The studio
+
+The admin panel is a second application, not a runtime CMS: it edits the JSON the site builds from
+(`next-app/data/`), then runs the site's own `npm run verify`. It binds `127.0.0.1:3001`, never
+ships in the export, and its saves are validated, atomic and backed up. `cd admin-app` then
+`npm run dev`; the site should be on `http://localhost:3000` beside it. Plan and limits:
+`docs/admin.md`, `admin-app/README.md`.
 
 ## Two artefacts, one direction
 

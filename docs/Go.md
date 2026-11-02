@@ -9,6 +9,10 @@
 >
 > Written 2026-11-02. If a lot of time has passed since, re-verify the state yourself with
 > the commands in §2 — the numbers below were true on the day they were written.
+>
+> **The admin-panel phase lives in `docs/admin.md`.** The site's migration is finished and its
+> gate is the judge; the studio, the section registry and the content JSON are planned and tracked
+> there. Read this file for the site's architecture and the gate, that one for what comes next.
 
 ---
 
