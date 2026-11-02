@@ -74,9 +74,12 @@ clean; `npx tsc --noEmit` exit 0. Header behaviour re-tested in Chromium: theme 
 builds, none new, exit 0. Home visual check after the link/header changes: 6 pairs, 0 failures,
 same 0.043%/0.031%/0.024% as before.
 
-**Not run:** the full 114-pair diff for this step (the link swap and header state are covered by the
-gate, the header test and the home capture); it runs after step 5. CI has not executed on GitHub —
-no run has been observed.
+**Not run at the time:** the full 114-pair diff (the link swap and header state were covered by the
+gate, the header test and a six-pair home capture); CI has not executed on GitHub — no run has been
+observed.
+
+**Full diff afterwards:** 114 pairs, **0 failures**, max 0.043%, 74 pixel-identical; device delta
+0. The home capture had already shown the same numbers, so the link swap changed nothing visible.
 
 ---
 
@@ -176,6 +179,9 @@ instead of leaving a second copy of the routes on disk.
 
 **Not run:** `qa:device` after the change (rendering is unchanged — the pixel diff proves it).
 Step 0.5 is included in the same commit, `cae65be`.
+
+**Full diff after step 5 (same day):** 114 pairs, 0 failures, max 0.043%, 74 pixel-identical —
+identical to the pre-migration run, and the device delta is 0 (60 problems on both builds).
 
 ---
 
