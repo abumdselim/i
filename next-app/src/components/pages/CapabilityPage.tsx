@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Icon } from '@/components/Icon';
 import { DeliverableGrid, Panel, RelatedLinks, RulesList, SectionHead, TagList } from '@/components/sections/Blocks';
 import { PageHead } from '@/components/sections/PageHead';
+import { SectionSlots } from '@/components/sections/SectionSlots';
 import { SystemMap } from '@/components/sections/SystemMap';
 import { capabilityBySlug } from '@/lib/content';
 import { css } from '@/lib/css';
@@ -17,8 +18,8 @@ import { css } from '@/lib/css';
 export function CapabilityPage({ slug }: { slug: string }) {
   const page = capabilityBySlug(slug);
 
-  return (
-    <>
+  const sections = {
+    head: (
       <PageHead
         titleId="cat-title"
         mark={page.icon}
@@ -36,7 +37,8 @@ export function CapabilityPage({ slug }: { slug: string }) {
           </p>
         }
       />
-
+    ),
+    problem: (
       <section className="section">
         <div className="shell">
           <div className="split">
@@ -57,7 +59,8 @@ export function CapabilityPage({ slug }: { slug: string }) {
           </div>
         </div>
       </section>
-
+    ),
+    deliverables: (
       <section className="section section--tint">
         <div className="shell">
           <SectionHead
@@ -69,7 +72,8 @@ export function CapabilityPage({ slug }: { slug: string }) {
           <DeliverableGrid items={page.items} />
         </div>
       </section>
-
+    ),
+    approach: (
       <section className="section">
         <div className="shell">
           <SectionHead
@@ -95,7 +99,8 @@ export function CapabilityPage({ slug }: { slug: string }) {
           </div>
         </div>
       </section>
-
+    ),
+    related: (
       <section className="section section--tint">
         <div className="shell">
           <SectionHead
@@ -107,6 +112,8 @@ export function CapabilityPage({ slug }: { slug: string }) {
           <RelatedLinks items={page.related} />
         </div>
       </section>
-    </>
-  );
+    ),
+  };
+
+  return <SectionSlots route={`/${slug}`} nodes={sections} />;
 }

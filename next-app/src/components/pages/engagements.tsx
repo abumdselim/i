@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Icon } from '@/components/Icon';
 import type { IconName } from '@/components/icons';
 import { SectionHead } from '@/components/sections/Blocks';
+import { SectionSlots } from '@/components/sections/SectionSlots';
 import { css } from '@/lib/css';
 
 /**
@@ -186,134 +187,142 @@ const faqs: FaqItem[] = [
 ];
 
 export function EngagementsBody() {
-  return (
-    <>
-      <main id="main">
-        <section className="page-head" data-od-id="page-head" aria-labelledby="eng-title">
-          <div className="shell">
-            <div className="page-head__grid">
-              <div>
-                <div className="page-head__mark"><Icon name="i-card" /></div>
-                <p className="eyebrow eyebrow--i" data-reveal><Icon name="i-card" /> Engagements</p>
-                <h1 className="display" id="eng-title" data-reveal style={css({ '--d': '.05s' })}>Three ways to work together.</h1>
-              </div>
-              <div data-reveal style={css({ '--d': '.1s' })}>
-                <p className="lead">The shape of an engagement should follow the problem, not a sales target. These are the three we run, what each one is for, and what it asks of your team as well as your budget.</p>
-              </div>
+  const sections = {
+    head: (
+      <section className="page-head" data-od-id="page-head" aria-labelledby="eng-title">
+        <div className="shell">
+          <div className="page-head__grid">
+            <div>
+              <div className="page-head__mark"><Icon name="i-card" /></div>
+              <p className="eyebrow eyebrow--i" data-reveal><Icon name="i-card" /> Engagements</p>
+              <h1 className="display" id="eng-title" data-reveal style={css({ '--d': '.05s' })}>Three ways to work together.</h1>
             </div>
-            <nav className="page-index" aria-label="On this page">
-              <span className="page-index__label mono">On this page</span>
-              <ul>
-                {toc.map((item) => (
-                  <li key={item.href}><a href={item.href}><Icon name={item.icon} />{item.label}</a></li>
-                ))}
-              </ul>
-            </nav>
+            <div data-reveal style={css({ '--d': '.1s' })}>
+              <p className="lead">The shape of an engagement should follow the problem, not a sales target. These are the three we run, what each one is for, and what it asks of your team as well as your budget.</p>
+            </div>
           </div>
-        </section>
-
-        <section className="section" id="models" data-od-id="models">
-          <div className="shell">
-            {models.map((model) => (
-              <article className="svc" data-od-id={model.odId} key={model.odId} style={model.flush ? css({ marginBottom: '0' }) : undefined}>
-                <div className="svc__head">
-                  <div>
-                    <span className="mono">{`M/${model.num} — ${model.name}`}</span>
-                    <h2 className="h2">{model.title}</h2>
-                  </div>
-                  <div className="svc__icon">
-                    <span className="tile"><Icon name={model.icon} /></span>
-                    <span className="tag">{model.tag}</span>
-                  </div>
+          <nav className="page-index" aria-label="On this page">
+            <span className="page-index__label mono">On this page</span>
+            <ul>
+              {toc.map((item) => (
+                <li key={item.href}><a href={item.href}><Icon name={item.icon} />{item.label}</a></li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+      </section>
+    ),
+    models: (
+      <section className="section" id="models" data-od-id="models">
+        <div className="shell">
+          {models.map((model) => (
+            <article className="svc" data-od-id={model.odId} key={model.odId} style={model.flush ? css({ marginBottom: '0' }) : undefined}>
+              <div className="svc__head">
+                <div>
+                  <span className="mono">{`M/${model.num} — ${model.name}`}</span>
+                  <h2 className="h2">{model.title}</h2>
                 </div>
-                <p className="lead">{model.lead}</p>
-                <div className="svc__cols">
-                  <div>
-                    <h3 className="svc__label"><Icon name="i-check" /> What is included</h3>
-                    <ul className="svc__list">
-                      {model.includes.map((item) => (
-                        <li key={item}><Icon name="i-check" /><span>{item}</span></li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <h3 className="svc__label"><Icon name="i-gauge" /> The shape</h3>
-                    <dl className="eng__spec">
-                      {model.spec.map((row) => (
-                        <div key={row.term}><dt>{row.term}</dt><dd>{row.def}</dd></div>
-                      ))}
-                    </dl>
-                    <p className="svc__note">{model.note}</p>
-                  </div>
+                <div className="svc__icon">
+                  <span className="tile"><Icon name={model.icon} /></span>
+                  <span className="tag">{model.tag}</span>
                 </div>
-              </article>
+              </div>
+              <p className="lead">{model.lead}</p>
+              <div className="svc__cols">
+                <div>
+                  <h3 className="svc__label"><Icon name="i-check" /> What is included</h3>
+                  <ul className="svc__list">
+                    {model.includes.map((item) => (
+                      <li key={item}><Icon name="i-check" /><span>{item}</span></li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="svc__label"><Icon name="i-gauge" /> The shape</h3>
+                  <dl className="eng__spec">
+                    {model.spec.map((row) => (
+                      <div key={row.term}><dt>{row.term}</dt><dd>{row.def}</dd></div>
+                    ))}
+                  </dl>
+                  <p className="svc__note">{model.note}</p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    ),
+    pricing: (
+      <section className="section section--tint" id="pricing" data-od-id="pricing">
+        <div className="shell">
+          <SectionHead
+            eyebrowIcon="i-coin"
+            eyebrow="Money"
+            title="How pricing works."
+            lead="No hourly billing for thinking, and no quote before we have read the system. Three models, each with a different risk profile."
+          />
+          <div className="rules" data-reveal>
+            {pricing.map((rule) => (
+              <div className="rule" key={rule.num}>
+                <div className="rule__id"><Icon name={rule.icon} /><span className="mono">{rule.num}</span></div>
+                <h3 className="h4">{rule.title}</h3>
+                <p>{rule.body}</p>
+              </div>
             ))}
           </div>
-        </section>
-
-        <section className="section section--tint" id="pricing" data-od-id="pricing">
-          <div className="shell">
-            <SectionHead
-              eyebrowIcon="i-coin"
-              eyebrow="Money"
-              title="How pricing works."
-              lead="No hourly billing for thinking, and no quote before we have read the system. Three models, each with a different risk profile."
-            />
-            <div className="rules" data-reveal>
-              {pricing.map((rule) => (
-                <div className="rule" key={rule.num}>
-                  <div className="rule__id"><Icon name={rule.icon} /><span className="mono">{rule.num}</span></div>
-                  <h3 className="h4">{rule.title}</h3>
-                  <p>{rule.body}</p>
-                </div>
+        </div>
+      </section>
+    ),
+    expectations: (
+      <section className="section" id="expectations" data-od-id="expectations">
+        <div className="shell">
+          <div className="split">
+            <div data-reveal>
+              <p className="eyebrow eyebrow--i" style={css({ marginBottom: '20px' })}><Icon name="i-users" /> What we need</p>
+              <h2 className="h2" style={css({ marginBottom: '24px' })}>Engagements that work need both sides.</h2>
+              <ul className="svc__list">
+                {needs.map((item) => (
+                  <li key={item}><Icon name="i-check" /><span>{item}</span></li>
+                ))}
+              </ul>
+            </div>
+            <div data-reveal style={css({ '--d': '.08s' })}>
+              <p className="eyebrow eyebrow--i" style={css({ marginBottom: '20px' })}><Icon name="i-doc" /> Contracts</p>
+              <h2 className="h2" style={css({ marginBottom: '24px' })}>Plain terms, in writing.</h2>
+              <p className="body" style={css({ marginBottom: '16px' })}>We sign your NDA and your master agreement, or provide ours. Work is governed by the contract we both sign, not by a proposal deck.</p>
+              <p className="body" style={css({ marginBottom: '26px' })}>Deliverables, acceptance criteria and payment terms are stated in the same document. If a change is needed, we write a change note with the cost and the effect on the date before any work starts on it.</p>
+              <Link className="linkarrow" href="/process">See how a build runs<Icon name="i-arrow" /></Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    ),
+    faq: (
+      <section className="section section--tint" id="eng-faq" data-od-id="eng-faq">
+        <div className="shell">
+          <div className="faq">
+            <div className="faq__aside">
+              <p className="eyebrow eyebrow--i" data-reveal><Icon name="i-help" /> Questions</p>
+              <h2 className="h2" data-reveal style={css({ '--d': '.05s' })}>Asked before contracts.</h2>
+              <p className="body" data-reveal style={css({ '--d': '.1s' })}>Something not covered here? Write to <a className="textlink" href="mailto:hello@intactic.net">hello@intactic.net</a> and you will get a direct answer.</p>
+            </div>
+            <div className="faq__list" data-reveal>
+              {faqs.map((faq) => (
+                <details className="faq__item" key={faq.q}>
+                  <summary>{faq.q}<span className="pm" aria-hidden="true"></span></summary>
+                  <div className="faq__body">{faq.a}</div>
+                </details>
               ))}
             </div>
           </div>
-        </section>
+        </div>
+      </section>
+    ),
+  };
 
-        <section className="section" id="expectations" data-od-id="expectations">
-          <div className="shell">
-            <div className="split">
-              <div data-reveal>
-                <p className="eyebrow eyebrow--i" style={css({ marginBottom: '20px' })}><Icon name="i-users" /> What we need</p>
-                <h2 className="h2" style={css({ marginBottom: '24px' })}>Engagements that work need both sides.</h2>
-                <ul className="svc__list">
-                  {needs.map((item) => (
-                    <li key={item}><Icon name="i-check" /><span>{item}</span></li>
-                  ))}
-                </ul>
-              </div>
-              <div data-reveal style={css({ '--d': '.08s' })}>
-                <p className="eyebrow eyebrow--i" style={css({ marginBottom: '20px' })}><Icon name="i-doc" /> Contracts</p>
-                <h2 className="h2" style={css({ marginBottom: '24px' })}>Plain terms, in writing.</h2>
-                <p className="body" style={css({ marginBottom: '16px' })}>We sign your NDA and your master agreement, or provide ours. Work is governed by the contract we both sign, not by a proposal deck.</p>
-                <p className="body" style={css({ marginBottom: '26px' })}>Deliverables, acceptance criteria and payment terms are stated in the same document. If a change is needed, we write a change note with the cost and the effect on the date before any work starts on it.</p>
-                <Link className="linkarrow" href="/process">See how a build runs<Icon name="i-arrow" /></Link>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="section section--tint" id="eng-faq" data-od-id="eng-faq">
-          <div className="shell">
-            <div className="faq">
-              <div className="faq__aside">
-                <p className="eyebrow eyebrow--i" data-reveal><Icon name="i-help" /> Questions</p>
-                <h2 className="h2" data-reveal style={css({ '--d': '.05s' })}>Asked before contracts.</h2>
-                <p className="body" data-reveal style={css({ '--d': '.1s' })}>Something not covered here? Write to <a className="textlink" href="mailto:hello@intactic.net">hello@intactic.net</a> and you will get a direct answer.</p>
-              </div>
-              <div className="faq__list" data-reveal>
-                {faqs.map((faq) => (
-                  <details className="faq__item" key={faq.q}>
-                    <summary>{faq.q}<span className="pm" aria-hidden="true"></span></summary>
-                    <div className="faq__body">{faq.a}</div>
-                  </details>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-    </>
+  return (
+    <main id="main">
+      <SectionSlots route="/engagements" nodes={sections} />
+    </main>
   );
 }

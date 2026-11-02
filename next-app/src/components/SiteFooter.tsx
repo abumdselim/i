@@ -1,48 +1,13 @@
 import Link from 'next/link';
+import { FOOTER } from '@/lib/config';
 import { Year } from './Year';
 
-const COLUMNS: { title: string; links: { label: string; href: string }[] }[] = [
-  {
-    title: 'Capabilities',
-    links: [
-      { label: 'Custom software', href: '/custom-software' },
-      { label: 'Multi-vendor commerce', href: '/ecommerce' },
-      { label: 'ERP & operations', href: '/erp' },
-      { label: 'Web platforms', href: '/web-platforms' },
-      { label: 'Mobile products', href: '/mobile-apps' },
-      { label: 'Automation & models', href: '/automation' },
-    ],
-  },
-  {
-    title: 'Products',
-    links: [
-      { label: 'Shamlai', href: '/shamlai' },
-      { label: 'Pharmasys', href: '/pharmasys' },
-      { label: 'Pdfing Pro', href: '/pdfing-pro' },
-      { label: 'iCounsel', href: '/icounsel' },
-      { label: 'All products', href: '/products' },
-    ],
-  },
-  {
-    title: 'Studio',
-    links: [
-      { label: 'About', href: '/about' },
-      { label: 'Approach', href: '/approach' },
-      { label: 'Engagements', href: '/engagements' },
-      { label: 'Process', href: '/process' },
-      { label: 'Contact', href: '/contact' },
-    ],
-  },
-  {
-    title: 'Direct',
-    links: [
-      { label: 'hello@intactic.net', href: 'mailto:hello@intactic.net' },
-      { label: 'intactic.net', href: 'https://intactic.net' },
-      { label: 'Start a project', href: '/contact' },
-    ],
-  },
-];
-
+/**
+ * The footer reads its columns and brand copy from `data/site-config.json`
+ * (admin phase 2) — the same file the studio will edit. The markup is
+ * unchanged: the gate cannot see outside <main>, so the frozen reference and
+ * the built pages are compared section by section in the phase-2 proof.
+ */
 export function SiteFooter() {
   return (
     <footer className="foot" data-od-id="footer">
@@ -55,16 +20,13 @@ export function SiteFooter() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img className="logo--white" src="/assets/img/logo-white-500.png" alt="" width={125} height={19} />
             </Link>
-            <p>
-              A software engineering studio. Custom platforms, commerce, ERP and product interfaces, built to be run
-              by the teams that own them.
-            </p>
-            <a className="linkarrow" href="mailto:hello@intactic.net">
-              hello@intactic.net
+            <p>{FOOTER.brand.blurb}</p>
+            <a className="linkarrow" href={`mailto:${FOOTER.brand.email}`}>
+              {FOOTER.brand.email}
             </a>
           </div>
 
-          {COLUMNS.map((column) => (
+          {FOOTER.columns.map((column) => (
             <div className="foot__col" key={column.title}>
               <h4>{column.title}</h4>
               <ul>

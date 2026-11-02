@@ -1,0 +1,146 @@
+{
+  "version": 1,
+  "hidden": [],
+  "order": {},
+  "nav": [
+    {
+      "label": "Capabilities",
+      "href": "/services",
+      "key": "capabilities"
+    },
+    {
+      "label": "Products",
+      "href": "/products",
+      "key": "products"
+    },
+    {
+      "label": "Approach",
+      "href": "/approach",
+      "key": "approach"
+    },
+    {
+      "label": "Engagements",
+      "href": "/engagements",
+      "key": "engagements"
+    },
+    {
+      "label": "Process",
+      "href": "/process",
+      "key": "process"
+    },
+    {
+      "label": "Studio",
+      "href": "/about",
+      "key": "studio"
+    },
+    {
+      "label": "Contact",
+      "href": "/contact",
+      "key": "contact"
+    }
+  ],
+  "footer": {
+    "brand": {
+      "blurb": "A software engineering studio. Custom platforms, commerce, ERP and product interfaces, built to be run by the teams that own them.",
+      "email": "hello@intactic.net"
+    },
+    "columns": [
+      {
+        "title": "Capabilities",
+        "links": [
+          {
+            "label": "Custom software",
+            "href": "/custom-software"
+          },
+          {
+            "label": "Multi-vendor commerce",
+            "href": "/ecommerce"
+          },
+          {
+            "label": "ERP & operations",
+            "href": "/erp"
+          },
+          {
+            "label": "Web platforms",
+            "href": "/web-platforms"
+          },
+          {
+            "label": "Mobile products",
+            "href": "/mobile-apps"
+          },
+          {
+            "label": "Automation & models",
+            "href": "/automation"
+          }
+        ]
+      },
+      {
+        "title": "Products",
+        "links": [
+          {
+            "label": "Shamlai",
+            "href": "/shamlai"
+          },
+          {
+            "label": "Pharmasys",
+            "href": "/pharmasys"
+          },
+          {
+            "label": "Pdfing Pro",
+            "href": "/pdfing-pro"
+          },
+          {
+            "label": "iCounsel",
+            "href": "/icounsel"
+          },
+          {
+            "label": "All products",
+            "href": "/products"
+          }
+        ]
+      },
+      {
+        "title": "Studio",
+        "links": [
+          {
+            "label": "About",
+            "href": "/about"
+          },
+          {
+            "label": "Approach",
+            "href": "/approach"
+          },
+          {
+            "label": "Engagements",
+            "href": "/engagements"
+          },
+          {
+            "label": "Process",
+            "href": "/process"
+          },
+          {
+            "label": "Contact",
+            "href": "/contact"
+          }
+        ]
+      },
+      {
+        "title": "Direct",
+        "links": [
+          {
+            "label": "hello@intactic.net",
+            "href": "mailto:hello@intactic.net"
+          },
+          {
+            "label": "intactic.net",
+            "href": "https://intactic.net"
+          },
+          {
+            "label": "Start a project",
+            "href": "/contact"
+          }
+        ]
+      }
+    ]
+  }
+}

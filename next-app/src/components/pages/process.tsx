@@ -1,6 +1,7 @@
 import { Icon } from '@/components/Icon';
 import type { IconName } from '@/components/icons';
 import { SectionHead } from '@/components/sections/Blocks';
+import { SectionSlots } from '@/components/sections/SectionSlots';
 import { css } from '@/lib/css';
 
 /**
@@ -190,115 +191,122 @@ const handoverPack: PackItem[] = [
 ];
 
 export function ProcessBody() {
-  return (
-    <>
-      <main id="main">
-        <section className="page-head" data-od-id="page-head" aria-labelledby="process-title">
-          <div className="shell">
-            <div className="page-head__grid">
-              <div>
-                <div className="page-head__mark"><Icon name="i-workflow" /></div>
-                <p className="eyebrow eyebrow--i" data-reveal><Icon name="i-workflow" /> Process</p>
-                <h1 className="display" id="process-title" data-reveal style={css({ '--d': '.05s' })}>From first call to production.</h1>
-              </div>
-              <div data-reveal style={css({ '--d': '.1s' })}>
-                <p className="lead">Four phases, each with a written output. You can stop at the end of any of them and keep what was produced, including the architecture.</p>
-              </div>
+  const sections = {
+    head: (
+      <section className="page-head" data-od-id="page-head" aria-labelledby="process-title">
+        <div className="shell">
+          <div className="page-head__grid">
+            <div>
+              <div className="page-head__mark"><Icon name="i-workflow" /></div>
+              <p className="eyebrow eyebrow--i" data-reveal><Icon name="i-workflow" /> Process</p>
+              <h1 className="display" id="process-title" data-reveal style={css({ '--d': '.05s' })}>From first call to production.</h1>
             </div>
-            <nav className="page-index" aria-label="On this page">
-              <span className="page-index__label mono">On this page</span>
-              <ul>
-                {toc.map((item) => (
-                  <li key={item.href}><a href={item.href}><Icon name={item.icon} />{item.label}</a></li>
-                ))}
-              </ul>
-            </nav>
+            <div data-reveal style={css({ '--d': '.1s' })}>
+              <p className="lead">Four phases, each with a written output. You can stop at the end of any of them and keep what was produced, including the architecture.</p>
+            </div>
           </div>
-        </section>
-
-        <section className="section" id="phases" data-od-id="phases">
-          <div className="shell">
-            {phases.map((phase) => (
-              <article className="svc" id={phase.id} data-od-id={phase.id} key={phase.id} style={phase.flush ? css({ marginBottom: '0' }) : undefined}>
-                <div className="svc__head">
-                  <div>
-                    <span className="mono">{`P/${phase.num} — ${phase.name}`}</span>
-                    <h2 className="h2">{phase.title}</h2>
-                  </div>
-                  <div className="svc__icon">
-                    <span className="tile"><Icon name={phase.icon} /></span>
-                    <span className="tag">{phase.tag}</span>
-                  </div>
+          <nav className="page-index" aria-label="On this page">
+            <span className="page-index__label mono">On this page</span>
+            <ul>
+              {toc.map((item) => (
+                <li key={item.href}><a href={item.href}><Icon name={item.icon} />{item.label}</a></li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+      </section>
+    ),
+    phases: (
+      <section className="section" id="phases" data-od-id="phases">
+        <div className="shell">
+          {phases.map((phase) => (
+            <article className="svc" id={phase.id} data-od-id={phase.id} key={phase.id} style={phase.flush ? css({ marginBottom: '0' }) : undefined}>
+              <div className="svc__head">
+                <div>
+                  <span className="mono">{`P/${phase.num} — ${phase.name}`}</span>
+                  <h2 className="h2">{phase.title}</h2>
                 </div>
-                <p className="lead">{phase.lead}</p>
-                <div className="svc__cols">
-                  <div>
-                    <h3 className="svc__label"><Icon name="i-check" /> What happens</h3>
-                    <ul className="svc__list">
-                      {phase.happens.map((item) => (
-                        <li key={item}><Icon name="i-check" /><span>{item}</span></li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <h3 className="svc__label"><Icon name="i-doc" /> At the end</h3>
-                    <dl className="eng__spec">
-                      {phase.spec.map((row) => (
-                        <div key={row.term}><dt>{row.term}</dt><dd>{row.def}</dd></div>
-                      ))}
-                    </dl>
-                    <p className="svc__note">{phase.note}</p>
-                  </div>
+                <div className="svc__icon">
+                  <span className="tile"><Icon name={phase.icon} /></span>
+                  <span className="tag">{phase.tag}</span>
                 </div>
-              </article>
+              </div>
+              <p className="lead">{phase.lead}</p>
+              <div className="svc__cols">
+                <div>
+                  <h3 className="svc__label"><Icon name="i-check" /> What happens</h3>
+                  <ul className="svc__list">
+                    {phase.happens.map((item) => (
+                      <li key={item}><Icon name="i-check" /><span>{item}</span></li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="svc__label"><Icon name="i-doc" /> At the end</h3>
+                  <dl className="eng__spec">
+                    {phase.spec.map((row) => (
+                      <div key={row.term}><dt>{row.term}</dt><dd>{row.def}</dd></div>
+                    ))}
+                  </dl>
+                  <p className="svc__note">{phase.note}</p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    ),
+    ceremonies: (
+      <section className="section section--tint" id="ceremonies" data-od-id="ceremonies">
+        <div className="shell">
+          <SectionHead
+            eyebrowIcon="i-clock"
+            eyebrow="Working rhythm"
+            title="What a week looks like."
+            lead="Four habits that make a build predictable. None of them require a project manager to relay messages."
+          />
+          <div className="rules" data-reveal>
+            {rhythm.map((rule) => (
+              <div className="rule" key={rule.num}>
+                <div className="rule__id"><Icon name={rule.icon} /><span className="mono">{rule.num}</span></div>
+                <h3 className="h4">{rule.title}</h3>
+                <p>{rule.body}</p>
+              </div>
             ))}
           </div>
-        </section>
-
-        <section className="section section--tint" id="ceremonies" data-od-id="ceremonies">
-          <div className="shell">
-            <SectionHead
-              eyebrowIcon="i-clock"
-              eyebrow="Working rhythm"
-              title="What a week looks like."
-              lead="Four habits that make a build predictable. None of them require a project manager to relay messages."
-            />
-            <div className="rules" data-reveal>
-              {rhythm.map((rule) => (
-                <div className="rule" key={rule.num}>
-                  <div className="rule__id"><Icon name={rule.icon} /><span className="mono">{rule.num}</span></div>
-                  <h3 className="h4">{rule.title}</h3>
-                  <p>{rule.body}</p>
-                </div>
-              ))}
+        </div>
+      </section>
+    ),
+    'after-launch': (
+      <section className="section" id="after-launch" data-od-id="after-launch">
+        <div className="shell">
+          <div className="split">
+            <div data-reveal>
+              <p className="eyebrow eyebrow--i" style={css({ marginBottom: '20px' })}><Icon name="i-pulse" /> After launch</p>
+              <h2 className="h2" style={css({ marginBottom: '22px' })}>The first month decides the review.</h2>
+              <p className="body" style={css({ marginBottom: '16px' })}>Every build includes thirty days of support: fixes at no cost, a monitored production environment, and someone who answers when the pager goes off.</p>
+              <p className="body">After that, most clients choose between a light monthly retainer for iteration and evaluation, or the handover pack and their own team. Both are normal endings, and we plan for either from the start.</p>
+            </div>
+            <div className="contact-card" data-reveal style={css({ '--d': '.08s' })}>
+              <div className="card-head">
+                <span className="tile tile--sm"><Icon name="i-key" /></span>
+                <h2 className="h2 card-head__title">The handover pack</h2>
+              </div>
+              <ul className="speclist speclist--tight" style={css({ borderTop: '0' })}>
+                {handoverPack.map((item) => (
+                  <li key={item.text}><Icon name={item.icon} /><span>{item.text}</span></li>
+                ))}
+              </ul>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
+    ),
+  };
 
-        <section className="section" id="after-launch" data-od-id="after-launch">
-          <div className="shell">
-            <div className="split">
-              <div data-reveal>
-                <p className="eyebrow eyebrow--i" style={css({ marginBottom: '20px' })}><Icon name="i-pulse" /> After launch</p>
-                <h2 className="h2" style={css({ marginBottom: '22px' })}>The first month decides the review.</h2>
-                <p className="body" style={css({ marginBottom: '16px' })}>Every build includes thirty days of support: fixes at no cost, a monitored production environment, and someone who answers when the pager goes off.</p>
-                <p className="body">After that, most clients choose between a light monthly retainer for iteration and evaluation, or the handover pack and their own team. Both are normal endings, and we plan for either from the start.</p>
-              </div>
-              <div className="contact-card" data-reveal style={css({ '--d': '.08s' })}>
-                <div className="card-head">
-                  <span className="tile tile--sm"><Icon name="i-key" /></span>
-                  <h2 className="h2 card-head__title">The handover pack</h2>
-                </div>
-                <ul className="speclist speclist--tight" style={css({ borderTop: '0' })}>
-                  {handoverPack.map((item) => (
-                    <li key={item.text}><Icon name={item.icon} /><span>{item.text}</span></li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-    </>
+  return (
+    <main id="main">
+      <SectionSlots route="/process" nodes={sections} />
+    </main>
   );
 }

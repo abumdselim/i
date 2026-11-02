@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Icon } from '@/components/Icon';
 import type { IconName } from '@/components/icons';
 import { SectionHead } from '@/components/sections/Blocks';
+import { SectionSlots } from '@/components/sections/SectionSlots';
 import { css } from '@/lib/css';
 
 /**
@@ -128,142 +129,149 @@ const RULES: Rule[] = [
 ];
 
 export function ApproachBody() {
-  return (
-    <>
-      <main id="main">
-
-        <section className="page-head" data-od-id="page-head" aria-labelledby="approach-title">
-          <div className="shell">
-            <div className="page-head__grid">
-              <div>
-                <div className="page-head__mark"><Icon name="i-compass" /></div>
-                <p className="eyebrow eyebrow--i" data-reveal><Icon name="i-compass" /> Approach</p>
-                <h1 className="display" id="approach-title" data-reveal style={css({ '--d': '.05s' })}>How we decide what to build.</h1>
-              </div>
-              <div data-reveal style={css({ '--d': '.1s' })}>
-                <p className="lead">Most software is lost before it is written: the wrong problem, the wrong boundary, a data model that cannot carry the business as it grows. We spend the first phase on those decisions, and we write them down.</p>
-              </div>
+  const sections = {
+    head: (
+      <section className="page-head" data-od-id="page-head" aria-labelledby="approach-title">
+        <div className="shell">
+          <div className="page-head__grid">
+            <div>
+              <div className="page-head__mark"><Icon name="i-compass" /></div>
+              <p className="eyebrow eyebrow--i" data-reveal><Icon name="i-compass" /> Approach</p>
+              <h1 className="display" id="approach-title" data-reveal style={css({ '--d': '.05s' })}>How we decide what to build.</h1>
             </div>
-            <nav className="page-index" aria-label="On this page">
-              <span className="page-index__label mono">On this page</span>
-              <ul>
-                {PAGE_INDEX.map((item) => (
-                  <li key={item.href}><a href={item.href}><Icon name={item.icon} />{item.label}</a></li>
+            <div data-reveal style={css({ '--d': '.1s' })}>
+              <p className="lead">Most software is lost before it is written: the wrong problem, the wrong boundary, a data model that cannot carry the business as it grows. We spend the first phase on those decisions, and we write them down.</p>
+            </div>
+          </div>
+          <nav className="page-index" aria-label="On this page">
+            <span className="page-index__label mono">On this page</span>
+            <ul>
+              {PAGE_INDEX.map((item) => (
+                <li key={item.href}><a href={item.href}><Icon name={item.icon} />{item.label}</a></li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+      </section>
+    ),
+    system: (
+      <section className="section" id="system" data-od-id="system">
+        <div className="shell">
+          <div className="split">
+            <div data-reveal>
+              <p className="eyebrow eyebrow--i" style={css({ marginBottom: '20px' })}><Icon name="i-compass" /> The system comes first</p>
+              <h2 className="h2" style={css({ marginBottom: '22px' })}>Architecture is a business decision.</h2>
+              <p className="body" style={css({ marginBottom: '16px' })}>A system is a set of agreements: what a customer is, what an order means, which record wins when two disagree, who is allowed to reverse a decision. Those agreements outlive every framework we might choose. When they are wrong, no amount of clean code rescues the product.</p>
+              <p className="body" style={css({ marginBottom: '16px' })}>So we ask uncomfortable questions early. What happens when the payment provider is unavailable for an hour? What does the warehouse team do when the stock count is wrong? Who reviews an automated decision, and what do they see on screen? A build that skips these questions does not avoid them. It postpones them to a worse moment, usually the week after launch.</p>
+              <p className="body">The output of that work is short and unglamorous: a written architecture, a scope, a list of risks and a number. You can take it to another team, or to your board, without asking our permission.</p>
+            </div>
+            <div className="contact-card" data-reveal style={css({ '--d': '.08s' })}>
+              <div className="card-head">
+                <span className="tile tile--sm"><Icon name="i-check" /></span>
+                <h2 className="h2 card-head__title">What we look for before we start</h2>
+              </div>
+              <ul className="speclist speclist--tight" style={css({ borderTop: '0' })}>
+                {LOOK_FOR.map((item) => (
+                  <li key={item.text}><Icon name={item.icon} /><span>{item.text}</span></li>
                 ))}
               </ul>
-            </nav>
+              <p style={css({ marginTop: '22px' })}><Link className="linkarrow" href="/contact">Talk to us about yours
+                <Icon name="i-arrow" /></Link></p>
+            </div>
           </div>
-        </section>
+        </div>
+      </section>
+    ),
+    fit: (
+      <section className="section section--tint" id="fit" data-od-id="fit">
+        <div className="shell">
+          <SectionHead
+            eyebrowIcon="i-target"
+            eyebrow="Fit"
+            title="Where a model helps, and where it gets in the way."
+            lead="We are specific about this because most disappointing projects come from applying the technology to a problem it cannot hold: no sample data, no way to score the output, no reviewer in the loop."
+          />
 
-        <section className="section" id="system" data-od-id="system">
-          <div className="shell">
-            <div className="split">
-              <div data-reveal>
-                <p className="eyebrow eyebrow--i" style={css({ marginBottom: '20px' })}><Icon name="i-compass" /> The system comes first</p>
-                <h2 className="h2" style={css({ marginBottom: '22px' })}>Architecture is a business decision.</h2>
-                <p className="body" style={css({ marginBottom: '16px' })}>A system is a set of agreements: what a customer is, what an order means, which record wins when two disagree, who is allowed to reverse a decision. Those agreements outlive every framework we might choose. When they are wrong, no amount of clean code rescues the product.</p>
-                <p className="body" style={css({ marginBottom: '16px' })}>So we ask uncomfortable questions early. What happens when the payment provider is unavailable for an hour? What does the warehouse team do when the stock count is wrong? Who reviews an automated decision, and what do they see on screen? A build that skips these questions does not avoid them. It postpones them to a worse moment, usually the week after launch.</p>
-                <p className="body">The output of that work is short and unglamorous: a written architecture, a scope, a list of risks and a number. You can take it to another team, or to your board, without asking our permission.</p>
+          <div className="fit">
+            {FIT_COLUMNS.map((column) => (
+              <div
+                className={column.muted ? 'fit__col fit__col--muted' : 'fit__col'}
+                data-reveal
+                style={column.delay ? css({ '--d': column.delay }) : undefined}
+                key={column.title}
+              >
+                <h3 className="fit__title"><span className={column.hollow ? 'dot-mark dot-mark--hollow' : 'dot-mark'} aria-hidden="true"></span>{column.title}</h3>
+                <dl className="fit__list">
+                  {column.entries.map((entry) => (
+                    <div key={entry.term}>
+                      <dt><Icon name={entry.icon} />{entry.term}</dt>
+                      <dd>{entry.body}</dd>
+                    </div>
+                  ))}
+                </dl>
               </div>
-              <div className="contact-card" data-reveal style={css({ '--d': '.08s' })}>
-                <div className="card-head">
-                  <span className="tile tile--sm"><Icon name="i-check" /></span>
-                  <h2 className="h2 card-head__title">What we look for before we start</h2>
-                </div>
-                <ul className="speclist speclist--tight" style={css({ borderTop: '0' })}>
-                  {LOOK_FOR.map((item) => (
-                    <li key={item.text}><Icon name={item.icon} /><span>{item.text}</span></li>
+            ))}
+          </div>
+        </div>
+      </section>
+    ),
+    layers: (
+      <section className="section ink-block" id="layers" data-od-id="layers" aria-labelledby="layers-title">
+        <div className="shell">
+          <div className="sec-head" style={css({ marginBottom: 'clamp(32px,4vw,52px)' })}>
+            <div>
+              <p className="eyebrow eyebrow--i" data-reveal><Icon name="i-layers" /> Three layers</p>
+              <h2 className="h2" id="layers-title" data-reveal style={css({ '--d': '.05s' })}>Designed together, or not at all.</h2>
+            </div>
+            <div className="sec-head__aside" data-reveal style={css({ '--d': '.1s' })}>
+              <p className="lead">A working system needs all three. Most projects build one and hope the others follow.</p>
+            </div>
+          </div>
+
+          <div className="layers">
+            {LAYERS.map((layer) => (
+              <div className="layer-card" data-reveal style={layer.delay ? css({ '--d': layer.delay }) : undefined} key={layer.num}>
+                <div className="layer-card__top"><span className="mono">{layer.num}</span><i className={layer.mark} aria-hidden="true"></i></div>
+                <h3 className="h3">{layer.title}</h3>
+                <p>{layer.body}</p>
+                <ul className="layer-card__list">
+                  {layer.points.map((point) => (
+                    <li key={point}>{point}</li>
                   ))}
                 </ul>
-                <p style={css({ marginTop: '22px' })}><Link className="linkarrow" href="/contact">Talk to us about yours
-                  <Icon name="i-arrow" /></Link></p>
               </div>
-            </div>
+            ))}
           </div>
-        </section>
+        </div>
+      </section>
+    ),
+    rules: (
+      <section className="section" id="rules" data-od-id="rules">
+        <div className="shell">
+          <SectionHead
+            eyebrowIcon="i-flag"
+            eyebrow="Rules"
+            title="Five rules we apply to every build."
+            lead="These are working constraints, not values on a wall. They decide what gets built, what gets cut and when we say no."
+          />
 
-        <section className="section section--tint" id="fit" data-od-id="fit">
-          <div className="shell">
-            <SectionHead
-              eyebrowIcon="i-target"
-              eyebrow="Fit"
-              title="Where a model helps, and where it gets in the way."
-              lead="We are specific about this because most disappointing projects come from applying the technology to a problem it cannot hold: no sample data, no way to score the output, no reviewer in the loop."
-            />
-
-            <div className="fit">
-              {FIT_COLUMNS.map((column) => (
-                <div
-                  className={column.muted ? 'fit__col fit__col--muted' : 'fit__col'}
-                  data-reveal
-                  style={column.delay ? css({ '--d': column.delay }) : undefined}
-                  key={column.title}
-                >
-                  <h3 className="fit__title"><span className={column.hollow ? 'dot-mark dot-mark--hollow' : 'dot-mark'} aria-hidden="true"></span>{column.title}</h3>
-                  <dl className="fit__list">
-                    {column.entries.map((entry) => (
-                      <div key={entry.term}>
-                        <dt><Icon name={entry.icon} />{entry.term}</dt>
-                        <dd>{entry.body}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="section ink-block" id="layers" data-od-id="layers" aria-labelledby="layers-title">
-          <div className="shell">
-            <div className="sec-head" style={css({ marginBottom: 'clamp(32px,4vw,52px)' })}>
-              <div>
-                <p className="eyebrow eyebrow--i" data-reveal><Icon name="i-layers" /> Three layers</p>
-                <h2 className="h2" id="layers-title" data-reveal style={css({ '--d': '.05s' })}>Designed together, or not at all.</h2>
+          <div className="rules" data-reveal>
+            {RULES.map((rule) => (
+              <div className="rule" key={rule.num}>
+                <div className="rule__id"><Icon name={rule.icon} /><span className="mono">{rule.num}</span></div>
+                <h3 className="h4">{rule.title}</h3>
+                <p>{rule.body}</p>
               </div>
-              <div className="sec-head__aside" data-reveal style={css({ '--d': '.1s' })}>
-                <p className="lead">A working system needs all three. Most projects build one and hope the others follow.</p>
-              </div>
-            </div>
-
-            <div className="layers">
-              {LAYERS.map((layer) => (
-                <div className="layer-card" data-reveal style={layer.delay ? css({ '--d': layer.delay }) : undefined} key={layer.num}>
-                  <div className="layer-card__top"><span className="mono">{layer.num}</span><i className={layer.mark} aria-hidden="true"></i></div>
-                  <h3 className="h3">{layer.title}</h3>
-                  <p>{layer.body}</p>
-                  <ul className="layer-card__list">
-                    {layer.points.map((point) => (
-                      <li key={point}>{point}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
+            ))}
           </div>
-        </section>
+        </div>
+      </section>
+    ),
+  };
 
-        <section className="section" id="rules" data-od-id="rules">
-          <div className="shell">
-            <SectionHead
-              eyebrowIcon="i-flag"
-              eyebrow="Rules"
-              title="Five rules we apply to every build."
-              lead="These are working constraints, not values on a wall. They decide what gets built, what gets cut and when we say no."
-            />
-
-            <div className="rules" data-reveal>
-              {RULES.map((rule) => (
-                <div className="rule" key={rule.num}>
-                  <div className="rule__id"><Icon name={rule.icon} /><span className="mono">{rule.num}</span></div>
-                  <h3 className="h4">{rule.title}</h3>
-                  <p>{rule.body}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      </main>
-    </>
+  return (
+    <main id="main">
+      <SectionSlots route="/approach" nodes={sections} />
+    </main>
   );
 }

@@ -1,4 +1,4 @@
-import { SiteCta } from '@/components/SiteCta';
+import { SiteCtaSlot } from '@/components/SiteCtaSlot';
 import { EngagementsBody } from '@/components/pages/engagements';
 import { metadataFor } from '@/lib/pages';
 
@@ -8,7 +8,7 @@ export default function EngagementsPage() {
   return (
     <>
       <EngagementsBody />
-      <SiteCta />
+      <SiteCtaSlot route="/engagements" />
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { SiteCta } from '@/components/SiteCta';
+import { SiteCtaSlot } from '@/components/SiteCtaSlot';
 import { AboutBody } from '@/components/pages/about';
 import { metadataFor } from '@/lib/pages';
 
@@ -8,7 +8,7 @@ export default function AboutPage() {
   return (
     <>
       <AboutBody />
-      <SiteCta />
+      <SiteCtaSlot route="/about" />
     </>
   );
 }

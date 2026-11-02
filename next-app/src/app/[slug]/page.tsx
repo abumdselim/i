@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { CapabilityPage } from '@/components/pages/CapabilityPage';
 import { ProductPage } from '@/components/pages/ProductPage';
-import { SiteCta } from '@/components/SiteCta';
+import { SiteCtaSlot } from '@/components/SiteCtaSlot';
 import { TEMPLATED_SLUGS, isCapability, isProduct } from '@/lib/content';
 import { getPage, metadataFor } from '@/lib/pages';
 
@@ -34,7 +34,7 @@ export default async function TemplatedPage({ params }: { params: Promise<{ slug
         <main id="main">
           <CapabilityPage slug={slug} />
         </main>
-        <SiteCta />
+        <SiteCtaSlot route={`/${slug}`} />
       </>
     );
   }
@@ -45,7 +45,7 @@ export default async function TemplatedPage({ params }: { params: Promise<{ slug
         <main id="main">
           <ProductPage slug={slug} />
         </main>
-        <SiteCta />
+        <SiteCtaSlot route={`/${slug}`} />
       </>
     );
   }

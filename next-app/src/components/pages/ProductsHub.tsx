@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Icon } from '@/components/Icon';
+import { SectionSlots } from '@/components/sections/SectionSlots';
 import { PRODUCTS } from '@/lib/content';
 import { css } from '@/lib/css';
 
@@ -9,8 +10,8 @@ import { css } from '@/lib/css';
  * other.
  */
 export function ProductsHub() {
-  return (
-    <main id="main">
+  const sections = {
+    head: (
       <section className="page-head" data-od-id="page-head" aria-labelledby="prods-title">
         <div className="shell">
           <div className="page-head__grid">
@@ -34,7 +35,8 @@ export function ProductsHub() {
           </div>
         </div>
       </section>
-
+    ),
+    cards: (
       <section className="section">
         <div className="shell">
           <div className="prods">
@@ -75,7 +77,8 @@ export function ProductsHub() {
           </div>
         </div>
       </section>
-
+    ),
+    standard: (
       <section className="section">
         <div className="shell">
           <div className="split">
@@ -127,6 +130,12 @@ export function ProductsHub() {
           </div>
         </div>
       </section>
+    ),
+  };
+
+  return (
+    <main id="main">
+      <SectionSlots route="/products" nodes={sections} />
     </main>
   );
 }

@@ -1,0 +1,842 @@
+[
+  {
+    "page": "/",
+    "id": "hero",
+    "title": "Hero",
+    "kind": "hero",
+    "mount": "body",
+    "locked": true
+  },
+  {
+    "page": "/",
+    "id": "capabilities",
+    "title": "Capabilities",
+    "kind": "grid",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/",
+    "id": "intelligence",
+    "title": "Where intelligence belongs",
+    "kind": "content",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/",
+    "id": "products",
+    "title": "Products",
+    "kind": "grid",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/",
+    "id": "industries",
+    "title": "Industries",
+    "kind": "grid",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/",
+    "id": "stack",
+    "title": "Stack",
+    "kind": "grid",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/",
+    "id": "process",
+    "title": "Process",
+    "kind": "list",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/",
+    "id": "engagements",
+    "title": "Engagements",
+    "kind": "grid",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/",
+    "id": "cta",
+    "title": "Closing call to action",
+    "kind": "cta",
+    "mount": "shell",
+    "locked": true
+  },
+  {
+    "page": "/services",
+    "id": "head",
+    "title": "Page head",
+    "kind": "head",
+    "mount": "body",
+    "locked": true
+  },
+  {
+    "page": "/services",
+    "id": "disciplines",
+    "title": "Disciplines",
+    "kind": "grid",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/services",
+    "id": "combinations",
+    "title": "Combinations",
+    "kind": "list",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/services",
+    "id": "cta",
+    "title": "Closing call to action",
+    "kind": "cta",
+    "mount": "shell",
+    "locked": true
+  },
+  {
+    "page": "/approach",
+    "id": "head",
+    "title": "Page head",
+    "kind": "head",
+    "mount": "body",
+    "locked": true
+  },
+  {
+    "page": "/approach",
+    "id": "system",
+    "title": "The system comes first",
+    "kind": "content",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/approach",
+    "id": "fit",
+    "title": "Fit",
+    "kind": "grid",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/approach",
+    "id": "layers",
+    "title": "Three layers",
+    "kind": "grid",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/approach",
+    "id": "rules",
+    "title": "Rules",
+    "kind": "list",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/approach",
+    "id": "cta",
+    "title": "Closing call to action",
+    "kind": "cta",
+    "mount": "shell",
+    "locked": true
+  },
+  {
+    "page": "/engagements",
+    "id": "head",
+    "title": "Page head",
+    "kind": "head",
+    "mount": "body",
+    "locked": true
+  },
+  {
+    "page": "/engagements",
+    "id": "models",
+    "title": "Models",
+    "kind": "list",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/engagements",
+    "id": "pricing",
+    "title": "Pricing",
+    "kind": "list",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/engagements",
+    "id": "expectations",
+    "title": "Expectations",
+    "kind": "content",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/engagements",
+    "id": "faq",
+    "title": "Questions",
+    "kind": "faq",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/engagements",
+    "id": "cta",
+    "title": "Closing call to action",
+    "kind": "cta",
+    "mount": "shell",
+    "locked": true
+  },
+  {
+    "page": "/process",
+    "id": "head",
+    "title": "Page head",
+    "kind": "head",
+    "mount": "body",
+    "locked": true
+  },
+  {
+    "page": "/process",
+    "id": "phases",
+    "title": "Phases",
+    "kind": "list",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/process",
+    "id": "ceremonies",
+    "title": "Working rhythm",
+    "kind": "list",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/process",
+    "id": "after-launch",
+    "title": "After launch",
+    "kind": "content",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/process",
+    "id": "cta",
+    "title": "Closing call to action",
+    "kind": "cta",
+    "mount": "shell",
+    "locked": true
+  },
+  {
+    "page": "/about",
+    "id": "head",
+    "title": "Page head",
+    "kind": "head",
+    "mount": "body",
+    "locked": true
+  },
+  {
+    "page": "/about",
+    "id": "why",
+    "title": "Why we work this way",
+    "kind": "content",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/about",
+    "id": "principles",
+    "title": "Principles",
+    "kind": "grid",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/about",
+    "id": "boundaries",
+    "title": "Boundaries and working together",
+    "kind": "content",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/about",
+    "id": "cta",
+    "title": "Closing call to action",
+    "kind": "cta",
+    "mount": "shell",
+    "locked": true
+  },
+  {
+    "page": "/404",
+    "id": "head",
+    "title": "Error message",
+    "kind": "head",
+    "mount": "body",
+    "locked": true
+  },
+  {
+    "page": "/404",
+    "id": "cta",
+    "title": "Closing call to action",
+    "kind": "cta",
+    "mount": "shell",
+    "locked": true
+  },
+  {
+    "page": "/contact",
+    "id": "head",
+    "title": "Page head",
+    "kind": "head",
+    "mount": "body",
+    "locked": true
+  },
+  {
+    "page": "/contact",
+    "id": "brief",
+    "title": "Brief form",
+    "kind": "content",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/contact",
+    "id": "faq",
+    "title": "Questions",
+    "kind": "faq",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/contact",
+    "id": "cta",
+    "title": "Closing call to action",
+    "kind": "cta",
+    "mount": "shell",
+    "locked": true
+  },
+  {
+    "page": "/products",
+    "id": "head",
+    "title": "Page head",
+    "kind": "head",
+    "mount": "body",
+    "locked": true
+  },
+  {
+    "page": "/products",
+    "id": "cards",
+    "title": "Product cards",
+    "kind": "grid",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/products",
+    "id": "standard",
+    "title": "One standard",
+    "kind": "content",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/products",
+    "id": "cta",
+    "title": "Closing call to action",
+    "kind": "cta",
+    "mount": "shell",
+    "locked": true
+  },
+  {
+    "page": "/custom-software",
+    "id": "head",
+    "title": "Page head",
+    "kind": "head",
+    "mount": "body",
+    "locked": true
+  },
+  {
+    "page": "/custom-software",
+    "id": "problem",
+    "title": "The problem",
+    "kind": "content",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/custom-software",
+    "id": "deliverables",
+    "title": "Deliverables",
+    "kind": "grid",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/custom-software",
+    "id": "approach",
+    "title": "Approach",
+    "kind": "content",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/custom-software",
+    "id": "related",
+    "title": "Related",
+    "kind": "list",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/custom-software",
+    "id": "cta",
+    "title": "Closing call to action",
+    "kind": "cta",
+    "mount": "shell",
+    "locked": true
+  },
+  {
+    "page": "/ecommerce",
+    "id": "head",
+    "title": "Page head",
+    "kind": "head",
+    "mount": "body",
+    "locked": true
+  },
+  {
+    "page": "/ecommerce",
+    "id": "problem",
+    "title": "The problem",
+    "kind": "content",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/ecommerce",
+    "id": "deliverables",
+    "title": "Deliverables",
+    "kind": "grid",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/ecommerce",
+    "id": "approach",
+    "title": "Approach",
+    "kind": "content",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/ecommerce",
+    "id": "related",
+    "title": "Related",
+    "kind": "list",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/ecommerce",
+    "id": "cta",
+    "title": "Closing call to action",
+    "kind": "cta",
+    "mount": "shell",
+    "locked": true
+  },
+  {
+    "page": "/erp",
+    "id": "head",
+    "title": "Page head",
+    "kind": "head",
+    "mount": "body",
+    "locked": true
+  },
+  {
+    "page": "/erp",
+    "id": "problem",
+    "title": "The problem",
+    "kind": "content",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/erp",
+    "id": "deliverables",
+    "title": "Deliverables",
+    "kind": "grid",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/erp",
+    "id": "approach",
+    "title": "Approach",
+    "kind": "content",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/erp",
+    "id": "related",
+    "title": "Related",
+    "kind": "list",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/erp",
+    "id": "cta",
+    "title": "Closing call to action",
+    "kind": "cta",
+    "mount": "shell",
+    "locked": true
+  },
+  {
+    "page": "/web-platforms",
+    "id": "head",
+    "title": "Page head",
+    "kind": "head",
+    "mount": "body",
+    "locked": true
+  },
+  {
+    "page": "/web-platforms",
+    "id": "problem",
+    "title": "The problem",
+    "kind": "content",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/web-platforms",
+    "id": "deliverables",
+    "title": "Deliverables",
+    "kind": "grid",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/web-platforms",
+    "id": "approach",
+    "title": "Approach",
+    "kind": "content",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/web-platforms",
+    "id": "related",
+    "title": "Related",
+    "kind": "list",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/web-platforms",
+    "id": "cta",
+    "title": "Closing call to action",
+    "kind": "cta",
+    "mount": "shell",
+    "locked": true
+  },
+  {
+    "page": "/mobile-apps",
+    "id": "head",
+    "title": "Page head",
+    "kind": "head",
+    "mount": "body",
+    "locked": true
+  },
+  {
+    "page": "/mobile-apps",
+    "id": "problem",
+    "title": "The problem",
+    "kind": "content",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/mobile-apps",
+    "id": "deliverables",
+    "title": "Deliverables",
+    "kind": "grid",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/mobile-apps",
+    "id": "approach",
+    "title": "Approach",
+    "kind": "content",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/mobile-apps",
+    "id": "related",
+    "title": "Related",
+    "kind": "list",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/mobile-apps",
+    "id": "cta",
+    "title": "Closing call to action",
+    "kind": "cta",
+    "mount": "shell",
+    "locked": true
+  },
+  {
+    "page": "/automation",
+    "id": "head",
+    "title": "Page head",
+    "kind": "head",
+    "mount": "body",
+    "locked": true
+  },
+  {
+    "page": "/automation",
+    "id": "problem",
+    "title": "The problem",
+    "kind": "content",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/automation",
+    "id": "deliverables",
+    "title": "Deliverables",
+    "kind": "grid",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/automation",
+    "id": "approach",
+    "title": "Approach",
+    "kind": "content",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/automation",
+    "id": "related",
+    "title": "Related",
+    "kind": "list",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/automation",
+    "id": "cta",
+    "title": "Closing call to action",
+    "kind": "cta",
+    "mount": "shell",
+    "locked": true
+  },
+  {
+    "page": "/shamlai",
+    "id": "head",
+    "title": "Page head",
+    "kind": "head",
+    "mount": "body",
+    "locked": true
+  },
+  {
+    "page": "/shamlai",
+    "id": "problem",
+    "title": "The problem",
+    "kind": "content",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/shamlai",
+    "id": "capability",
+    "title": "What it does",
+    "kind": "grid",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/shamlai",
+    "id": "engineering",
+    "title": "Engineering",
+    "kind": "content",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/shamlai",
+    "id": "related",
+    "title": "More products",
+    "kind": "list",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/shamlai",
+    "id": "cta",
+    "title": "Closing call to action",
+    "kind": "cta",
+    "mount": "shell",
+    "locked": true
+  },
+  {
+    "page": "/pharmasys",
+    "id": "head",
+    "title": "Page head",
+    "kind": "head",
+    "mount": "body",
+    "locked": true
+  },
+  {
+    "page": "/pharmasys",
+    "id": "problem",
+    "title": "The problem",
+    "kind": "content",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/pharmasys",
+    "id": "capability",
+    "title": "What it does",
+    "kind": "grid",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/pharmasys",
+    "id": "engineering",
+    "title": "Engineering",
+    "kind": "content",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/pharmasys",
+    "id": "related",
+    "title": "More products",
+    "kind": "list",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/pharmasys",
+    "id": "cta",
+    "title": "Closing call to action",
+    "kind": "cta",
+    "mount": "shell",
+    "locked": true
+  },
+  {
+    "page": "/pdfing-pro",
+    "id": "head",
+    "title": "Page head",
+    "kind": "head",
+    "mount": "body",
+    "locked": true
+  },
+  {
+    "page": "/pdfing-pro",
+    "id": "problem",
+    "title": "The problem",
+    "kind": "content",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/pdfing-pro",
+    "id": "capability",
+    "title": "What it does",
+    "kind": "grid",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/pdfing-pro",
+    "id": "engineering",
+    "title": "Engineering",
+    "kind": "content",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/pdfing-pro",
+    "id": "related",
+    "title": "More products",
+    "kind": "list",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/pdfing-pro",
+    "id": "cta",
+    "title": "Closing call to action",
+    "kind": "cta",
+    "mount": "shell",
+    "locked": true
+  },
+  {
+    "page": "/icounsel",
+    "id": "head",
+    "title": "Page head",
+    "kind": "head",
+    "mount": "body",
+    "locked": true
+  },
+  {
+    "page": "/icounsel",
+    "id": "problem",
+    "title": "The problem",
+    "kind": "content",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/icounsel",
+    "id": "capability",
+    "title": "What it does",
+    "kind": "grid",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/icounsel",
+    "id": "engineering",
+    "title": "Engineering",
+    "kind": "content",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/icounsel",
+    "id": "related",
+    "title": "More products",
+    "kind": "list",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/icounsel",
+    "id": "cta",
+    "title": "Closing call to action",
+    "kind": "cta",
+    "mount": "shell",
+    "locked": true
+  }
+]

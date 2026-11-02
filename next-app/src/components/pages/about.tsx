@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Icon } from '@/components/Icon';
 import type { IconName } from '@/components/icons';
 import { SectionHead } from '@/components/sections/Blocks';
+import { SectionSlots } from '@/components/sections/SectionSlots';
 import { css } from '@/lib/css';
 
 /**
@@ -70,110 +71,116 @@ const DECLINED: SpecItem[] = [
 const WORKING_TAGS: string[] = ['Fixed-scope discovery', 'Milestone billing', 'Named lead', 'Your accounts'];
 
 export function AboutBody() {
-  return (
-    <>
-      <main id="main">
-
-        <section className="page-head" data-od-id="page-head" aria-labelledby="studio-title">
-          <div className="shell">
-            <div className="page-head__grid">
-              <div>
-                <div className="page-head__mark"><Icon name="i-building" /></div>
-                <p className="eyebrow eyebrow--i" data-reveal><Icon name="i-building" /> Studio</p>
-                <h1 className="display" id="studio-title" data-reveal style={css({ '--d': '.05s' })}>A small studio for systems that matter.</h1>
-              </div>
-              <div data-reveal style={css({ '--d': '.1s' })}>
-                <p className="lead">Intactic is a software engineering studio. We take on a limited number of builds at a time, so the people who scope the work are the people who ship it, and the person who answers your call knows the codebase.</p>
-              </div>
+  const sections = {
+    head: (
+      <section className="page-head" data-od-id="page-head" aria-labelledby="studio-title">
+        <div className="shell">
+          <div className="page-head__grid">
+            <div>
+              <div className="page-head__mark"><Icon name="i-building" /></div>
+              <p className="eyebrow eyebrow--i" data-reveal><Icon name="i-building" /> Studio</p>
+              <h1 className="display" id="studio-title" data-reveal style={css({ '--d': '.05s' })}>A small studio for systems that matter.</h1>
             </div>
-            <nav className="page-index" aria-label="On this page">
-              <span className="page-index__label mono">On this page</span>
-              <ul>
-                {PAGE_INDEX.map((item) => (
-                  <li key={item.href}><a href={item.href}><Icon name={item.icon} />{item.label}</a></li>
+            <div data-reveal style={css({ '--d': '.1s' })}>
+              <p className="lead">Intactic is a software engineering studio. We take on a limited number of builds at a time, so the people who scope the work are the people who ship it, and the person who answers your call knows the codebase.</p>
+            </div>
+          </div>
+          <nav className="page-index" aria-label="On this page">
+            <span className="page-index__label mono">On this page</span>
+            <ul>
+              {PAGE_INDEX.map((item) => (
+                <li key={item.href}><a href={item.href}><Icon name={item.icon} />{item.label}</a></li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+      </section>
+    ),
+    why: (
+      <section className="section" id="why" data-od-id="why">
+        <div className="shell">
+          <div className="split">
+            <div data-reveal>
+              <p className="eyebrow eyebrow--i" style={css({ marginBottom: '20px' })}><Icon name="i-compass" /> Why we work this way</p>
+              <h2 className="h2" style={css({ marginBottom: '22px' })}>Small enough to be accountable.</h2>
+              <p className="body" style={css({ marginBottom: '16px' })}>Large agencies sell a team you meet once and a document you cannot use without them. We have seen how that ends: a system that works, a client who cannot change it, and an invoice that never quite stops.</p>
+              <p className="body" style={css({ marginBottom: '16px' })}>So we stay small and senior. One build per lead, an architecture written before the first line of code, and a handover that leaves your team independent. It limits how quickly we can grow. It is also why clients keep the systems we build.</p>
+              <p className="body">Our work has one thing in common: the software sits close to the money, the stock or the customer record. That is not a place for experiments dressed as products.</p>
+            </div>
+            <div className="contact-card" data-reveal style={css({ '--d': '.08s' })}>
+              <div className="card-head">
+                <span className="tile tile--sm"><Icon name="i-building" /></span>
+                <h2 className="h2 card-head__title">Studio at a glance</h2>
+              </div>
+              <dl className="contact-lines">
+                {GLANCE.map((row) => (
+                  <div key={row.label}><dt><Icon name={row.icon} /><span>{row.label}</span></dt><dd>{row.value}</dd></div>
+                ))}
+              </dl>
+              <p style={css({ marginTop: '22px' })}><Link className="linkarrow" href="/contact">Start a conversation
+                <Icon name="i-arrow" /></Link></p>
+            </div>
+          </div>
+        </div>
+      </section>
+    ),
+    principles: (
+      <section className="section section--tint" id="principles" data-od-id="principles">
+        <div className="shell">
+          <SectionHead
+            eyebrowIcon="i-flag"
+            eyebrow="Principles"
+            title="Four positions we do not trade."
+            lead="These are working rules, not values on a wall. They decide what gets built, what gets cut and when we say no."
+          />
+
+          <div className="principles">
+            {PRINCIPLES.map((principle) => (
+              <div className="principle" data-reveal style={principle.delay ? css({ '--d': principle.delay }) : undefined} key={principle.num}>
+                <div className="principle__id"><Icon name={principle.icon} /><span className="mono">{principle.num}</span></div>
+                <h3 className="h4">{principle.title}</h3>
+                <p>{principle.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    ),
+    boundaries: (
+      <section className="section" id="boundaries" data-od-id="boundaries">
+        <div className="shell">
+          <div className="split">
+            <div data-reveal>
+              <p className="eyebrow eyebrow--i" style={css({ marginBottom: '20px' })}><Icon name="i-ban" /> Boundaries</p>
+              <h2 className="h2" style={css({ marginBottom: '26px' })}>What we don’t do.</h2>
+              <ul className="speclist speclist--no">
+                {DECLINED.map((item) => (
+                  <li key={item.text}><Icon name={item.icon} /><span>{item.text}</span></li>
                 ))}
               </ul>
-            </nav>
-          </div>
-        </section>
-
-        <section className="section" id="why" data-od-id="why">
-          <div className="shell">
-            <div className="split">
-              <div data-reveal>
-                <p className="eyebrow eyebrow--i" style={css({ marginBottom: '20px' })}><Icon name="i-compass" /> Why we work this way</p>
-                <h2 className="h2" style={css({ marginBottom: '22px' })}>Small enough to be accountable.</h2>
-                <p className="body" style={css({ marginBottom: '16px' })}>Large agencies sell a team you meet once and a document you cannot use without them. We have seen how that ends: a system that works, a client who cannot change it, and an invoice that never quite stops.</p>
-                <p className="body" style={css({ marginBottom: '16px' })}>So we stay small and senior. One build per lead, an architecture written before the first line of code, and a handover that leaves your team independent. It limits how quickly we can grow. It is also why clients keep the systems we build.</p>
-                <p className="body">Our work has one thing in common: the software sits close to the money, the stock or the customer record. That is not a place for experiments dressed as products.</p>
+            </div>
+            <div id="working" data-reveal style={css({ '--d': '.08s' })}>
+              <p className="eyebrow eyebrow--i" style={css({ marginBottom: '20px' })}><Icon name="i-link" /> Working together</p>
+              <h2 className="h2" style={css({ marginBottom: '22px' })}>Visible from the first week.</h2>
+              <p className="body" style={css({ marginBottom: '16px' })}>An engagement starts with a short call and a written scope. From there we work in public: a shared repository, a visible board, and working software demoed at the end of every increment. You always know what is built, what is next and what is at risk.</p>
+              <p className="body" style={css({ marginBottom: '26px' })}>We keep the team stable across the engagement. The person who designs the architecture is on the call when it goes to production, and the same people write the handover.</p>
+              <div className="svc__stack" style={css({ marginBottom: '24px' })}>
+                {WORKING_TAGS.map((tag) => (
+                  <span className="tag" key={tag}>{tag}</span>
+                ))}
               </div>
-              <div className="contact-card" data-reveal style={css({ '--d': '.08s' })}>
-                <div className="card-head">
-                  <span className="tile tile--sm"><Icon name="i-building" /></span>
-                  <h2 className="h2 card-head__title">Studio at a glance</h2>
-                </div>
-                <dl className="contact-lines">
-                  {GLANCE.map((row) => (
-                    <div key={row.label}><dt><Icon name={row.icon} /><span>{row.label}</span></dt><dd>{row.value}</dd></div>
-                  ))}
-                </dl>
-                <p style={css({ marginTop: '22px' })}><Link className="linkarrow" href="/contact">Start a conversation
-                  <Icon name="i-arrow" /></Link></p>
-              </div>
+              <Link className="linkarrow" href="/services">See the capabilities
+                <Icon name="i-arrow" /></Link>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
+    ),
+  };
 
-        <section className="section section--tint" id="principles" data-od-id="principles">
-          <div className="shell">
-            <SectionHead
-              eyebrowIcon="i-flag"
-              eyebrow="Principles"
-              title="Four positions we do not trade."
-              lead="These are working rules, not values on a wall. They decide what gets built, what gets cut and when we say no."
-            />
-
-            <div className="principles">
-              {PRINCIPLES.map((principle) => (
-                <div className="principle" data-reveal style={principle.delay ? css({ '--d': principle.delay }) : undefined} key={principle.num}>
-                  <div className="principle__id"><Icon name={principle.icon} /><span className="mono">{principle.num}</span></div>
-                  <h3 className="h4">{principle.title}</h3>
-                  <p>{principle.body}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="section" id="boundaries" data-od-id="boundaries">
-          <div className="shell">
-            <div className="split">
-              <div data-reveal>
-                <p className="eyebrow eyebrow--i" style={css({ marginBottom: '20px' })}><Icon name="i-ban" /> Boundaries</p>
-                <h2 className="h2" style={css({ marginBottom: '26px' })}>What we don’t do.</h2>
-                <ul className="speclist speclist--no">
-                  {DECLINED.map((item) => (
-                    <li key={item.text}><Icon name={item.icon} /><span>{item.text}</span></li>
-                  ))}
-                </ul>
-              </div>
-              <div id="working" data-reveal style={css({ '--d': '.08s' })}>
-                <p className="eyebrow eyebrow--i" style={css({ marginBottom: '20px' })}><Icon name="i-link" /> Working together</p>
-                <h2 className="h2" style={css({ marginBottom: '22px' })}>Visible from the first week.</h2>
-                <p className="body" style={css({ marginBottom: '16px' })}>An engagement starts with a short call and a written scope. From there we work in public: a shared repository, a visible board, and working software demoed at the end of every increment. You always know what is built, what is next and what is at risk.</p>
-                <p className="body" style={css({ marginBottom: '26px' })}>We keep the team stable across the engagement. The person who designs the architecture is on the call when it goes to production, and the same people write the handover.</p>
-                <div className="svc__stack" style={css({ marginBottom: '24px' })}>
-                  {WORKING_TAGS.map((tag) => (
-                    <span className="tag" key={tag}>{tag}</span>
-                  ))}
-                </div>
-                <Link className="linkarrow" href="/services">See the capabilities
-                  <Icon name="i-arrow" /></Link>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-    </>
+  return (
+    <main id="main">
+      <SectionSlots route="/about" nodes={sections} />
+    </main>
   );
 }

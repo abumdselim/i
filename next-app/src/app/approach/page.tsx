@@ -1,4 +1,4 @@
-import { SiteCta } from '@/components/SiteCta';
+import { SiteCtaSlot } from '@/components/SiteCtaSlot';
 import { ApproachBody } from '@/components/pages/approach';
 import { metadataFor } from '@/lib/pages';
 
@@ -8,7 +8,7 @@ export default function ApproachPage() {
   return (
     <>
       <ApproachBody />
-      <SiteCta />
+      <SiteCtaSlot route="/approach" />
     </>
   );
 }

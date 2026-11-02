@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Icon } from '@/components/Icon';
+import { SectionSlots } from '@/components/sections/SectionSlots';
 import { css } from '@/lib/css';
 
 /** The 404 body — one screen, no repeated blocks, so the copy lives in constants. */
@@ -12,37 +13,42 @@ const SERVICES_ACTION = 'See the capabilities';
 
 export function NotFoundBody() {
   return (
-    <>
-      <main id="main">
-        <section className="section" data-od-id="not-found">
-          <div className="shell">
-            <div style={css({ maxWidth: '620px' })}>
-              <div className="page-head__mark">
-                <Icon name="i-search" />
+    <main id="main">
+      <SectionSlots
+        route="/404"
+        nodes={{
+          head: (
+            <section className="section" data-od-id="not-found">
+              <div className="shell">
+                <div style={css({ maxWidth: '620px' })}>
+                  <div className="page-head__mark">
+                    <Icon name="i-search" />
+                  </div>
+                  <p className="eyebrow eyebrow--i" data-reveal>
+                    <Icon name="i-search" /> {EYEBROW}
+                  </p>
+                  <h1 className="display" data-reveal style={css({ '--d': '.05s', marginTop: '22px' })}>
+                    {TITLE}
+                  </h1>
+                  <p className="lead" data-reveal style={css({ '--d': '.1s', marginTop: '22px' })}>
+                    {LEAD}
+                  </p>
+                  <div className="hero__actions" data-reveal style={css({ '--d': '.15s', marginTop: '32px' })}>
+                    <Link className="btn btn--primary btn--lg" href="/">
+                      {HOME_ACTION}
+                      <Icon name="i-arrow" />
+                    </Link>
+                    <Link className="linkarrow" href="/services">
+                      {SERVICES_ACTION}
+                      <Icon name="i-arrow" />
+                    </Link>
+                  </div>
+                </div>
               </div>
-              <p className="eyebrow eyebrow--i" data-reveal>
-                <Icon name="i-search" /> {EYEBROW}
-              </p>
-              <h1 className="display" data-reveal style={css({ '--d': '.05s', marginTop: '22px' })}>
-                {TITLE}
-              </h1>
-              <p className="lead" data-reveal style={css({ '--d': '.1s', marginTop: '22px' })}>
-                {LEAD}
-              </p>
-              <div className="hero__actions" data-reveal style={css({ '--d': '.15s', marginTop: '32px' })}>
-                <Link className="btn btn--primary btn--lg" href="/">
-                  {HOME_ACTION}
-                  <Icon name="i-arrow" />
-                </Link>
-                <Link className="linkarrow" href="/services">
-                  {SERVICES_ACTION}
-                  <Icon name="i-arrow" />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-    </>
+            </section>
+          ),
+        }}
+      />
+    </main>
   );
 }

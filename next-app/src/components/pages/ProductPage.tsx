@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Icon } from '@/components/Icon';
 import { DeliverableGrid, Panel, RelatedLinks, RulesList, SectionHead, TagList } from '@/components/sections/Blocks';
 import { PageHead } from '@/components/sections/PageHead';
+import { SectionSlots } from '@/components/sections/SectionSlots';
 import { SystemMap } from '@/components/sections/SystemMap';
 import { productBySlug } from '@/lib/content';
 import { css } from '@/lib/css';
@@ -16,8 +17,8 @@ import { css } from '@/lib/css';
 export function ProductPage({ slug }: { slug: string }) {
   const page = productBySlug(slug);
 
-  return (
-    <>
+  const sections = {
+    head: (
       <PageHead
         titleId="prod-title"
         mark={page.icon}
@@ -38,7 +39,8 @@ export function ProductPage({ slug }: { slug: string }) {
           </div>
         }
       />
-
+    ),
+    problem: (
       <section className="section">
         <div className="shell">
           <div className="split">
@@ -59,7 +61,8 @@ export function ProductPage({ slug }: { slug: string }) {
           </div>
         </div>
       </section>
-
+    ),
+    capability: (
       <section className="section section--tint">
         <div className="shell">
           <SectionHead
@@ -71,7 +74,8 @@ export function ProductPage({ slug }: { slug: string }) {
           <DeliverableGrid items={page.items} />
         </div>
       </section>
-
+    ),
+    engineering: (
       <section className="section">
         <div className="shell">
           <SectionHead
@@ -99,7 +103,8 @@ export function ProductPage({ slug }: { slug: string }) {
           </div>
         </div>
       </section>
-
+    ),
+    related: (
       <section className="section section--tint">
         <div className="shell">
           <SectionHead
@@ -111,6 +116,8 @@ export function ProductPage({ slug }: { slug: string }) {
           <RelatedLinks items={page.related} />
         </div>
       </section>
-    </>
-  );
+    ),
+  };
+
+  return <SectionSlots route={`/${slug}`} nodes={sections} />;
 }

@@ -1,6 +1,7 @@
 import { Icon } from '@/components/Icon';
 import type { IconName } from '@/components/icons';
 import { SectionHead } from '@/components/sections/Blocks';
+import { SectionSlots } from '@/components/sections/SectionSlots';
 import { css } from '@/lib/css';
 
 /**
@@ -112,98 +113,104 @@ const PAGE_INDEX: PageIndexLink[] = [
 ];
 
 export function ServicesBody() {
-  return (
-    <>
-      <main id="main">
-        <section className="page-head" data-od-id="page-head" aria-labelledby="cap-title">
-          <div className="shell">
-            <div className="page-head__grid">
-              <div>
-                <div className="page-head__mark">
-                  <Icon name="i-layers" />
-                </div>
-                <p className="eyebrow eyebrow--i" data-reveal>
-                  <Icon name="i-layers" /> Capabilities
-                </p>
-                <h1 className="display" id="cap-title" data-reveal style={css({ '--d': '.05s' })}>
-                  Six disciplines, one standard of work.
-                </h1>
+  const sections = {
+    head: (
+      <section className="page-head" data-od-id="page-head" aria-labelledby="cap-title">
+        <div className="shell">
+          <div className="page-head__grid">
+            <div>
+              <div className="page-head__mark">
+                <Icon name="i-layers" />
               </div>
-              <div data-reveal style={css({ '--d': '.1s' })}>
-                <p className="lead">
-                  Each capability has its own page, because the questions inside them are different. Most engagements
-                  combine two or three, and the seams between them are where the real work sits.
-                </p>
-              </div>
+              <p className="eyebrow eyebrow--i" data-reveal>
+                <Icon name="i-layers" /> Capabilities
+              </p>
+              <h1 className="display" id="cap-title" data-reveal style={css({ '--d': '.05s' })}>
+                Six disciplines, one standard of work.
+              </h1>
             </div>
-            <nav className="page-index" aria-label="On this page">
-              <span className="page-index__label mono">On this page</span>
-              <ul>
-                {PAGE_INDEX.map((link) => (
-                  <li key={link.href}>
-                    <a href={link.href}>
-                      <Icon name={link.icon} />
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
+            <div data-reveal style={css({ '--d': '.1s' })}>
+              <p className="lead">
+                Each capability has its own page, because the questions inside them are different. Most engagements
+                combine two or three, and the seams between them are where the real work sits.
+              </p>
+            </div>
           </div>
-        </section>
-
-        <section className="section" id="disciplines" data-od-id="disciplines">
-          <div className="shell">
-            <div className="caps caps--2" data-reveal>
-              {CAPABILITY_CARDS.map((card) => (
-                <a className="cap cap--lg" href={card.href} key={card.href}>
-                  <div className="cap__top">
-                    <span className="tile">
-                      <Icon name={card.icon} />
-                    </span>
-                    <span className="cap__num">{card.num}</span>
-                  </div>
-                  <h3 className="h3">{card.title}</h3>
-                  <p>{card.body}</p>
-                  <div className="cap__tags">
-                    {card.tags.map((tag) => (
-                      <span className="tag" key={tag}>
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <span className="cap__more">
-                    Read the capability <Icon name="i-arrow" />
+          <nav className="page-index" aria-label="On this page">
+            <span className="page-index__label mono">On this page</span>
+            <ul>
+              {PAGE_INDEX.map((link) => (
+                <li key={link.href}>
+                  <a href={link.href}>
+                    <Icon name={link.icon} />
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+      </section>
+    ),
+    disciplines: (
+      <section className="section" id="disciplines" data-od-id="disciplines">
+        <div className="shell">
+          <div className="caps caps--2" data-reveal>
+            {CAPABILITY_CARDS.map((card) => (
+              <a className="cap cap--lg" href={card.href} key={card.href}>
+                <div className="cap__top">
+                  <span className="tile">
+                    <Icon name={card.icon} />
                   </span>
-                </a>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="section section--tint" id="combinations" data-od-id="combinations">
-          <div className="shell">
-            <SectionHead
-              eyebrowIcon="i-plug"
-              eyebrow="Combinations"
-              title="The seams are where projects fail."
-              lead="Most systems are not one capability but three, joined badly. These are the combinations we are asked for most often."
-            />
-            <div className="rules" data-reveal>
-              {COMBINATION_RULES.map((rule) => (
-                <div className="rule" key={rule.num}>
-                  <div className="rule__id">
-                    <Icon name={rule.icon} />
-                    <span className="mono">{rule.num}</span>
-                  </div>
-                  <h3 className="h4">{rule.title}</h3>
-                  <p>{rule.body}</p>
+                  <span className="cap__num">{card.num}</span>
                 </div>
-              ))}
-            </div>
+                <h3 className="h3">{card.title}</h3>
+                <p>{card.body}</p>
+                <div className="cap__tags">
+                  {card.tags.map((tag) => (
+                    <span className="tag" key={tag}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <span className="cap__more">
+                  Read the capability <Icon name="i-arrow" />
+                </span>
+              </a>
+            ))}
           </div>
-        </section>
-      </main>
-    </>
+        </div>
+      </section>
+    ),
+    combinations: (
+      <section className="section section--tint" id="combinations" data-od-id="combinations">
+        <div className="shell">
+          <SectionHead
+            eyebrowIcon="i-plug"
+            eyebrow="Combinations"
+            title="The seams are where projects fail."
+            lead="Most systems are not one capability but three, joined badly. These are the combinations we are asked for most often."
+          />
+          <div className="rules" data-reveal>
+            {COMBINATION_RULES.map((rule) => (
+              <div className="rule" key={rule.num}>
+                <div className="rule__id">
+                  <Icon name={rule.icon} />
+                  <span className="mono">{rule.num}</span>
+                </div>
+                <h3 className="h4">{rule.title}</h3>
+                <p>{rule.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    ),
+  };
+
+  return (
+    <main id="main">
+      <SectionSlots route="/services" nodes={sections} />
+    </main>
   );
 }

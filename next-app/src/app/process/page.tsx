@@ -1,4 +1,4 @@
-import { SiteCta } from '@/components/SiteCta';
+import { SiteCtaSlot } from '@/components/SiteCtaSlot';
 import { ProcessBody } from '@/components/pages/process';
 import { metadataFor } from '@/lib/pages';
 
@@ -8,7 +8,7 @@ export default function ProcessPage() {
   return (
     <>
       <ProcessBody />
-      <SiteCta />
+      <SiteCtaSlot route="/process" />
     </>
   );
 }

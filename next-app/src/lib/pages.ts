@@ -1,31 +1,18 @@
 import type { Metadata } from 'next';
+import { NAV } from './config';
 import { PAGES, type PageEntry } from './content/pages';
 
 export type { PageEntry, PageKind } from './content/pages';
-export { PAGES };
+export { PAGES, NAV };
+export type { NavItem } from './config';
 
 /**
  * The manifest itself lives in content/pages.ts, beside the capability and
  * product copy. This module is the reading side: lookup by route, the nav
- * mapping, and per-route metadata.
+ * mapping, and per-route metadata. Since admin phase 2 the seven links come
+ * from `data/site-config.json` through `lib/config.ts` — the studio edits them
+ * there, and the header and footer read the same file.
  */
-
-export interface NavItem {
-  label: string;
-  href: string;
-  key: string;
-}
-
-/** The seven primary links, in the order the legacy header() emits them. */
-export const NAV: NavItem[] = [
-  { label: 'Capabilities', href: '/services', key: 'capabilities' },
-  { label: 'Products', href: '/products', key: 'products' },
-  { label: 'Approach', href: '/approach', key: 'approach' },
-  { label: 'Engagements', href: '/engagements', key: 'engagements' },
-  { label: 'Process', href: '/process', key: 'process' },
-  { label: 'Studio', href: '/about', key: 'studio' },
-  { label: 'Contact', href: '/contact', key: 'contact' },
-];
 
 const BY_ROUTE = new Map(PAGES.map((page) => [page.route, page]));
 const NAV_BY_HREF = new Map(NAV.map((item) => [item.href, item.key]));

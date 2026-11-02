@@ -1,4 +1,4 @@
-import { SiteCta } from '@/components/SiteCta';
+import { SiteCtaSlot } from '@/components/SiteCtaSlot';
 import { HomeBody } from '@/components/pages/home';
 import { metadataFor } from '@/lib/pages';
 
@@ -8,7 +8,7 @@ export default function HomePage() {
   return (
     <>
       <HomeBody />
-      <SiteCta />
+      <SiteCtaSlot route="/" />
     </>
   );
 }
