@@ -215,7 +215,9 @@ Without freezing the reference first, retiring `_build/` blinds the parity check
       — done as `APP / 'qa' / 'reference'` (cwd-independent); first run: **19/19, 0 errors**
 - [x] 0.3 Record text hashes + markup signatures in `qa/reference/baseline.json`
 - [x] 0.4 Copy the 114 baseline screenshots into `qa/reference/shots/` (from `qa/legacy/`)
-- [ ] 0.5 commit + `git tag ts-migration-start`
+- [x] 0.5 commit + `git tag ts-migration-start`
+      — `cae65be` (218 files: the port, `qa/reference`, `docs/Go.md`, this log), tag
+      `ts-migration-start`; the pre-port `_build/` and root-page edits stayed out of it
 
 ### Step 1 — content becomes TypeScript (~2–3h)
 

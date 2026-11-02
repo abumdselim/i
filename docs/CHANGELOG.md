@@ -54,8 +54,8 @@ and the re-captured screenshots are byte-identical to the frozen baseline.
 the sync script and the reference freezer all parsed it, so `scripts/manifest.mjs` was added
 instead of leaving a second copy of the routes on disk.
 
-**Not run:** `qa:device` after the change (rendering is unchanged — the pixel diff proves it), and
-step 0.5 is still open.
+**Not run:** `qa:device` after the change (rendering is unchanged — the pixel diff proves it).
+Step 0.5 is included in the same commit, `cae65be`.
 
 ---
 
@@ -90,10 +90,10 @@ Negative test: `Intactic` → `Intactix` in the frozen `index.html` produced two
 (`frozen reference drifted from baseline.json`, `<title> differs`), and the restored file hashes
 to `234835c19179…`, identical to the root file.
 
-**Not done:** 0.5 (commit + `git tag ts-migration-start`), left to the user: the repository
-still carries the uncommitted pre-port changes and an earlier instruction was not to commit.
-`qa:compare` was not re-run — it reads `qa/legacy/` and `qa/port/`, whose paths this step does
-not touch.
+**0.5, same day:** committed as `cae65be` and tagged `ts-migration-start` — 218 files (the port,
+`qa/reference`, `docs/Go.md`, this log). The pre-port edits to `_build/` and the root pages stayed
+uncommitted, as the git warning in §9 of docs/Go.md requires. `qa:compare` was not re-run for this
+step — it reads `qa/legacy/` and `qa/port/`, whose paths step 0 does not touch.
 
 ---
 
