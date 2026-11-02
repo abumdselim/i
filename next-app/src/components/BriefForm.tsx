@@ -36,8 +36,6 @@ export function BriefForm() {
     const data = new FormData(form);
     const get = (key: string) => (data.get(key) || '').toString().trim();
     const subject = 'Project brief — ' + (get('company') || get('name') || 'Intactic enquiry');
-    // Note: `budget` is collected by the form but, as in the legacy app.js,
-    // it is not part of the message. That omission is preserved on purpose.
     const lines = [
       'Name: ' + get('name'),
       'Company: ' + get('company'),
@@ -95,16 +93,6 @@ export function BriefForm() {
           <option>This quarter</option>
           <option>Next quarter</option>
           <option>Just exploring</option>
-        </select>
-      </div>
-      <div className="field">
-        <label htmlFor="f-budget">Budget range</label>
-        <select id="f-budget" name="budget" defaultValue="">
-          <option value="">Prefer not to say</option>
-          <option>Under $10k</option>
-          <option>$10k &ndash; $25k</option>
-          <option>$25k &ndash; $75k</option>
-          <option>$75k+</option>
         </select>
       </div>
       <div className="field field--full">

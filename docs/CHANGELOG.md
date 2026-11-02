@@ -15,6 +15,37 @@ Format:
 
 ---
 
+## 2026-11-03 — The brief form stops asking for a budget
+
+**Why:** The owner's call, and a market one: in Bangladesh — and on first contact anywhere — a
+budget range on a public form is not how the conversation starts. It reads as a foreign template and
+costs the enquiry it was meant to qualify. The field also happened to be the site's one known bug:
+collected, and never sent.
+
+**Changed:**
+- `next-app/src/components/BriefForm.tsx` — the "Budget range" select is gone, with the comment that
+  documented the preserved omission. The mailto body is untouched; it never carried the field.
+- `next-app/qa/reference/` — the contact baseline moved deliberately: `scripts/approve.py` copied
+  the built page over the frozen one, recomputed its digests, copied the six screenshots, and wrote
+  the reason into `baseline.json`'s new `approvals` list.
+- `next-app/scripts/approve.py` — new. The one way a baseline moves, and it demands a note.
+- QA re-pointed at approved imagery instead of a live legacy build: `capture.mjs` photographs the
+  port only, `compare.py` pairs it with `qa/reference/shots`, `device-regress.mjs` diffs against
+  `qa/reference/device-problems.txt`. The reason is structural: a port page cannot stand in for the
+  legacy build — its CSS and JS live at `/_next`, so serving it as the baseline renders it unstyled.
+  That is what the first attempt did, and what the 4734px-tall "legacy" contact page was.
+- `docs/DECISIONS.md` — **D-14**. `docs/Go.md` §7: the budget bug is marked resolved.
+
+**Verified:** the gate caught the intended change precisely — `contact.html: text differs at char
+430 (legacy 2154 vs port 2082)` and `markup differs at element 50 (153 vs 145)` — then passed 19/19
+after approval. Contact against its new baseline: 6 pairs, 0.000%. The full set after the re-point:
+114 pairs, 0 failures. Device delta: 60 accepted problems in the baseline, none new.
+
+**Not changed:** the contact copy ("A short brief is enough… a rough shape of the work and an
+honest answer on fit") is still true; no other page mentions budget.
+
+---
+
 ## 2026-11-02 — Step 5: the export is deployable; the deploy is a decision
 
 **Why:** `out/` had no `robots.txt` and no `sitemap.xml`. The legacy build served both from the

@@ -178,3 +178,26 @@ is kept in `legacy/` as content history and is not read by any build.
 
 **Supersedes:** D-01 (static multi-page site generated from templates) · D-02 (everything inlined:
 CSS, JS, fonts).
+
+---
+
+## D-14 — The brief form does not ask for a budget
+
+**Decision:** The contact form asks for name, email, company, project type, timeline and a brief.
+It does not ask for a budget range.
+
+**Why:** In Bangladesh — the studio's home market — and on first contact anywhere, naming a budget
+before the work is understood is not how the conversation starts. A public form that opens with
+price brackets reads as a foreign template, and it costs the enquiry it was meant to qualify. The
+price conversation belongs after a short discovery, when both sides know the shape of the work.
+
+**What this settles:** the legacy form collected a "Budget range" that never reached the mailto
+body — the one bug the port preserved on purpose. Removing the field resolves it by design instead
+of leaving a control that does nothing.
+
+**Not decided here:** whether to qualify on something else — team size, who signs off, deadline
+pressure. If a qualifier is added later it goes into the form and the mailto builder together, so
+the two cannot drift apart again.
+
+**Enforced by:** `qa/reference/baseline.json` records the approved contact page after the removal,
+with the reason in its `approvals` list; the gate fails if the page drifts back.

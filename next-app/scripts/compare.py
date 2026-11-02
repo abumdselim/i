@@ -1,14 +1,16 @@
-"""Pixel-compare the two builds, route by route, width by width, theme by theme.
+"""Pixel-compare the port against the approved screenshots.
 
-Reads what `scripts/capture.mjs` wrote and answers one question per pair: does the
-ported page render the same pixels as the legacy page? It reports
+`scripts/capture.mjs` photographs the current build; this compares each shot with
+the baseline image of the same route, width and theme in `qa/reference/shots/`.
+That baseline is the site as approved — originally the legacy build, and after an
+intentional change, the build that replaced it (`scripts/approve.py --shots`).
 
-  - size mismatches (a different page height means something structural moved),
-  - the share of pixels that differ beyond a small channel tolerance,
-  - a heatmap per failure, so a real difference can be looked at rather than guessed.
+Per pair it reports a size mismatch (something structural moved), the share of
+pixels past a small channel tolerance, and a heatmap for anything that fails, so a
+difference can be looked at rather than guessed.
 
 Run from next-app/ (after the capture):  python scripts/compare.py
-Exit code 1 means at least one pair is outside tolerance.
+Exit code 1 means at least one pair is outside tolerance, or has no baseline.
 """
 from __future__ import annotations
 
@@ -19,14 +21,16 @@ import sys
 from PIL import Image, ImageChops
 
 OUT = pathlib.Path('qa')
+BASELINE = OUT / 'reference' / 'shots'
 CHANNEL_TOLERANCE = 12      # 0-255; ignores antialiasing and subpixel text noise
 PIXEL_TOLERANCE = 0.0015    # 0.15% of the page may differ before it counts as a failure
 
 if not (OUT / 'capture.json').exists():
     sys.exit('compare: qa/capture.json missing — run scripts/capture.mjs first')
+if not BASELINE.exists():
+    sys.exit('compare: qa/reference/shots missing — the baseline is part of the repository')
 
 shots = json.loads((OUT / 'capture.json').read_text(encoding='utf-8'))
-index = {(s['build'], s['route'], s['viewport'], s['theme']): s for s in shots}
 
 diff_dir = OUT / 'diff'
 diff_dir.mkdir(exist_ok=True)
@@ -35,17 +39,22 @@ rows = []
 failures = 0
 missing = 0
 
-keys = {(s['route'], s['viewport'], s['theme']) for s in shots}
-for route, viewport, theme in sorted(keys):
-    legacy = index.get(('legacy', route, viewport, theme))
-    port = index.get(('port', route, viewport, theme))
-    if not legacy or not port:
+for shot in sorted(shots, key=lambda s: (s['route'], s['viewport'], s['theme'])):
+    route, viewport, theme = shot['route'], shot['viewport'], shot['theme']
+    current_path = pathlib.Path(shot['file'])
+    baseline_path = BASELINE / current_path.name
+
+    if not baseline_path.exists():
+        missing += 1
+        rows.append((route, viewport, theme, 'NO BASELINE', 0.0, None))
+        continue
+    if not current_path.exists():
         missing += 1
         rows.append((route, viewport, theme, 'MISSING', 0.0, None))
         continue
 
-    left = Image.open(legacy['file']).convert('RGB')
-    right = Image.open(port['file']).convert('RGB')
+    left = Image.open(baseline_path).convert('RGB')
+    right = Image.open(current_path).convert('RGB')
 
     if left.size != right.size:
         failures += 1
@@ -71,13 +80,13 @@ for route, viewport, theme in sorted(keys):
     rows.append((route, viewport, theme, status, changed, None))
 
 rows.sort(key=lambda row: (-row[4], row[0]))
-print(f'{"route":<18}{"width":<7}{"theme":<7}{"status":<8}{"changed":>9}')
+print(f'{"route":<18}{"width":<7}{"theme":<7}{"status":<12}{"changed":>9}')
 for route, viewport, theme, status, changed, note in rows:
     extra = f'  {note}' if note else ''
-    print(f'{route:<18}{viewport:<7}{theme:<7}{status:<8}{changed * 100:>8.3f}%{extra}')
+    print(f'{route:<18}{viewport:<7}{theme:<7}{status:<12}{changed * 100:>8.3f}%{extra}')
 
 print()
 print(f'pairs: {len(rows)}  failures: {failures}  missing: {missing}')
 if failures:
     print(f'heatmaps: {diff_dir}')
-sys.exit(1 if failures else 0)
+sys.exit(1 if failures or missing else 0)

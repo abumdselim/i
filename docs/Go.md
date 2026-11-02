@@ -80,7 +80,7 @@ D:\The Intactic Atelier
     │   ├─ parity.py                   the one definition of "same text / same markup"
     │   ├─ gate.py                     parity gate (text + markup signature) — the judge
     │   ├─ capture.mjs / compare.py    visual diff (Playwright + Pillow)
-    │   ├─ device-pass.mjs             device emulation pass (--legacy = baseline)
+    │   ├─ device-pass.mjs             device emulation pass (problems have a baseline file)
     │   └─ manifest.mjs                the typed route manifest, readable by node + gate.py
     ├─ public/                          assets/img/*, _redirects (static since step 2)
     └─ src/
@@ -145,7 +145,7 @@ D:\The Intactic Atelier
 
 | Bug | Where | Why not fixed |
 |---|---|---|
-| The `budget` field never reaches the mailto body | contact | D-10's copy contract stays; fixing it changes the message |
+| ~~The `budget` field never reaches the mailto body~~ | contact | **resolved 2026-11-03** — the field was removed from the brief form (D-14), so there is nothing left to omit |
 | Reduced motion leaves the lattice blank ~0.8s | a dead selector in styles.css (`.js .lat .cell-on`) | a pre-existing defect; would need a design decision |
 | `shamlai` marks Products with `aria-current` | every product page | a legacy quirk, kept for parity |
 | Footer links 18–23px tall (WCAG 2.5.8) | footer | needs a design change; identical on the legacy build |
@@ -159,9 +159,10 @@ Fixing any of these is **a separate decision** — never mixed into a migration 
 |---|---|---|
 | `npm run verify` | sync → build → gate | it builds; on 19 routes text and markup match the legacy |
 | `scripts/gate.py` | (inside verify) | text character-exact + markup signature (`tag.class` order) + sprite/id/anchor + token probes |
-| `npm run qa:capture` | both builds (8081 legacy, 8080 port) | 228 frozen screenshots |
-| `npm run qa:compare` | after capture | pixel diff (tolerance 12/255, failure >0.15%) |
-| `npm run qa:device` | port (legacy: `--legacy`) | overflow, the 74px header, nav/burger per breakpoint, contrast, 24px targets |
+| `npm run qa:capture` | port only (8080) | 114 screenshots, compared with the approved images |
+| `npm run qa:compare` | after capture | pixel diff (tolerance 12/255, failure >0.15%) against `qa/reference/shots` |
+| `npm run qa:device` | port (8080) | overflow, the 74px header, nav/burger per breakpoint, contrast, 24px targets |
+| `npm run qa:device:diff` | port (8080) | the same pass against `qa/reference/device-problems.txt` — fails only on new problems |
 | `npx tsc --noEmit --incremental false` | zero type errors | — |
 
 **The gate is the judge.** After any refactor or edit, a red gate means regression — work is
@@ -185,8 +186,8 @@ node scripts/serve.mjs &                # preview http://127.0.0.1:8080
 If red: not the plan — fix what is broken first. To diagnose why: the last entries of
 `docs/CHANGELOG.md` + `git status` + `git log --oneline -5`.
 
-**Servers:** 8080 = the new build (`out/`), 8081 = legacy (repository root) — the visual diff
-needs both. They die with the agent session; restart them with the commands above.
+**Servers:** 8080 = the build (`out/`, `npm run preview`). There is no second server: the visual
+baseline is the images in `qa/reference/shots/`, and the gate's is the HTML beside them.
 
 **git warning:** the repository carries uncommitted changes predating the port (`_build/`,
 root HTML) — those are not ours and must not be reverted. `next-app/` is a legitimate first
@@ -325,8 +326,7 @@ npm run verify         # build + gate
 npm run qa             # capture → compare → device-pass
 npx tsc --noEmit --incremental false
 python scripts/gate.py
-# the legacy server (for the visual diff, from the repository root):
-python -m http.server 8081
+# nothing else is needed: the baselines are in next-app/qa/reference
 ```
 
 ## 15. Where to read what

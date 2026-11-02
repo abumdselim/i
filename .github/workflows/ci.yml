@@ -65,18 +65,13 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm run build
 
-      # The baseline is the frozen reference, not the working tree: it is what the
-      # gate and the screenshots were taken against. Its pages reference
-      # ../assets by relative path, so the repository's assets come along.
+      # The baseline is the approved imagery in qa/reference/shots, so only the
+      # build is served. `scripts/approve.py` is what moves a baseline on purpose.
       - name: Visual diff and device delta
         run: |
-          mkdir -p ../.ci-legacy
-          cp qa/reference/*.html ../.ci-legacy/
-          cp -r ../assets ../.ci-legacy/assets
-          (cd ../.ci-legacy && python -m http.server 8081 --bind 127.0.0.1 > /dev/null 2>&1 &)
           node scripts/serve.mjs > /dev/null 2>&1 &
           for i in $(seq 1 30); do
-            if curl -fsS http://127.0.0.1:8080/ > /dev/null && curl -fsS http://127.0.0.1:8081/index.html > /dev/null; then
+            if curl -fsS http://127.0.0.1:8080/ > /dev/null; then
               break
             fi
             sleep 1

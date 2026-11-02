@@ -9,13 +9,15 @@
  * the breakpoint, WCAG 2.2 AA contrast for body copy, and the 24x24 CSS-pixel
  * target size from 2.5.8.
  *
+ * It exits 1 on any problem, which is why CI runs `device-regress.mjs` instead:
+ * the accepted problems have a baseline file, and only new ones should fail a
+ * build.
+ *
  * Usage: node scripts/device-pass.mjs      (needs the port build on :8080)
  */
 import { chromium } from 'playwright';
 
-const LEGACY = process.argv.includes('--legacy');
-const BASE = LEGACY ? 'http://127.0.0.1:8081' : 'http://127.0.0.1:8080';
-const url = (route) => (LEGACY ? (route === '/' ? '/index.html' : `${route}.html`) : route);
+const BASE = 'http://127.0.0.1:8080';
 const VIEWPORTS = [
   { name: '390', width: 390, height: 844, mobile: true },
   { name: '834', width: 834, height: 1112, mobile: true },
@@ -121,7 +123,7 @@ for (const viewport of VIEWPORTS) {
 
   for (const route of ROUTES) {
     const page = await context.newPage();
-    await page.goto(BASE + url(route), { waitUntil: 'networkidle', timeout: 45000 });
+    await page.goto(BASE + route, { waitUntil: 'networkidle', timeout: 45000 });
     await page.evaluate(() => document.fonts.ready);
     const result = await page.evaluate(PROBE);
 
@@ -160,7 +162,7 @@ for (const viewport of VIEWPORTS) {
 await browser.close();
 
 const pad = (value, width) => String(value).padEnd(width);
-console.log(`build: ${LEGACY ? 'legacy (8081)' : 'port (8080)'}`);
+console.log('build: port (8080)');
 
 console.log(`${pad('width', 7)}${pad('route', 14)}${pad('h1', 5)}  ${pad('scrollW/innerW', 16)}contrast`);
 for (const row of rows) {

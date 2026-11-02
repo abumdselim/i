@@ -83,13 +83,13 @@
     {
       "route": "/contact",
       "file": "contact.html",
-      "bytes": 230439,
-      "sha256": "1d3e98545c3ed790cae6a924edc0d768935a2599be658db3fe43b83c6c2b64ad",
+      "bytes": 114605,
+      "sha256": "a7fbbac41a15901a6d511761ea62767ae95c0a7749b3a6778632753356a61c19",
       "title": "Contact - Intactic",
-      "text_length": 2154,
-      "text_sha256": "98d8232f73a6ede6a312bf129dfbb439ce87a09432430e03e4f095fe7816425d",
-      "markup_elements": 153,
-      "markup_sha256": "c950cb01b81d0610b053527f322cf1fc1740b3e85c9ac2a2d3dd00d86c328709"
+      "text_length": 2082,
+      "text_sha256": "527adc12b4dd7f9e3b20b8c78a38ba11d2eba685744ee05bb2f46985eb2c0e79",
+      "markup_elements": 145,
+      "markup_sha256": "1fa29f8944df8e042c25f57bbab3e48d00f9889a8f2273e8d6ae570598f0211f"
     },
     {
       "route": "/products",
@@ -211,6 +211,18 @@
       "text_sha256": "9aa14ba7d074d0952556483a342f906f478a26b6e37d18b3afdf98e0d4eb5b1d",
       "markup_elements": 225,
       "markup_sha256": "d56d9b6dba8e646015d43a6b54fcc5ed4913219aef7c040e6913ee1b70a7bd7b"
+    }
+  ],
+  "approvals": [
+    {
+      "date": "2026-11-03",
+      "file": "contact.html",
+      "route": "/contact",
+      "note": "The brief form no longer asks for a budget: in Bangladesh, and for first contact generally, a budget range on a public form is not how the conversation starts. Removing the field also retires the known mailto omission (D-10 follow-up).",
+      "previous_sha256": "1d3e98545c3ed790cae6a924edc0d768935a2599be658db3fe43b83c6c2b64ad",
+      "approved_sha256": "a7fbbac41a15901a6d511761ea62767ae95c0a7749b3a6778632753356a61c19",
+      "text": "2154 -> 2082 chars",
+      "markup_elements": "153 -> 145"
     }
   ]
 }
