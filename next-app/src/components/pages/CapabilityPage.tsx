@@ -9,7 +9,7 @@ import { css } from '@/lib/css';
 /**
  * The capability page — six routes, one template.
  *
- * Everything that differs between them is data (`src/lib/content/capabilities.ts`);
+ * Everything that differs between them is data (`data/capabilities.json`);
  * everything that repeats is this component. The
  * five section headings below are the only copy that lives in code, and it is the
  * copy that is identical on all six pages.

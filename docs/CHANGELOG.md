@@ -15,6 +15,38 @@ Format:
 
 ---
 
+## 2026-11-03 — Admin phase 1: content becomes JSON, validated at load
+
+**Why:** The admin panel (docs/admin.md) needs machine-writable content. The typed TS literals
+were human-editable but not program-writable, and a studio that writes files needs a format both
+sides can trust. The compile-time `satisfies` guarantee moved to a runtime schema that runs once
+at import time — before a single page is emitted.
+
+**Changed:**
+- `next-app/data/{capabilities,products,figures,pages}.json` — new. Machine-extracted from the
+  TS literals by a one-off Node script (deleted after use); the gate proves the values identical.
+- `next-app/src/lib/content/schema.ts` — new. Runtime validators: icon names against the sprite,
+  the meta discriminated union, required fields and their types, unique slugs and routes — every
+  error carries its exact JSON path.
+- `next-app/src/lib/content/loader.ts` — new. Imports the JSON, validates it, and exports the
+  exact names the literals used to export.
+- `next-app/src/lib/content/types.ts` — the figure and page-manifest types moved in (from
+  figures.ts / pages.ts). `capabilities.ts` and `products.ts` are deleted; `pages.ts` and
+  `figures.ts` keep their export surface through the loader. No consumer import changed.
+- `next-app/scripts/manifest.mjs` — now reads `data/pages.json` directly (plain Node cannot
+  import the bundler-resolved loader); the `--json` interface for the gate is unchanged. The
+  manifest docstrings in `gate.py` and `freeze-reference.py` re-pointed, and one stale comment
+  in `CapabilityPage.tsx` with them.
+- `docs/admin.md` — the phase-1 boxes ticked with their evidence.
+
+**Verified:** `npm run verify` — 19/19 routes, 0 errors, lint clean: character-exact text parity
+on every route, the proof that nothing rendered changed. `npx tsc --noEmit --incremental false`
+exit 0. Negative test: replacing one icon name with `i-nope` in `data/capabilities.json` fails
+`next build` with `content: capabilities[0].icon — "i-nope" is not in the sprite`; restored and
+green again.
+
+---
+
 ## 2026-11-03 — The brief form stops asking for a budget
 
 **Why:** The owner's call, and a market one: in Bangladesh — and on first contact anywhere — a

@@ -1,8 +1,10 @@
 import type { IconName } from '@/components/icons';
 
 /**
- * The shape of the capability and product content — the typed literals in
- * `capabilities.ts` and `products.ts`, checked by `satisfies`.
+ * The shape of the content — the types the JSON in `data/` is validated
+ * against at runtime (src/lib/content/schema.ts). Until admin phase 1 the
+ * values were typed literals checked by `satisfies`; the types survived that
+ * move unchanged (docs/admin.md §6, decision D-16).
  *
  * Two modelling decisions live here:
  *
@@ -62,4 +64,76 @@ export interface ProductContent extends PageContent {
   domain: string;
   card: string;
   builtFor: string[];
+}
+
+/**
+ * The route manifest entry (moved here from pages.ts in admin phase 1; the
+ * data itself lives in data/pages.json).
+ */
+export type PageKind = 'home' | 'page' | 'capability' | 'product' | 'hub' | 'not-found';
+
+export interface PageEntry {
+  /** Route without the leading slash; '' for the home page. */
+  slug: string;
+  /** Legacy output file, kept so the parity gate can diff route by route. */
+  file: string;
+  route: string;
+  title: string;
+  description: string;
+  robots: string;
+  navKey: string;
+  kind: PageKind;
+  showCta: boolean;
+}
+
+/**
+ * Figure geometry (moved here from figures.ts in admin phase 1; the data
+ * itself lives in data/figures.json).
+ *
+ * The figures are the same module lattice the legacy build drew: a fixed pitch,
+ * a class per cell, and a handful of connector paths. Storing geometry instead
+ * of markup lets one component render them while the parity gate still compares
+ * the result element by element. Values come from the legacy figure builder;
+ * edit them only with a matching visual diff.
+ */
+export interface FigureRect {
+  cls: string;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
+export interface FigurePath {
+  cls: string;
+  d: string;
+}
+
+export interface FigureGeometry {
+  viewBox: string;
+  rects: FigureRect[];
+  paths: FigurePath[];
+}
+
+export interface PlateCell {
+  cls: string;
+  index: number;
+}
+
+export interface PlateLayer {
+  name: string;
+  meta: string;
+  cells: PlateCell[];
+}
+
+export interface Industry {
+  num: string;
+  icon: string;
+  title: string;
+  body: string;
+}
+
+export interface StackGroup {
+  group: string;
+  items: { label: string; slug: string }[];
 }

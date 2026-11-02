@@ -1,0 +1,503 @@
+[
+  {
+    "slug": "shamlai",
+    "num": "01",
+    "name": "Shamlai",
+    "domain": "shamlai.app",
+    "icon": "i-commerce",
+    "h1": "A shop that keeps selling when the internet does not.",
+    "lead": "Shamlai is shop management software for Bangladeshi retailers: counter, stock, supplier dues, customer ledgers and profit reporting in one place. It runs at the edge, and the counter keeps working when the connection drops.",
+    "card": "Counter, stock, dues and profit for a shop that cannot stop for an outage.",
+    "meta": [
+      {
+        "key": "Domain",
+        "value": {
+          "kind": "link",
+          "href": "https://shamlai.app",
+          "label": "shamlai.app"
+        }
+      },
+      {
+        "key": "Status",
+        "value": {
+          "kind": "text",
+          "value": "Live"
+        }
+      },
+      {
+        "key": "Platforms",
+        "value": {
+          "kind": "text",
+          "value": "Web · PWA · mobile"
+        }
+      }
+    ],
+    "problemHead": "Most shop software assumes a connection.",
+    "problem": [
+      "A counter does not stop because the router blinked. Yet most retail systems write every sale to a server, so an outage becomes a queue, then a paper pad, then a reconciliation problem at midnight.",
+      "Shamlai was built the other way round: the sale is written locally, the receipt prints, the stock moves. The record syncs when the network returns, with duplicate protection so nothing is counted twice."
+    ],
+    "mapCore": "Shop record",
+    "mapNodes": [
+      "Counter & POS",
+      "Orders",
+      "Inventory",
+      "Customer ledger",
+      "Supplier dues",
+      "Expenses & P&L",
+      "Staff & roles",
+      "Reports"
+    ],
+    "items": [
+      {
+        "icon": "i-commerce",
+        "title": "Counter and orders",
+        "body": "Point of sale, order pipeline and returns in one screen, with cash, card and mobile money."
+      },
+      {
+        "icon": "i-cube",
+        "title": "Stock that reconciles",
+        "body": "Purchases, suppliers, adjustments and low-stock alerts tied to the same ledger as sales."
+      },
+      {
+        "icon": "i-ledger",
+        "title": "Accounts in the same system",
+        "body": "Customer dues, supplier payables, expenses and profit per item, not per guess."
+      },
+      {
+        "icon": "i-sync",
+        "title": "Offline by design",
+        "body": "Sales, receipts and stock movements continue without a network, then sync with duplicate protection."
+      },
+      {
+        "icon": "i-users",
+        "title": "Staff with limits",
+        "body": "Per-staff logins, role permissions, and cost prices hidden from the counter."
+      },
+      {
+        "icon": "i-ai",
+        "title": "An assistant that knows the shop",
+        "body": "Ask about stock, dues or the day’s takings, and dictate entries instead of typing them."
+      }
+    ],
+    "rules": [
+      {
+        "icon": "i-sync",
+        "title": "Local first, server second",
+        "body": "The counter reads and writes to a local store. The network is a synchroniser, not a dependency."
+      },
+      {
+        "icon": "i-ledger",
+        "title": "One ledger for money and stock",
+        "body": "Sales, purchases, dues and expenses post to the same structure, so profit is derived rather than typed."
+      },
+      {
+        "icon": "i-database",
+        "title": "Boring infrastructure, owned end to end",
+        "body": "One Cloudflare account holds the database, media and scheduled jobs. There is no server to patch at two in the morning."
+      }
+    ],
+    "stack": [
+      "Next.js",
+      "React",
+      "Cloudflare Workers",
+      "D1",
+      "R2",
+      "Workers AI",
+      "Gemini"
+    ],
+    "stackNote": "Deployed at the edge, with D1 as the source of truth and R2 for media. Every push to main runs type checks, the test suite and database migrations before it ships.",
+    "builtFor": [
+      "Retail counters, single and multi-branch",
+      "Wholesale and distribution",
+      "Twelve or more shop categories, from grocery to electronics"
+    ],
+    "related": [
+      {
+        "href": "/pharmasys",
+        "label": "Pharmasys",
+        "num": "P/02"
+      },
+      {
+        "href": "/icounsel",
+        "label": "iCounsel",
+        "num": "P/04"
+      }
+    ]
+  },
+  {
+    "slug": "pharmasys",
+    "num": "02",
+    "name": "Pharmasys",
+    "domain": "pharmasys.app",
+    "icon": "i-pulse",
+    "h1": "A pharmacy counter that knows the medicine.",
+    "lead": "Pharmasys is a pharmacy ERP, point of sale and regulatory shield for Bangladeshi retail and hospital pharmacies, with 25,929 medicines, generic alternatives, DGDA registration numbers and real packshots. It is usable from the first day with nothing but a stock count.",
+    "card": "A pharmacy counter with the generic, the registration number and the packshot at hand.",
+    "meta": [
+      {
+        "key": "Domain",
+        "value": {
+          "kind": "link",
+          "href": "https://pharmasys.app",
+          "label": "pharmasys.app"
+        }
+      },
+      {
+        "key": "Status",
+        "value": {
+          "kind": "text",
+          "value": "Live · v3.5"
+        }
+      },
+      {
+        "key": "Platforms",
+        "value": {
+          "kind": "text",
+          "value": "Web · desktop · mobile"
+        }
+      }
+    ],
+    "problemHead": "The counter knows more than the software does.",
+    "problem": [
+      "In a Bangladeshi pharmacy a prescription often arrives without a brand. The counter has to find the same generic, check the strength, explain the price difference, and still keep the stock figure honest when a strip is broken into tablets.",
+      "Most systems record the sale and leave the rest to memory: which company makes it, whether the registration is valid, how many pieces are actually left in the box."
+    ],
+    "mapCore": "Medicine index",
+    "mapNodes": [
+      "Counter & POS",
+      "Stock by piece",
+      "Generic finder",
+      "DGDA registry",
+      "Packshots",
+      "Suppliers",
+      "Prescription flags",
+      "Reports"
+    ],
+    "items": [
+      {
+        "icon": "i-commerce",
+        "title": "Counter and billing",
+        "body": "Sales by pack, strip or piece, with the fraction arithmetic kept exact instead of rounded away."
+      },
+      {
+        "icon": "i-cube",
+        "title": "Stock down to the piece",
+        "body": "Boxes, strips and loose tablets tracked as one quantity, with expiry and low-stock alerts."
+      },
+      {
+        "icon": "i-search",
+        "title": "Generic and alternative finder",
+        "body": "Search by brand or molecule, and see the same generic from other manufacturers with the price difference."
+      },
+      {
+        "icon": "i-shield",
+        "title": "Regulatory checks",
+        "body": "DGDA registration numbers and factory licence validity shown at the point of sale, not in a file."
+      },
+      {
+        "icon": "i-doc",
+        "title": "Packshot confirmation",
+        "body": "The real package image, so the right brand and strength leave the shelf."
+      },
+      {
+        "icon": "i-flag",
+        "title": "Prescription sentinel",
+        "body": "Antibiotic and controlled-drug warnings, with a record of what was dispensed and to whom."
+      }
+    ],
+    "rules": [
+      {
+        "icon": "i-cube",
+        "title": "Start with what you have",
+        "body": "There is no catalogue-entry marathon. Record the stock you can see, and the catalogue fills in around it as you sell."
+      },
+      {
+        "icon": "i-database",
+        "title": "The database is the product",
+        "body": "25,929 medicines, 7,529 registration numbers and 334 factory licences maintained as data, not as a lookup someone updates by hand."
+      },
+      {
+        "icon": "i-gauge",
+        "title": "Runs on a modest computer",
+        "body": "A light front end and a local SQLite store, with media served from a CDN rather than the counter."
+      }
+    ],
+    "stack": [
+      "Vanilla JS",
+      "Tailwind",
+      "SQLite (WAL)",
+      "Cloudflare Workers",
+      "R2",
+      "Python tooling"
+    ],
+    "stackNote": "Packshots are cleaned, re-indexed and served from the edge. The counter downloads only the images it needs, and keeps working when the network does not.",
+    "builtFor": [
+      "Retail pharmacies",
+      "Hospital and clinic dispensaries",
+      "Medicine wholesalers"
+    ],
+    "related": [
+      {
+        "href": "/shamlai",
+        "label": "Shamlai",
+        "num": "P/01"
+      },
+      {
+        "href": "/icounsel",
+        "label": "iCounsel",
+        "num": "P/04"
+      }
+    ]
+  },
+  {
+    "slug": "pdfing-pro",
+    "num": "03",
+    "name": "Pdfing Pro",
+    "domain": "pdfingpro.intactic.net",
+    "icon": "i-doc",
+    "h1": "A hundred and nine tools for one stubborn format.",
+    "lead": "Pdfing Pro is a document workshop: 109 tools for editing, converting, securing and repairing PDFs. The heavy work happens on the server, so the file never has to be trusted to a browser tab.",
+    "card": "Merge, convert, secure, OCR and repair — 109 tools, with the work done server-side.",
+    "meta": [
+      {
+        "key": "Domain",
+        "value": {
+          "kind": "link",
+          "href": "https://pdfingpro.intactic.net",
+          "label": "pdfingpro.intactic.net"
+        }
+      },
+      {
+        "key": "Status",
+        "value": {
+          "kind": "text",
+          "value": "Beta · 1.0"
+        }
+      },
+      {
+        "key": "Platforms",
+        "value": {
+          "kind": "text",
+          "value": "Web · desktop · PWA"
+        }
+      }
+    ],
+    "problemHead": "PDF is where documents become someone else’s problem.",
+    "problem": [
+      "Merge this, split that, remove the page numbers, add a stamp, compress it under ten megabytes, turn the scan back into text. The work is small, repetitive and usually urgent.",
+      "Free web tools solve it by uploading the file to an unknown server. Desktop tools solve it by installing something you cannot audit. Neither is acceptable when the document is a contract."
+    ],
+    "mapCore": "Render engine",
+    "mapNodes": [
+      "Organise",
+      "Convert",
+      "Security",
+      "OCR",
+      "Sign & verify",
+      "Forms",
+      "Compare",
+      "Batch"
+    ],
+    "items": [
+      {
+        "icon": "i-doc",
+        "title": "Organise and assemble",
+        "body": "Merge, split, reorder, rotate, crop, n-up, booklet, and page numbering across a hundred files."
+      },
+      {
+        "icon": "i-sync",
+        "title": "Convert in both directions",
+        "body": "Word, Excel, PowerPoint, HTML, Markdown, images and scans, in and out of PDF."
+      },
+      {
+        "icon": "i-shield",
+        "title": "Security work",
+        "body": "Encrypt, decrypt, redact, sanitise, flatten and strip metadata before a file leaves the building."
+      },
+      {
+        "icon": "i-search",
+        "title": "OCR and extraction",
+        "body": "Text from scans, tables to CSV, images out of pages, attachments out of containers."
+      },
+      {
+        "icon": "i-approval",
+        "title": "Sign and verify",
+        "body": "Digital signatures, signature checks and form filling without a printout."
+      },
+      {
+        "icon": "i-workflow",
+        "title": "Batch and repeat",
+        "body": "Chain tools into a workflow and run it across a folder instead of one file at a time."
+      }
+    ],
+    "rules": [
+      {
+        "icon": "i-shield",
+        "title": "Server-side on purpose",
+        "body": "Heavy work happens where it can be sandboxed, rate-limited and logged, not in a tab that may close halfway."
+      },
+      {
+        "icon": "i-clock",
+        "title": "Nothing is kept longer than the task",
+        "body": "Files are processed per request, and the workspace is temporary by design."
+      },
+      {
+        "icon": "i-sync",
+        "title": "Works without a network too",
+        "body": "The same build ships as a desktop application and a PWA for documents that cannot leave the machine."
+      }
+    ],
+    "stack": [
+      "Next.js",
+      "pdf-lib",
+      "pdf.js",
+      "Tesseract",
+      "Electron",
+      "Cloudflare"
+    ],
+    "stackNote": "One codebase produces the web app, the installable PWA and the desktop build. The heavy libraries are shared, so a fix lands everywhere at once.",
+    "builtFor": [
+      "Law chambers and legal teams",
+      "Finance and administrative offices",
+      "Anyone handling contracts, filings or archives"
+    ],
+    "related": [
+      {
+        "href": "/icounsel",
+        "label": "iCounsel",
+        "num": "P/04"
+      },
+      {
+        "href": "/shamlai",
+        "label": "Shamlai",
+        "num": "P/01"
+      }
+    ]
+  },
+  {
+    "slug": "icounsel",
+    "num": "04",
+    "name": "iCounsel",
+    "domain": "icounsel.intactic.net",
+    "icon": "i-clock",
+    "h1": "A chamber that does not miss a date.",
+    "lead": "iCounsel is a practice operating system for Bangladeshi advocates: cause lists, case dossiers, court-fee and limitation calculators, and judgment summaries. Built around the way the Supreme Court and district courts actually run.",
+    "card": "Cause lists, deadlines, case files and judgment summaries for a Bangladeshi chamber.",
+    "meta": [
+      {
+        "key": "Domain",
+        "value": {
+          "kind": "link",
+          "href": "https://icounsel.intactic.net",
+          "label": "icounsel.intactic.net"
+        }
+      },
+      {
+        "key": "Status",
+        "value": {
+          "kind": "text",
+          "value": "Live"
+        }
+      },
+      {
+        "key": "Platforms",
+        "value": {
+          "kind": "text",
+          "value": "Web · desktop"
+        }
+      }
+    ],
+    "problemHead": "The diary is the system, and the diary is paper.",
+    "problem": [
+      "A chamber runs on dates: filing, admission, rule, hearing, judgment, execution. One missed stay expiry costs a client more than the fee, and one missed limitation date cannot be repaired.",
+      "The information exists, but it is spread across cause lists, certified copies, message threads and a diary that only one person can read."
+    ],
+    "mapCore": "Legal OS",
+    "mapNodes": [
+      "Cause list",
+      "Hearings",
+      "Documents",
+      "Deadlines",
+      "Law database",
+      "Calculators",
+      "Vakalatnama",
+      "Fees"
+    ],
+    "items": [
+      {
+        "icon": "i-clock",
+        "title": "Cause list and countdown",
+        "body": "Today’s listings by bench, with the next matter and its item number kept in view."
+      },
+      {
+        "icon": "i-doc",
+        "title": "Case dossier",
+        "body": "Petitions, affidavits, orders and exhibits filed against one case, with a stage pipeline."
+      },
+      {
+        "icon": "i-flag",
+        "title": "Stay and bail watchdog",
+        "body": "Interim orders tracked to their expiry date and flagged before they lapse."
+      },
+      {
+        "icon": "i-gauge",
+        "title": "Court fee and limitation",
+        "body": "Court Fees Act slabs, Limitation Act periods and offence classification, computed rather than remembered."
+      },
+      {
+        "icon": "i-search",
+        "title": "Judgment summaries",
+        "body": "Ratio decidendi, obiter, material facts and cited precedents extracted from a judgment PDF."
+      },
+      {
+        "icon": "i-users",
+        "title": "Chamber and client work",
+        "body": "Client records, a fee ledger, and hearing updates sent to clients without retyping."
+      }
+    ],
+    "rules": [
+      {
+        "icon": "i-flag",
+        "title": "Built for this jurisdiction",
+        "body": "Court terms, fee slabs, limitation periods and vakalatnama formats are Bangladesh-specific, not generic templates."
+      },
+      {
+        "icon": "i-calendar",
+        "title": "Dates are the product",
+        "body": "Every module answers one question: what is due, and when. Anything that does not serve that is left out."
+      },
+      {
+        "icon": "i-sync",
+        "title": "Designed for a weak connection",
+        "body": "Core records stay usable when the chamber internet drops, and reconcile when it returns."
+      }
+    ],
+    "stack": [
+      "Next.js",
+      "React",
+      "PostgreSQL",
+      "Prisma",
+      "Gemini",
+      "Vercel"
+    ],
+    "stackNote": "Judgment analysis streams as it is produced, so a long PDF starts answering before it has finished parsing.",
+    "builtFor": [
+      "Supreme Court advocates and chambers",
+      "District court practitioners",
+      "Legal teams inside companies"
+    ],
+    "related": [
+      {
+        "href": "/pdfing-pro",
+        "label": "Pdfing Pro",
+        "num": "P/03"
+      },
+      {
+        "href": "/shamlai",
+        "label": "Shamlai",
+        "num": "P/01"
+      }
+    ]
+  }
+]

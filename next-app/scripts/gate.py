@@ -29,11 +29,12 @@ BASELINE = LEGACY / 'baseline.json'
 
 
 def read_manifest() -> dict:
-    """The route manifest is TypeScript now (src/lib/content/pages.ts).
+    """The route manifest is JSON now (data/pages.json, admin phase 1).
 
-    Node strips the types and hands back the same literals the app renders, so
-    there is still exactly one list of routes and the gate cannot disagree with
-    the build about what should exist.
+    scripts/manifest.mjs reads it directly; the site build validates the same
+    file through src/lib/content/loader.ts, so there is still exactly one list
+    of routes and the gate cannot disagree with the build about what should
+    exist.
     """
     result = subprocess.run(
         ['node', 'scripts/manifest.mjs', '--json'],

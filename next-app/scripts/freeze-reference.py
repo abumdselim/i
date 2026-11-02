@@ -34,7 +34,7 @@ SHOTS = APP / 'qa' / 'legacy'
 
 
 def read_manifest() -> dict:
-    """Route data lives in src/lib/content/pages.ts; Node hands it back as JSON."""
+    """Route data lives in data/pages.json; manifest.mjs hands it back as JSON."""
     result = subprocess.run(
         ['node', 'scripts/manifest.mjs', '--json'],
         cwd=APP, capture_output=True, text=True, encoding='utf-8',

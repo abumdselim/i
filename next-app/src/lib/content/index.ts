@@ -1,14 +1,15 @@
-import { CAPABILITIES } from './capabilities';
-import { PRODUCTS } from './products';
+import { CAPABILITIES, PRODUCTS } from './loader';
 import type { CapabilityContent, ProductContent } from './types';
 
 /**
  * The content layer's front door.
  *
- * The pages are typed literals next door (capabilities.ts, products.ts), so an
- * icon name that is missing from the sprite is a compile error rather than a
- * blank square at render time — the runtime guard that used to resolve JSON
- * strings has nothing left to check.
+ * The data is JSON in `data/` (admin phase 1), validated at import time by the
+ * runtime schema — an icon name missing from the sprite fails the build with
+ * its JSON path, the successor to the compile-time `satisfies` the typed
+ * literals carried. The export names below are unchanged; no consumer import
+ * moved. `capabilityBySlug` and `productBySlug` still throw on a missing slug
+ * rather than returning partial pages.
  */
 export { CAPABILITIES, PRODUCTS };
 
