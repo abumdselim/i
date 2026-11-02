@@ -60,10 +60,10 @@ function crumbsFor(pathname: string): { label: string; href?: string }[] {
     path += `/${part}`;
     let label = CRUMB_NAMES[part] ?? part;
     if (index === 1) {
-      if (parts[0] === 'pages') label = part === 'home' ? '/' : `/${part}`;
+      if (parts[0] === 'pages') label = part;
       if (parts[0] === 'content') label = part === 'capability' ? 'Capabilities' : 'Products';
     }
-    if (index === 2 && parts[0] === 'content') label = `/${part}`;
+    if (index === 2 && parts[0] === 'content') label = part;
     crumbs.push({ label, href: index === parts.length - 1 ? undefined : path });
   });
   return crumbs;
