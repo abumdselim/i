@@ -36,7 +36,7 @@
 | `tsc --noEmit` | exit 0 |
 | Visual diff | 114 image pairs, **0 failures**, max 0.043%, 74 pairs pixel-identical |
 | Device pass | 60 flags — **byte-identical list on the legacy build**, zero regressions |
-| Pipeline | Steps 0–4 done: frozen reference, TypeScript content, design system in the app, generator retired, lint + CI + hooks; step 5 (deployment) open |
+| Pipeline | Steps 0–4 done; step 5 prepared (artefact complete + smoke-tested) — the deploy itself awaits a host decision |
 
 ## 3. How we got here — history
 
@@ -54,6 +54,7 @@
 | 2026-11-02 | **Step 2:** `globals.css` and `icons.ts` are the source; `sync-assets.mjs` deleted, `build` is plain `next build` | same entry |
 | 2026-11-02 | **Step 3:** `_build/` → `legacy/_build/`, root README rewritten, D-13 supersedes D-01/D-02 | same entry |
 | 2026-11-02 | **Step 4:** eslint in `verify`, 9 real errors fixed, CI workflow, pre-commit hook, `qa:device:diff` | same entry |
+| 2026-11-02 | **Step 5 (prep):** `robots.txt` + `sitemap.xml` in the artefact, gate checks them, deploy smoke test green | same entry |
 
 **Everything in detail:** `docs/CHANGELOG.md` — every change has a why / what changed / what
 was run. New work gets its entry there too (project rule D-11).
@@ -284,6 +285,14 @@ Without freezing the reference first, retiring `_build/` blinds the parity check
 `next-app/out/` deploys to any static host (Netlify/Cloudflare Pages: `out/_redirects` works
 out of the box; Vercel: cleanUrls; nginx: the rule in the root README). Step 3.2's decision
 closes here.
+
+**Prepared 2026-11-02:**
+
+- [x] the export is complete — 20 pages, `_redirects`, `robots.txt`, `sitemap.xml`, assets, 404;
+      the gate fails if a manifest route is missing from `_redirects` **or** the sitemap
+- [x] deployability smoke-tested locally: all 19 routes served the exact bytes of `out/`, crawl
+      files and assets returned 200
+- [ ] choose the host, point DNS, publish — **a human decision**; no credentials exist here
 
 ## 12. Decision table — these need a human
 

@@ -15,6 +15,32 @@ Format:
 
 ---
 
+## 2026-11-02 — Step 5: the export is deployable; the deploy is a decision
+
+**Why:** `out/` had no `robots.txt` and no `sitemap.xml`. The legacy build served both from the
+repository root, and nothing in the port produced them — the first deploy would have shipped
+without its crawl rules or its sitemap, and no check would have noticed.
+
+**Changed:**
+- `next-app/public/robots.txt`, `next-app/public/sitemap.xml` — static members of the artefact,
+  listing the clean URLs with the legacy priorities; the 404 page is deliberately absent.
+- `next-app/scripts/gate.py` — fails when the export has no sitemap or robots file, when robots
+  does not point at the sitemap, or when a route in the manifest has no `<loc>` entry.
+- `next-app/README.md` — hosting table (Netlify/Cloudflare Pages, Vercel, nginx), what `out/`
+  contains, and what deployability was actually checked.
+
+**Verified:** `npm run build` → 20 static pages; `python scripts/gate.py` → 19/19, 0 errors.
+Negative test: deleting the `/erp` `<url>` from `out/sitemap.xml` produced
+`sitemap.xml: no entry for https://intactic.net/erp` and exit 1; restored, 0 errors. Deploy smoke
+test against `scripts/serve.mjs`: all 19 routes returned 200 with a body byte-identical to the
+exported file; `robots.txt`, `sitemap.xml`, `_redirects`, the logo and the OG image all 200;
+`404.html` present.
+
+**Not done:** the deployment itself — host, DNS and go-live are the user's decision, and there are
+no credentials here. CI has not run on GitHub yet.
+
+---
+
 ## 2026-11-02 — Step 4: lint, CI and the last of the scaffolding
 
 **Why:** With `_build/` retired the repo could build itself, but nothing stopped a broken commit:

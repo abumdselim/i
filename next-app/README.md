@@ -120,8 +120,17 @@ git config core.hooksPath .githooks
 
 ## হোস্টিং
 
-`output: 'export'` — যেখানে আগে ফাইল ছিল, সেখানেই ফাইল। পুরনো `.html` URL-এর জন্য
-`public/_redirects` (Netlify / Cloudflare Pages) তৈরি হয়। nginx হলে:
+`output: 'export'` — যেখানে আগে ফাইল ছিল, সেখানেই ফাইল। পাবলিশ আর্টিফ্যাক্ট `next-app/out/`:
+
+- ২০টা পেজ (১৯ রুট + `404.html`), `_next/` অ্যাসেট, `assets/img/`, ফন্ট
+- `robots.txt` ও `sitemap.xml` — `public/`-এ স্ট্যাটিক; গেট যাচাই করে প্রতিটা রুট সাইটম্যাপে আছে
+- `_redirects` — পুরনো `.html` URL → ক্লিন URL (Netlify / Cloudflare Pages)
+
+| হোস্ট | যা করতে হবে |
+|---|---|
+| Netlify / Cloudflare Pages | publish directory = `next-app/out`; `_redirects` নিজেই কাজ করে |
+| Vercel | `cleanUrls: true`; `_redirects` Vercel পড়ে না, তাই redirect গুলো `vercel.json`-এ লিখতে হবে |
+| nginx | নিচের দুই লাইন |
 
 ```nginx
 rewrite ^/(.+)\.html$ /$1 permanent;
@@ -130,10 +139,14 @@ try_files $uri $uri.html $uri/ =404;
 
 `next.config.ts`-এ `redirects()` ব্যবহার করা যায় না — export মোডে সেটা সাপোর্ট করে না।
 
+**যাচাই করা আছে:** ১৯টা রুটই `out/`-এর ফাইলের বাইটের সাথে অক্ষরে অক্ষরে মিলিয়ে সার্ভ হয়,
+আর `robots.txt`, `sitemap.xml`, `_redirects`, `404.html`, লোগো ও OG ইমেজ সব ২০০ দেয়।
+ডিপ্লয় নিজে করা হয়নি — হোস্ট, DNS আর লাইভ যাওয়ার সময় মানুষের সিদ্ধান্ত।
+
 ## যা এখনো বাকি
 
-- স্টেপ ০.৫ (কমিট + ট্যাগ) — ব্যবহারকারীর সিদ্ধান্তের অপেক্ষায়।
-- স্টেপ ২–৫: ডিজাইন সিস্টেমের সোর্স হাতের কাছে নেওয়া, `_build/` অবসর, CI, ডিপ্লয়মেন্ট।
+- ডিপ্লয়মেন্ট (স্টেপ ৫): হোস্ট বাছাই, DNS, লাইভ যাওয়া — আর্টিফ্যাক্ট তৈরি ও যাচাই করা।
+- CI এখনো GitHub-এ চালানো হয়নি; প্রথম push-এ দেখতে হবে দুইটা জব পাশ করে।
 - `prefers-reduced-motion`-এ প্লেট ল্যাটিসের ~০.৮ সেকেন্ড ফাঁকা থাকা — পুরনো সাইটেরই বাগ
   (`.js .lat .cell-on` কোনো এলিমেন্টে মেলে না), ইচ্ছাকৃতভাবে ঠিক করা হয়নি।
 - `contact` ফর্মের `budget` ফিল্ড mailto বডিতে যায় না — পুরনো আচরণ অপরিবর্তিত রাখা হয়েছে।

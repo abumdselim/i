@@ -182,6 +182,25 @@ else:
         if not re.search(rf'^{re.escape(legacy)}\s', redirects, re.M):
             errors.append(f'_redirects: no rule for {legacy}')
 
+# --------------------------------------------------- crawl files (static) ---
+# Both are maintained by hand; a new route has to reach the sitemap or search
+# engines never see it, so the manifest is the checklist.
+for name in ('robots.txt', 'sitemap.xml'):
+    if not (OUT / name).exists():
+        errors.append(f'{name} was not exported')
+
+if (OUT / 'robots.txt').exists() and 'https://intactic.net/sitemap.xml' not in (OUT / 'robots.txt').read_text(encoding='utf-8'):
+    errors.append('robots.txt does not point at the sitemap')
+
+if (OUT / 'sitemap.xml').exists():
+    sitemap = (OUT / 'sitemap.xml').read_text(encoding='utf-8')
+    for page in MANIFEST['pages']:
+        if page['kind'] == 'not-found':
+            continue
+        loc = f'https://intactic.net{page["route"]}'
+        if f'<loc>{loc}</loc>' not in sitemap:
+            errors.append(f'sitemap.xml: no entry for {loc}')
+
 # ------------------------------------------------------------------ report
 print(f"{'route':<20}{'file':<24}{'legacy':>8}{'port':>8}")
 for route, file, a, b in report:
