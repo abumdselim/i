@@ -81,7 +81,7 @@ captions never below 14px. The word "and" replaces "&" in display headings.
 | Text link | `.linkarrow` | 1px underline that turns blue on hover |
 | Plate | `.plate` | drawing frame: bar, body, foot |
 | System map | `.map` | 3×3 module grid, blue core, mono labels |
-| Capability card | `.cap` | hairline table cell, icon top-right, tags bottom |
+| Capability card | `.cap` | hairline table cell, tags bottom; home cards carry a `.cap__fig` schematic strip, capability-page cards an icon and number |
 | Deliverable list | `.deliv` | two-column list with 18px icons |
 | Rule table | `.rules` | mono id, title, explanation |
 | Engagement card | `.eng` | figure, title, spec table |
