@@ -1,0 +1,32 @@
+{
+  "name": "intactic-web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync": "node scripts/sync-assets.mjs",
+    "dev": "next dev",
+    "build": "npm run sync && next build",
+    "start": "next start",
+    "preview": "node scripts/serve.mjs",
+    "qa:capture": "node scripts/capture.mjs",
+    "qa:compare": "python scripts/compare.py",
+    "qa:device": "node scripts/device-pass.mjs",
+    "qa": "npm run qa:capture && npm run qa:compare && npm run qa:device",
+    "typecheck": "tsc --noEmit",
+    "gate": "python scripts/gate.py",
+    "verify": "npm run build && npm run gate"
+  },
+  "dependencies": {
+    "next": "16.4.3",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.6",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "playwright": "^1.64.1",
+    "typescript": "5.9.3"
+  }
+}

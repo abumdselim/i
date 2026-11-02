@@ -1,0 +1,216 @@
+{
+  "created": "2026-11-02",
+  "source": "repository root, as written by _build/build.py",
+  "note": "Digests are over the frozen copies; scripts/gate.py checks them before every run.",
+  "pages": [
+    {
+      "route": "/",
+      "file": "index.html",
+      "bytes": 280406,
+      "sha256": "234835c1917908a8cbefe983353123bb95c4501807f9a8d72aa83b11bdd85e2f",
+      "title": "Intactic - software engineering studio",
+      "text_length": 6545,
+      "text_sha256": "e81f0d06331496e174667d9ab65e954dd7e556f1b21eb561dfc52565d049121c",
+      "markup_elements": 1100,
+      "markup_sha256": "608ab186579b05ae86dc326e2ebb2d32d36c9b96b0f5dc68dcaf5a31ea9db035"
+    },
+    {
+      "route": "/services",
+      "file": "services.html",
+      "bytes": 230465,
+      "sha256": "2d49201bfb1d8df1dff150f468c5fb27de7da93484d9065f88dddf11fd1f449c",
+      "title": "Capabilities - Intactic",
+      "text_length": 2320,
+      "text_sha256": "9683ff643094039fb5ea0dc99e184f90907bdb3a349429688dd07c85596d48a4",
+      "markup_elements": 150,
+      "markup_sha256": "dc0935d12c64dc60e21c14e39a92d25839acd5913799f8f43dd58523036ba8d9"
+    },
+    {
+      "route": "/approach",
+      "file": "approach.html",
+      "bytes": 235500,
+      "sha256": "6fd91140ed661ee9686c6dc09191014b2023419e14bf982ab14bac295d4020fb",
+      "title": "Approach - Intactic",
+      "text_length": 4735,
+      "text_sha256": "0ffd4c178d9efb27e1926751e5e3fd7f826208eeb20d04f8ba850a9abd3f7cf7",
+      "markup_elements": 217,
+      "markup_sha256": "572afd989f8cfaa4e2a6c22149e19534a2d8edba707e832d488f9173cf0e52c8"
+    },
+    {
+      "route": "/engagements",
+      "file": "engagements.html",
+      "bytes": 237505,
+      "sha256": "597deb05c3b8c7c6be23ac67a162993b8e0ad16de6740eecf4f1a9734ae29036",
+      "title": "Engagements - Intactic",
+      "text_length": 4527,
+      "text_sha256": "c875403583b1df7964c69bc37d89eed74a73d033169e0efcd81a3313b72c0a03",
+      "markup_elements": 302,
+      "markup_sha256": "9e29228f20a459e517112f084cc76b2f0571fcada41abbcf0c6bc31433664e39"
+    },
+    {
+      "route": "/process",
+      "file": "process.html",
+      "bytes": 237919,
+      "sha256": "d88ce404214a9f04a1a8a506b256fc98510946c932491c973ea36392fb639751",
+      "title": "Process - Intactic",
+      "text_length": 4296,
+      "text_sha256": "cac844fa34dd7b2998118ebd146a9c47a66e72fcfdc04db2b4891e343e73c628",
+      "markup_elements": 327,
+      "markup_sha256": "d4407ce15e0933b889ae01682630f0f3b2b695cf4227bd59c9110d465a6bb0e8"
+    },
+    {
+      "route": "/about",
+      "file": "about.html",
+      "bytes": 231802,
+      "sha256": "b141a85dea721ef40ff79a8b7231c1d780cf43b3be78effe4f2d6652876274ec",
+      "title": "Studio - Intactic",
+      "text_length": 2777,
+      "text_sha256": "926dd4d9d730d3e4004479153c116b1bac813b4c5cd7b54aab62965f2f887ff4",
+      "markup_elements": 168,
+      "markup_sha256": "28e8dd16830adf986a925277cc18af612593ba95489afa62d741b3d904b9892c"
+    },
+    {
+      "route": "/404",
+      "file": "404.html",
+      "bytes": 222742,
+      "sha256": "122cbfafdbe2f3f3f6f04e607fb5f474ab73c6c76ea80a3b620ec4db87790b27",
+      "title": "Page not found - Intactic",
+      "text_length": 177,
+      "text_sha256": "3c7d8180042cd7d626740700f520dfdabcc05612280bb134f6828087bdf7d106",
+      "markup_elements": 19,
+      "markup_sha256": "f0cbc51f0e12faee53b316eaae81b2dfbbae3a1ce9584bc0bddae9430733ec07"
+    },
+    {
+      "route": "/contact",
+      "file": "contact.html",
+      "bytes": 230439,
+      "sha256": "1d3e98545c3ed790cae6a924edc0d768935a2599be658db3fe43b83c6c2b64ad",
+      "title": "Contact - Intactic",
+      "text_length": 2154,
+      "text_sha256": "98d8232f73a6ede6a312bf129dfbb439ce87a09432430e03e4f095fe7816425d",
+      "markup_elements": 153,
+      "markup_sha256": "c950cb01b81d0610b053527f322cf1fc1740b3e85c9ac2a2d3dd00d86c328709"
+    },
+    {
+      "route": "/products",
+      "file": "products.html",
+      "bytes": 229276,
+      "sha256": "9396e123f4525d8612e2d2f6199398a2e205bdb9bbbc9c9a6883af411c1d2ebe",
+      "title": "Products - Intactic",
+      "text_length": 1780,
+      "text_sha256": "56aedc11240fb0273bd6fa92b0a5a19aac8f5cb0e7bd4acda1b002a3e59abb25",
+      "markup_elements": 126,
+      "markup_sha256": "3ea25c80c23d8b81b782798b2059806f6a607e0e1f3d44206401f2c3cecf39e0"
+    },
+    {
+      "route": "/custom-software",
+      "file": "custom-software.html",
+      "bytes": 232538,
+      "sha256": "6348b8b776120d16f22d07e82046206a3526a6af4de378f7d1ee858973f73a34",
+      "title": "Custom software - Intactic",
+      "text_length": 2998,
+      "text_sha256": "b16aacef12fd261d59a881d37da6cd822ab1c760d7cef7399f3651b64dc23100",
+      "markup_elements": 213,
+      "markup_sha256": "cf2e25a4d37ca7dc3beec778521ee93fba1e922fa141538fcda9e22be23b6fb6"
+    },
+    {
+      "route": "/ecommerce",
+      "file": "ecommerce.html",
+      "bytes": 232330,
+      "sha256": "b117e583c4cd04a1983db9bc63ecf5c9738242fb500916d2dff67771448cf603",
+      "title": "Multi-vendor commerce - Intactic",
+      "text_length": 2850,
+      "text_sha256": "361c176ec5e7d20a16fa335f16ff25c7ad6b0f0738bc4ca99c9c1221a5db33b4",
+      "markup_elements": 212,
+      "markup_sha256": "6e91c6ec85a862c447e1258248f20cb773d4ded54f8ebd11295ba10b91cf3454"
+    },
+    {
+      "route": "/erp",
+      "file": "erp.html",
+      "bytes": 232157,
+      "sha256": "eab0295c49068daf76fe67fc919eed102b7f2c32ccb75a83f530ee92b21e47e1",
+      "title": "ERP & operations - Intactic",
+      "text_length": 2670,
+      "text_sha256": "9b3991f5854363354a09d46fde1fe9ff1eee969e046557b55b7c01a9d76773c8",
+      "markup_elements": 212,
+      "markup_sha256": "6e91c6ec85a862c447e1258248f20cb773d4ded54f8ebd11295ba10b91cf3454"
+    },
+    {
+      "route": "/web-platforms",
+      "file": "web-platforms.html",
+      "bytes": 232173,
+      "sha256": "8c8edea9e865af4f60b3007505ee1c96045291bdd1537ac3be99ac6e7364d0b5",
+      "title": "Web platforms - Intactic",
+      "text_length": 2597,
+      "text_sha256": "0b8406cfe304b5627534f422a35faf85016f1a7b2112e5beee4f2f62c44f1e83",
+      "markup_elements": 211,
+      "markup_sha256": "9a901c583da1362376003834cd76075fe97884b260a09668d37de9e519463cf4"
+    },
+    {
+      "route": "/mobile-apps",
+      "file": "mobile-apps.html",
+      "bytes": 232196,
+      "sha256": "8635ba39f54d3f7bf42925fb19f054c4a956917538bfc3fdba6521402b3091bf",
+      "title": "Mobile products - Intactic",
+      "text_length": 2608,
+      "text_sha256": "b3f458ba0cf31cd62ea68c589ff93c3546cd6247112c2157ff593063ad1c41da",
+      "markup_elements": 212,
+      "markup_sha256": "6e91c6ec85a862c447e1258248f20cb773d4ded54f8ebd11295ba10b91cf3454"
+    },
+    {
+      "route": "/automation",
+      "file": "automation.html",
+      "bytes": 232327,
+      "sha256": "3bb28e00ec7301939fd300fbb234ef490408102099fd4ea016d53da3c15372cb",
+      "title": "Automation & models - Intactic",
+      "text_length": 2730,
+      "text_sha256": "c15bb011346793363c9fa82966c214f2b1d589796434e2803f000e6a56aafd4f",
+      "markup_elements": 212,
+      "markup_sha256": "6e91c6ec85a862c447e1258248f20cb773d4ded54f8ebd11295ba10b91cf3454"
+    },
+    {
+      "route": "/shamlai",
+      "file": "shamlai.html",
+      "bytes": 232745,
+      "sha256": "8034e1ee33ac4e14ae11f80127169a81ea879b4aca406b5b773e4fa52673a396",
+      "title": "Shamlai - Intactic",
+      "text_length": 2848,
+      "text_sha256": "0967f272b13da55a8aae8ef9a3772b23f73ca3d12ca2f314b84e35916ae9a069",
+      "markup_elements": 226,
+      "markup_sha256": "cb62dd01e8c72887ea45c5bf334440eeacb1ce4fb59fb8599e7aee4ff5ded9cf"
+    },
+    {
+      "route": "/pharmasys",
+      "file": "pharmasys.html",
+      "bytes": 232791,
+      "sha256": "7288bbd56915fc9229db70d5241da7c969cc3fa90f08b87ef72d3f0a6026593c",
+      "title": "Pharmasys - Intactic",
+      "text_length": 2902,
+      "text_sha256": "f4858027bc5f8ab71d9f593c906059c8fc6435b0c7db39254a60cddaa168374d",
+      "markup_elements": 225,
+      "markup_sha256": "d56d9b6dba8e646015d43a6b54fcc5ed4913219aef7c040e6913ee1b70a7bd7b"
+    },
+    {
+      "route": "/pdfing-pro",
+      "file": "pdfing-pro.html",
+      "bytes": 232588,
+      "sha256": "f31d0a0a7dd36ca3b47d39f6837b3b6584fc108fc9264701530d8e52de6b3311",
+      "title": "Pdfing Pro - Intactic",
+      "text_length": 2676,
+      "text_sha256": "a8266d19bb4cc0ba00b2f24a520b561f21324735d93f30d10e1ceaf9eac682e8",
+      "markup_elements": 225,
+      "markup_sha256": "d56d9b6dba8e646015d43a6b54fcc5ed4913219aef7c040e6913ee1b70a7bd7b"
+    },
+    {
+      "route": "/icounsel",
+      "file": "icounsel.html",
+      "bytes": 232525,
+      "sha256": "0b8d6189a43c143ff974f32d1617f958ce11895acd6c8aca845e8028381f4e98",
+      "title": "iCounsel - Intactic",
+      "text_length": 2641,
+      "text_sha256": "9aa14ba7d074d0952556483a342f906f478a26b6e37d18b3afdf98e0d4eb5b1d",
+      "markup_elements": 225,
+      "markup_sha256": "d56d9b6dba8e646015d43a6b54fcc5ed4913219aef7c040e6913ee1b70a7bd7b"
+    }
+  ]
+}

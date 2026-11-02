@@ -1,0 +1,11 @@
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# QA artefacts. The frozen reference is part of the repository — it is what the
+# gate judges against (step 0 of docs/Go.md) — while captures and diffs are
+# reproducible output and stay out of history.
+qa/*
+!qa/reference/
