@@ -1,0 +1,13 @@
+// The static export (`npm run build` -> `out/`) served from Workers static
+// assets. The export carries its own `public/_redirects` and `public/404.html`,
+// which Workers assets honour, so no worker script is needed — this is an
+// assets-only deployment.
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "www",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./out",
+    "not_found_handling": "404-page"
+  }
+}
