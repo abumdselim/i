@@ -16,7 +16,6 @@ visual baseline, so a re-capture can never quietly move it.
 """
 from __future__ import annotations
 
-import hashlib
 import json
 import pathlib
 import shutil
@@ -25,7 +24,7 @@ import sys
 from datetime import date
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from parity import main_text, signature, title_of  # noqa: E402
+from parity import bytes_digest, main_text, signature, title_of  # noqa: E402
 
 APP = pathlib.Path(__file__).resolve().parents[1]
 ROOT = APP.parent
@@ -48,7 +47,8 @@ MANIFEST = read_manifest()
 
 
 def sha256(data: bytes) -> str:
-    return hashlib.sha256(data).hexdigest()
+    """Same normalisation the gate digests with — see parity.bytes_digest."""
+    return bytes_digest(data)
 
 
 def main() -> int:
@@ -62,8 +62,15 @@ def main() -> int:
         source = ROOT / page['file']
         target = REFERENCE / page['file']
         if not source.exists():
-            print(f'  MISSING SOURCE  {page["file"]}')
-            return 1
+            # Pages added after the legacy build (case studies) have no root
+            # counterpart. The frozen copy is then the only source of truth and
+            # is kept as it is; the alternative — refusing to re-freeze — would
+            # leave the whole baseline unrepairable.
+            if target.exists():
+                source = target
+            else:
+                print(f'  MISSING SOURCE  {page["file"]}')
+                return 1
 
         data = source.read_bytes()
         if not target.exists() or target.read_bytes() != data:

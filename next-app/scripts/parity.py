@@ -67,5 +67,16 @@ def digest(value: str) -> str:
     return hashlib.sha256(value.encode('utf-8')).hexdigest()
 
 
+def bytes_digest(data: bytes) -> str:
+    """Digest of a file's bytes with CRLF normalised to LF.
+
+    The frozen reference is committed with the CRLF the legacy builder wrote,
+    but a Linux CI checkout materialises it as LF. Hashing raw bytes would
+    make baseline.json certify one platform's checkout instead of the file,
+    so both the freezer and the gate digest the normalised stream.
+    """
+    return hashlib.sha256(data.replace(b'\r\n', b'\n')).hexdigest()
+
+
 def file_digest(path: pathlib.Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    return bytes_digest(path.read_bytes())

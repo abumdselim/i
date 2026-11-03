@@ -19,14 +19,13 @@ from __future__ import annotations
 
 import argparse
 import datetime
-import hashlib
 import json
 import pathlib
 import shutil
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from parity import main_text, signature, title_of  # noqa: E402
+from parity import bytes_digest, main_text, signature, title_of  # noqa: E402
 
 APP = pathlib.Path(__file__).resolve().parents[1]
 OUT = APP / 'out'
@@ -39,7 +38,8 @@ THEMES = ('light', 'dark')
 
 
 def sha256(data: bytes) -> str:
-    return hashlib.sha256(data).hexdigest()
+    """Normalised like the gate's — a Linux checkout must digest the same."""
+    return bytes_digest(data)
 
 
 def entry_for(path: pathlib.Path) -> dict:
