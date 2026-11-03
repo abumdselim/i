@@ -1,27 +1,31 @@
 import Link from 'next/link';
 import { Icon } from '@/components/icons';
 import { PageTable, type PageRow } from '@/components/PageTable';
+import { recentCommits } from '@/lib/git';
 import { paramForRoute } from '@/lib/routes';
-import { lastBuild, readConfig, readPages, readSections, sectionsOf } from '@/lib/site';
-import { PREVIEW_URL, SITE_URL } from '@/lib/urls';
+import { readConfig, readPages, readSections, sectionsOf } from '@/lib/site';
+import { SITE_URL } from '@/lib/urls';
 
 export const dynamic = 'force-dynamic';
 
-const BUILD_FORMAT = new Intl.DateTimeFormat('en-GB', {
-  dateStyle: 'medium',
-  timeStyle: 'short',
-});
+interface Attention {
+  route: string;
+  param: string;
+  label: string;
+}
+
+const TITLE_LIMIT = 70;
+const DESCRIPTION_LIMIT = 180;
 
 export default async function Dashboard() {
-  const [pages, sections, config, build] = await Promise.all([
+  const [pages, sections, config, log] = await Promise.all([
     readPages(),
     readSections(),
     readConfig(),
-    lastBuild(),
+    recentCommits(4),
   ]);
 
-  const hiddenOn = (route: string) =>
-    config.hidden.filter((entry) => entry.route === route).length;
+  const hiddenOn = (route: string) => config.hidden.filter((entry) => entry.route === route).length;
 
   const rows: PageRow[] = pages.map((page) => ({
     param: paramForRoute(page.route),
@@ -30,7 +34,27 @@ export default async function Dashboard() {
     kind: page.kind,
     sections: sectionsOf(sections, page.route).length,
     hidden: hiddenOn(page.route),
+    cta: page.showCta,
   }));
+
+  const attention: Attention[] = [];
+  for (const page of pages) {
+    const param = paramForRoute(page.route);
+    if (page.title.length > TITLE_LIMIT) {
+      attention.push({ route: page.route, param, label: `title is ${page.title.length} characters — limit ${TITLE_LIMIT}` });
+    }
+    if (page.description.length > DESCRIPTION_LIMIT) {
+      attention.push({
+        route: page.route,
+        param,
+        label: `description is ${page.description.length} characters — limit ${DESCRIPTION_LIMIT}`,
+      });
+    }
+    const hidden = hiddenOn(page.route);
+    if (hidden > 0) {
+      attention.push({ route: page.route, param, label: `${hidden} section${hidden === 1 ? '' : 's'} hidden` });
+    }
+  }
 
   return (
     <div className="wrap">
@@ -39,20 +63,17 @@ export default async function Dashboard() {
           <p className="eyebrow">Overview</p>
           <h1>Intactic Studio</h1>
           <p>
-            Everything the site renders comes from <code className="mono">next-app/data</code>. Edit here, build there,
-            and the gate decides whether the change is safe.
+            Every page, every section, and the copy behind them. Saves land in{' '}
+            <code className="mono">next-app/data</code>; publishing is still a build and a gate in the terminal.
           </p>
         </div>
         <div className="page-head__actions">
-          <a className="btn" href={SITE_URL} target="_blank" rel="noreferrer">
-            Site dev server <Icon name="external" size={14} />
-          </a>
-          <a className="btn" href={PREVIEW_URL} target="_blank" rel="noreferrer">
-            Built preview <Icon name="external" size={14} />
-          </a>
-          <Link className="btn btn--primary" href="/build">
-            <Icon name="play" size={14} /> Build &amp; verify
+          <Link className="btn" href="/changes">
+            <Icon name="changes" size={15} /> Changes
           </Link>
+          <a className="btn" href={SITE_URL} target="_blank" rel="noreferrer">
+            Open the site <Icon name="external" size={14} />
+          </a>
         </div>
       </div>
 
@@ -60,26 +81,55 @@ export default async function Dashboard() {
         <div className="stat">
           <p className="stat__label">Pages</p>
           <p className="stat__value">{pages.length}</p>
-          <p className="stat__note">Nineteen routes in the manifest</p>
+          <p className="stat__note">Routes in the manifest</p>
         </div>
         <div className="stat">
           <p className="stat__label">Sections</p>
           <p className="stat__value">{sections.length}</p>
-          <p className="stat__note">Registered blocks across those routes</p>
+          <p className="stat__note">Registered blocks across them</p>
         </div>
         <div className="stat">
           <p className="stat__label">Hidden</p>
           <p className="stat__value">{config.hidden.length}</p>
-          <p className="stat__note">Sections switched off in site-config</p>
+          <p className="stat__note">Switched off in site-config</p>
         </div>
         <div className="stat">
-          <p className="stat__label">Last build</p>
-          <p className="stat__value" style={{ fontSize: '1.125rem', paddingTop: 10 }}>
-            {build.at ? BUILD_FORMAT.format(new Date(build.at)) : 'Not built yet'}
+          <p className="stat__label">Needs attention</p>
+          <p className="stat__value" style={attention.length > 0 ? { color: 'var(--warn)' } : undefined}>
+            {attention.length}
           </p>
-          <p className="stat__note">{build.exists ? 'next-app/out/index.html' : 'Run a build to export the site'}</p>
+          <p className="stat__note">{attention.length > 0 ? 'Reachable from the list below' : 'Every page looks clean'}</p>
         </div>
       </div>
+
+      <section className="card" style={{ marginBottom: 16 }}>
+        <div className="card__head">
+          <h2>Needs attention</h2>
+          <span className={`badge ${attention.length === 0 ? 'badge--ok' : 'badge--warn'}`}>{attention.length}</span>
+          <div className="spacer" />
+          <span className="mono" style={{ color: 'var(--muted)' }}>
+            meta limits · hidden sections
+          </span>
+        </div>
+        {attention.length === 0 ? (
+          <p className="empty">
+            Nothing to fix. Titles are under {TITLE_LIMIT} characters, descriptions under {DESCRIPTION_LIMIT}, and no
+            section is hidden.
+          </p>
+        ) : (
+          <ul className="attention">
+            {attention.slice(0, 8).map((item, index) => (
+              <li key={`${item.route}-${index}`}>
+                <Link href={`/pages/${item.param}`}>
+                  <span className="route mono">{item.route}</span>
+                  <span>{item.label}</span>
+                  <Icon name="chevron" size={14} />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
 
       <PageTable rows={rows} />
 
@@ -88,27 +138,32 @@ export default async function Dashboard() {
       <div className="split-2">
         <section className="card">
           <div className="card__head">
-            <h2>How a change travels</h2>
+            <h2>Recent commits</h2>
+            <div className="spacer" />
+            <Link className="table__link" href="/changes">
+              All changes
+            </Link>
           </div>
-          <div className="card__body hint-list">
-            <p>
-              <b>1 · Edit.</b> Pages, sections, navigation and footer write straight into the site&apos;s data files.
-              Every write is validated, atomic, and keeps a <code className="mono">.bak</code>.
-            </p>
-            <p>
-              <b>2 · Build.</b> The build panel runs <code className="mono">npm run verify</code>: export, parity gate,
-              lint. The gate compares text and markup against the frozen reference.
-            </p>
-            <p>
-              <b>3 · Review.</b> An intended copy change will fail the gate until the change is approved — that is the
-              design, not a fault.
-            </p>
+          <div className="card__body">
+            {log.commits.length === 0 ? (
+              <p className="empty">{log.error ?? 'No commits yet.'}</p>
+            ) : (
+              <ol className="commits">
+                {log.commits.map((commit) => (
+                  <li key={commit.hash}>
+                    <span className="mono commit__hash">{commit.hash}</span>
+                    <span className="commit__subject">{commit.subject}</span>
+                    <span className="mono commit__date">{commit.date}</span>
+                  </li>
+                ))}
+              </ol>
+            )}
           </div>
         </section>
 
         <section className="card">
           <div className="card__head">
-            <h2>Where to go</h2>
+            <h2>Edit</h2>
           </div>
           <div className="card__body stack">
             <Link className="btn" href="/pages">

@@ -22,19 +22,20 @@ cd next-app
 npm run dev          # http://localhost:3000
 ```
 
-The built preview (`/build`) serves `next-app/out` on `http://127.0.0.1:8080`; the panel starts and
-stops that server itself.
+The studio does not build or preview. `npm run verify` (export, parity gate, lint) and publishing are
+terminal commands in `next-app/` — D-18. `/changes` shows what is uncommitted and what the last
+commits were, read-only.
 
 ## What it edits
 
 | Screen | Writes |
 |---|---|
-| `/` dashboard | nothing — counts, last build, the route table |
+| `/` dashboard | nothing — counts, attention list, the route table, recent commits |
+| `/changes` | nothing — `git status` and `git log`, read-only (D-18) |
 | `/pages` → `/pages/<route>` | page title, description, robots, the CTA switch, and per-route `hidden` / `order` |
 | `/navigation` | the seven primary links (label, destination, key, order) |
 | `/footer` | the brand blurb and email, the footer columns and their links |
 | `/content/capability/<slug>` · `/content/product/<slug>` | every field the templated pages render |
-| `/build` | runs `npm run verify`; starts, stops and frames the built preview |
 
 ## How a save works
 
@@ -63,21 +64,20 @@ modules. Add a section to a page: a node in the page component plus an entry in 
 
 - **Localhost only, no auth.** The dev server binds `127.0.0.1`. Moving it to a LAN or online needs
   auth and a different write layer first (D-15).
-- **No deploy wiring.** Pushing or calling a deploy hook waits for a host decision.
+- **No build, preview or deploy.** The build panel and its preview frame were removed (D-18).
+  `npm run verify` runs in a terminal; pushing or calling a deploy hook waits for a host decision.
 - **No baseline approval button.** An intended copy change fails the gate until
   `next-app/scripts/approve.py` is run by hand; that is the design.
 - **No page add/delete.** Routes are the manifest; adding one is a code change with a redirect,
   a sitemap entry and a baseline.
-- **Preview theme** is the site's own toggle inside the frame; the studio cannot set another
-  origin's `localStorage`.
-- **One build at a time.** A second request is refused rather than queued.
+- **The changes screen is read-only.** It never stages, commits or checks out; that stays in git.
+- **Responsive from 320px.** The shell is a drawer under 1080px, tables drop columns under 720px,
+  and long paths break instead of widening the page. No horizontal page scroll at any width.
 
 ## Verify it
 
 ```powershell
-npm run typecheck    # tsc --noEmit
-npm run build        # the studio's own export (not the site's)
-npm run lint
+npm run verify       # typecheck + build + lint
 ```
 
 The site's proof is separate and authoritative:

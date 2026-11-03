@@ -127,7 +127,7 @@ export function FooterEditor({ footer }: { footer: Footer }) {
         </div>
       </section>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: 16 }}>
+      <div className="cols">
         {columns.map((column, index) => (
           <section className="col" key={index}>
             <div className="col__head">

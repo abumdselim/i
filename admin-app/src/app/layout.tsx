@@ -4,6 +4,8 @@ import type { ReactNode } from 'react';
 import './globals.css';
 import { Shell } from '@/components/Shell';
 import { Toaster } from '@/components/Toaster';
+import { paramForRoute } from '@/lib/routes';
+import { readPages } from '@/lib/site';
 
 /**
  * The studio's shell. Fonts are the site's files, copied into this package
@@ -37,7 +39,15 @@ export const metadata: Metadata = {
 /** Runs before first paint so the chosen theme does not flash. */
 const BOOTSTRAP = `(function(){try{var t=localStorage.getItem('intactic-studio-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t)}}catch(e){}})();`;
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({ children }: { children: ReactNode }) {
+  const pages = await readPages();
+  const palettePages = pages.map((page) => ({
+    param: paramForRoute(page.route),
+    route: page.route,
+    title: page.title,
+    kind: page.kind,
+  }));
+
   return (
     <html
       lang="en"
@@ -50,7 +60,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <a className="skip" href="#main">
           Skip to content
         </a>
-        <Shell>{children}</Shell>
+        <Shell pages={palettePages}>{children}</Shell>
         <Toaster />
       </body>
     </html>

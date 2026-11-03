@@ -163,7 +163,7 @@ export function ContentEditor({
             <div className="card__body">
               <div className="rows">
                 {draft.meta.map((item: MetaItem, index) => (
-                  <div className="link-row" key={index} style={{ gridTemplateColumns: 'minmax(110px,1fr) 110px minmax(130px,1.4fr) auto' }}>
+                  <div className="link-row link-row--meta" key={index}>
                     <input
                       className="input"
                       value={item.key}
@@ -198,7 +198,7 @@ export function ContentEditor({
                       <option value="link">link</option>
                     </select>
                     {item.value.kind === 'link' ? (
-                      <span className="link-row" style={{ gridTemplateColumns: '1fr 1fr', gap: 6 }}>
+                      <span className="link-row link-row--pair">
                         <input
                           className="input"
                           value={item.value.label}
@@ -425,7 +425,7 @@ export function ContentEditor({
             <div className="card__body">
               <div className="rows">
                 {draft.related.map((item: RelatedItem, index) => (
-                  <div className="link-row" key={index} style={{ gridTemplateColumns: '90px 1fr 1.2fr auto' }}>
+                  <div className="link-row link-row--related" key={index}>
                     <input
                       className="input"
                       value={item.num}

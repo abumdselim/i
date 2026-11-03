@@ -139,7 +139,7 @@ export function StringRows({
       </span>
       <div className="rows">
         {values.map((value, index) => (
-          <div className="link-row" key={index}>
+          <div className="link-row link-row--single" key={index}>
             <input
               className="input"
               value={value}

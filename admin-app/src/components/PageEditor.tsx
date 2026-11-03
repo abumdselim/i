@@ -45,6 +45,8 @@ export function PageEditor({
   const [sections, setSections] = useState<SectionRow[]>(rows);
   const [issues, setIssues] = useState<Record<string, string>>({});
   const [saving, setSaving] = useState(false);
+  const [dragIndex, setDragIndex] = useState<number | null>(null);
+  const [overIndex, setOverIndex] = useState<number | null>(null);
 
   const snapshot = useMemo(
     () =>
@@ -80,6 +82,25 @@ export function PageEditor({
     setSections((list) =>
       list.map((row) => (row.id === id && !row.locked ? { ...row, hidden: !row.hidden } : row)),
     );
+  }
+
+  /** Drop at `target`, keeping every hidden flag with its section. */
+  function drop(target: number) {
+    const from = dragIndex;
+    setDragIndex(null);
+    setOverIndex(null);
+    if (from === null || from === target) return;
+    if (sections[from]?.locked || sections[target]?.locked) return;
+    const next = [...sections];
+    const [moved] = next.splice(from, 1);
+    next.splice(target, 0, moved);
+    setSections(next);
+  }
+
+  /** Back to the registry's order; visibility is a separate decision and is kept. */
+  function resetOrder() {
+    const hiddenById = new Map(sections.map((row) => [row.id, row.hidden]));
+    setSections(rows.map((row) => ({ ...row, hidden: hiddenById.get(row.id) ?? row.hidden })));
   }
 
   async function save() {
@@ -221,14 +242,40 @@ export function PageEditor({
             <h2>Sections</h2>
             <span className="badge">{sections.filter((row) => !row.hidden).length} shown</span>
             <div className="spacer" />
-            <span className="mono" style={{ color: 'var(--muted)' }}>
-              order = top to bottom
-            </span>
+            <button
+              type="button"
+              className="btn btn--sm btn--ghost"
+              onClick={resetOrder}
+              disabled={sections.every((row, index) => row.id === rows[index]?.id)}
+            >
+              <Icon name="refresh" size={14} /> Registry order
+            </button>
           </div>
           <div className="card__body">
             <div className="sections">
               {sections.map((row, index) => (
-                <div className={`section-card${row.hidden ? ' section-card--hidden' : ''}`} key={row.id}>
+                <div
+                  className={`section-card${row.hidden ? ' section-card--hidden' : ''}${
+                    dragIndex === index ? ' is-dragging' : ''
+                  }${overIndex === index && dragIndex !== index ? ' is-over' : ''}`}
+                  key={row.id}
+                  draggable={!row.locked}
+                  onDragStart={() => setDragIndex(index)}
+                  onDragOver={(event) => {
+                    if (row.locked) return;
+                    event.preventDefault();
+                    setOverIndex(index);
+                  }}
+                  onDragLeave={() => setOverIndex((value) => (value === index ? null : value))}
+                  onDrop={(event) => {
+                    event.preventDefault();
+                    drop(index);
+                  }}
+                  onDragEnd={() => {
+                    setDragIndex(null);
+                    setOverIndex(null);
+                  }}
+                >
                   <Icon name="grip" size={16} className="grip" />
                   <span className="section-card__num">{String(index + 1).padStart(2, '0')}</span>
                   <div className="section-card__body">
@@ -274,8 +321,8 @@ export function PageEditor({
               ))}
             </div>
             <p className="field__hint" style={{ marginTop: 12 }}>
-              Locked rows keep their place: the head carries the h1 and cannot be hidden. The closing CTA is the switch
-              in Page meta.
+              Drag a row to reorder it, or use the arrows. Locked rows keep their place: the head carries the h1 and
+              cannot be hidden. The closing CTA is the switch in Page meta.
             </p>
           </div>
         </section>

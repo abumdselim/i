@@ -264,3 +264,28 @@ layout.
 **Cost:** the section list is explicit rather than derived from a template, so the ten templated
 pages carry their five body entries each. That is the price of a file a program can read and a human
 can diff.
+
+---
+
+## D-18 — The studio edits; building and publishing stay terminal commands
+
+**Decision:** Intactic Studio has no build screen. It reads and writes `next-app/data/*.json`,
+shows what is uncommitted (`git status`, read-only) and what the last commits were, and stops there.
+`npm run verify` — export, parity gate, lint — is run in a terminal, in `next-app/`.
+
+**Why:** The first studio put a build panel behind a button, and the owner asked for it to go: the
+panel's job is editing, and the gate's job is judging — separate concerns, separate tools. Keeping
+the build out of the panel also keeps one build at a time from being a product problem (it is a
+shell command), avoids the owner Mistaking a green badge for a deploy, and removes the child-process
+surface (spawning `npm`, sanitising its environment) from a tool whose whole point is to stay local
+and small.
+
+**What replaces it:** the Changes screen — uncommitted files with the data area each one belongs to,
+and the recent commit list — so the question the build panel answered ("what would ship?") is
+answered honestly instead: nothing ships until a human builds, reviews the gate, and publishes.
+
+**Cost:** an extra terminal step between a save and a published page, and no gate result inside the
+panel. The gate was never the place to approve changes anyway; `scripts/approve.py` remains the only
+way a baseline moves.
+
+**Supersedes:** the build panel of admin phase 5 (docs/admin.md), which is retired, not rewritten.

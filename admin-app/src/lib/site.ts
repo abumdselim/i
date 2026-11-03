@@ -24,12 +24,6 @@ import type {
 
 const SITE_ROOT = path.resolve(process.cwd(), '..', 'next-app');
 export const DATA_DIR = path.join(SITE_ROOT, 'data');
-export const SITE_ROOT_DIR = SITE_ROOT;
-
-/** Where the site is expected to be running for "view page" links. */
-export const SITE_URL = 'http://localhost:3000';
-/** `npm run preview` in next-app/ serves the built export here. */
-export const PREVIEW_URL = 'http://127.0.0.1:8080';
 
 type DataFile = 'pages.json' | 'sections.json' | 'site-config.json' | 'capabilities.json' | 'products.json';
 
@@ -157,16 +151,6 @@ export function sectionPlan(sections: SectionDefinition[], config: SiteConfig, r
     const next = queue.shift() as SectionDefinition;
     return { ...next, hidden: hiddenIds.has(next.id) };
   });
-}
-
-/** The last build's timestamp, from the export the site produced. */
-export async function lastBuild(): Promise<{ at: string | null; exists: boolean }> {
-  try {
-    const stat = await fs.stat(path.join(SITE_ROOT, 'out', 'index.html'));
-    return { at: stat.mtime.toISOString(), exists: true };
-  } catch {
-    return { at: null, exists: false };
-  }
 }
 
 /* ------------------------------------------------------------------- icons */

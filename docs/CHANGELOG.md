@@ -15,6 +15,34 @@ Format:
 
 ---
 
+## 2026-11-03 — Studio v2: Changes replaces the build panel, and the panel goes responsive
+
+**Why:** The owner asked for the build panel to go (D-18): the studio's job is editing, the gate's job
+is judging. In the same round the panel had to work equally well on a phone, a tablet and a desktop —
+the first version assumed a wide window.
+
+**Changed:**
+- `admin-app/src/app/build/`, `api/build/`, `api/preview/` and `components/BuildPanel.tsx` — deleted;
+  `lastBuild()` and `PREVIEW_URL` removed. The topbar's Build button is now a Changes link.
+- `admin-app/src/app/changes/page.tsx` + `src/lib/git.ts` — new, read-only: `git status --porcelain`,
+  `git log`, a label per data file, status badges. Nothing stages or commits.
+- Shell and dashboard: grouped sidebar (Overview · Site · Content), drawer close button, `Ctrl/⌘ K`
+  command palette over six screens and nineteen pages, skeleton/error/404 screens, a needs-attention
+  list (title/description limits, hidden sections), a filterable and sortable page table, recent commits.
+- Responsive: `min-width: 0` on grid/flex/field containers (the actual clipping bug); tables drop
+  Kind/Sections/Area under 720px, the pages table becomes one card per route on phones, and long
+  paths break; form rows stack; statistics go two-up; action bars stick and wrap; the topbar keeps
+  icons only; the drawer caps at 300px. Inline grid templates in the content and footer editors
+  moved to classes so a breakpoint can replace them.
+
+**Verified:** studio `tsc --noEmit` exit 0, `npm run lint` clean, `npm run build` exit 0. Layout audit
+over 9 widths (320, 360, 390, 430, 768, 834, 1024, 1280, 1440) × 9 routes = 81 combinations: no
+horizontal page overflow at any of them (`docScrollWidth === clientWidth`). Screenshots captured at
+390, 834 and 1440. The site itself is untouched (`next-app/` clean) and its gate was not re-run — this
+round changes only the studio and its docs.
+
+---
+
 ## 2026-11-03 — Intactic Studio: the local admin panel
 
 **Why:** The owner asked for a professional panel that edits, hides and reorders every page and

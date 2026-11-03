@@ -14,6 +14,7 @@ export default async function PagesIndex() {
     kind: page.kind,
     sections: sectionsOf(sections, page.route).length,
     hidden: config.hidden.filter((entry) => entry.route === page.route).length,
+    cta: page.showCta,
   }));
 
   return (

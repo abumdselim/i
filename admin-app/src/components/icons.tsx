@@ -32,13 +32,6 @@ const PATHS = {
       <path d="M8 3v18" />
     </>
   ),
-  build: (
-    <>
-      <rect x="3" y="5" width="18" height="14" rx="1" />
-      <path d="M7 10l2.5 2L7 14" />
-      <path d="M12.5 14H16" />
-    </>
-  ),
   eye: (
     <>
       <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z" />
@@ -123,6 +116,12 @@ const PATHS = {
     <>
       <circle cx="12" cy="12" r="9" />
       <path d="M12 7v5l3 2" />
+    </>
+  ),
+  changes: (
+    <>
+      <circle cx="12" cy="12" r="3.2" />
+      <path d="M12 2v6.8M12 15.2V22" />
     </>
   ),
   layers: (

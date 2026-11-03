@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState, useSyncExternalStore, type ReactNode } from 'react';
 import { confirmLeave, isDirty } from '@/lib/dirty';
 import { SITE_URL } from '@/lib/urls';
+import { CommandPalette, type PalettePage } from './CommandPalette';
 import { Icon, type IconName } from './icons';
 
 type Theme = 'light' | 'dark';
@@ -29,17 +30,22 @@ interface Link {
 }
 
 const GROUPS: { label: string; links: Link[] }[] = [
-  { label: 'Overview', links: [{ href: '/', label: 'Dashboard', icon: 'dashboard', num: '01' }] },
+  {
+    label: 'Overview',
+    links: [
+      { href: '/', label: 'Dashboard', icon: 'dashboard', num: '01' },
+      { href: '/changes', label: 'Changes', icon: 'changes', num: '02' },
+    ],
+  },
   {
     label: 'Site',
     links: [
-      { href: '/pages', label: 'Pages', icon: 'pages', num: '02' },
-      { href: '/navigation', label: 'Navigation', icon: 'nav', num: '03' },
-      { href: '/footer', label: 'Footer', icon: 'footer', num: '04' },
+      { href: '/pages', label: 'Pages', icon: 'pages', num: '03' },
+      { href: '/navigation', label: 'Navigation', icon: 'nav', num: '04' },
+      { href: '/footer', label: 'Footer', icon: 'footer', num: '05' },
     ],
   },
-  { label: 'Content', links: [{ href: '/content', label: 'Capabilities & products', icon: 'content', num: '05' }] },
-  { label: 'Build', links: [{ href: '/build', label: 'Build & preview', icon: 'build', num: '06' }] },
+  { label: 'Content', links: [{ href: '/content', label: 'Capabilities & products', icon: 'content', num: '06' }] },
 ];
 
 const CRUMB_NAMES: Record<string, string> = {
@@ -47,7 +53,7 @@ const CRUMB_NAMES: Record<string, string> = {
   navigation: 'Navigation',
   footer: 'Footer',
   content: 'Content',
-  build: 'Build',
+  changes: 'Changes',
 };
 
 function crumbsFor(pathname: string): { label: string; href?: string }[] {
@@ -74,10 +80,23 @@ function isCurrent(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-export function Shell({ children }: { children: ReactNode }) {
+export function Shell({ pages, children }: { pages: PalettePage[]; children: ReactNode }) {
   const pathname = usePathname() || '/';
   const crumbs = crumbsFor(pathname);
   const theme = useSyncExternalStore(subscribeTheme, themeFromDom, () => 'light' as Theme);
+
+  const [paletteOpen, setPaletteOpen] = useState(false);
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        setPaletteOpen((value) => !value);
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, []);
 
   /** The drawer belongs to the route it was opened on; navigation closes it. */
   const [openedAt, setOpenedAt] = useState<string | null>(null);
@@ -136,6 +155,14 @@ export function Shell({ children }: { children: ReactNode }) {
             <img className="logo--white" src="/logo-white-500.png" alt="" width={104} height={16} />
           </Link>
           <span className="side__tag">Studio</span>
+          <button
+            type="button"
+            className="iconbtn side__close"
+            aria-label="Close menu"
+            onClick={() => setOpenedAt(null)}
+          >
+            <Icon name="close" size={16} />
+          </button>
         </div>
 
         <nav className="side__nav" aria-label="Studio sections">
@@ -219,8 +246,24 @@ export function Shell({ children }: { children: ReactNode }) {
           </div>
 
           <div className="top__actions">
-            <a className="btn btn--sm" href={SITE_URL} target="_blank" rel="noreferrer">
-              View site <Icon name="external" size={14} />
+            <button
+              type="button"
+              className="searchbtn"
+              onClick={() => setPaletteOpen(true)}
+              aria-label="Search the studio (Control K)"
+            >
+              <Icon name="search" size={15} />
+              <span className="searchbtn__label">Search</span>
+              <kbd className="kbd searchbtn__kbd">Ctrl K</kbd>
+            </button>
+            <a
+              className="btn btn--sm top__site"
+              href={SITE_URL}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="View the site"
+            >
+              <span className="hide-sm">View site</span> <Icon name="external" size={14} />
             </a>
             <button
               type="button"
@@ -236,6 +279,8 @@ export function Shell({ children }: { children: ReactNode }) {
 
         <div id="main">{children}</div>
       </div>
+
+      <CommandPalette key={paletteOpen ? 'open' : 'closed'} pages={pages} open={paletteOpen} onClose={() => setPaletteOpen(false)} />
     </div>
   );
 }
