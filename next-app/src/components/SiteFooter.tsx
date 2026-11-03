@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { CookieSettingsLink } from '@/components/CookieNotice';
 import { FOOTER } from '@/lib/config';
 import { Year } from './Year';
 
@@ -49,9 +50,12 @@ export function SiteFooter() {
             © <Year /> Intactic
           </p>
           <p className="mono">Software engineering studio</p>
-          <a className="mono" href="#top">
-            Back to top
-          </a>
+          <div className="foot__legal">
+            <CookieSettingsLink />
+            <a className="mono" href="#top">
+              Back to top
+            </a>
+          </div>
         </div>
       </div>
     </footer>

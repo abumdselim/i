@@ -289,3 +289,54 @@ panel. The gate was never the place to approve changes anyway; `scripts/approve.
 way a baseline moves.
 
 **Supersedes:** the build panel of admin phase 5 (docs/admin.md), which is retired, not rewritten.
+
+---
+
+## D-19 — Client evidence: one real wordmark, everything else labelled
+
+**Decision:** The home case-study section may carry a client's own wordmark only on a `live` case —
+a build that is in production and can be visited. A case without that is `illustrative`: the card
+says so in its label, names no client, claims no metric, and links to the capability it demonstrates.
+The site carries one client logo, Chattametro.
+
+**Why:** D-05 kept client logos out of the graphic language because there was nothing verified to
+show, and a wall of borrowed marks is decoration. There is now one platform running in public, and
+its own wordmark next to a paragraph about what the platform does is evidence a reader can check by
+following the link. The other three sectors — distribution, diagnostics, freight — have scoped shapes
+of work but no client who has agreed to be named, so they are written as shapes of work and marked
+"Illustrative" in the card’s mono line rather than dressed up as logos.
+
+**Rules:** `kind: "live"` requires `logo` and a public `link` to the running system.
+`kind: "illustrative"` requires `logo: null`, no client name, and an empty `note`. Both kinds keep the
+same card and the same grid, so the list stays one editorial unit and the label carries the difference.
+
+**Supersedes:** the "no client logos" clause of D-05, for this section only.
+
+---
+
+## D-20 — Photography carries context; geometry still carries architecture
+
+**Decision:** The site uses photography where a reader has to recognise their own operation —
+sector cards, case-study figures, page heads — and keeps the module lattice for anything that is an
+argument about structure (the system plate, the capability figures, the stack). Photographs are
+context, never evidence: no image claims to be a client’s site, an office, or a colleague, and no
+face is used to stand for the team.
+
+**Why:** D-05 kept photography out because there was nothing verified to show and borrowed stock
+reads as borrowed credibility. The position has changed: there is a live platform and a scoped set of
+engagements, and a counter, a shelf and a filing wall say in one second what three paragraphs of
+capability copy cannot. Generation lets the set be made to one grade and one crop instead of
+licensing five unrelated stock frames, which is what breaks a page’s rhythm.
+
+**Rules:** sector cards are 16:10 at 1200×750; one grade across the set (saturation .97, contrast
+1.02). A photograph is briefed, not prompted: a named place, available light, a 35 mm lens, visible
+film grain, real clutter and wear, one off-centre frame — and a hard reject on anything that reads as
+stock: symmetry, empty staging, studio lighting, a blank screen where a real one would be working.
+Packaging and signage stay out of focus rather than blank, because blank is what makes a generated
+frame look generated. Descriptive alt text that names the scene and claims nothing it cannot know;
+`loading="lazy"`
+and intrinsic `width`/`height` so the card reserves its space; every path validated at build and
+required to live under `/assets/`. A photograph never appears where the page is making a numeric or
+architectural claim — figures stay drawn.
+
+**Supersedes:** the "avoids stock photography entirely" clause of D-05, for photography used as context.

@@ -1,8 +1,9 @@
+import caseStudiesJson from '../../../data/case-studies.json';
 import capabilitiesJson from '../../../data/capabilities.json';
 import figuresJson from '../../../data/figures.json';
 import pagesJson from '../../../data/pages.json';
 import productsJson from '../../../data/products.json';
-import { validateCapabilities, validateFigures, validatePages, validateProducts } from './schema';
+import { validateCapabilities, validateCaseStudies, validateFigures, validatePages, validateProducts } from './schema';
 import type { FigureGeometry, Industry, PlateLayer, StackGroup } from './types';
 
 /**
@@ -22,6 +23,7 @@ import type { FigureGeometry, Industry, PlateLayer, StackGroup } from './types';
 export const CAPABILITIES = validateCapabilities(capabilitiesJson);
 export const PRODUCTS = validateProducts(productsJson);
 export const PAGES = validatePages(pagesJson);
+export const CASE_STUDIES = validateCaseStudies(caseStudiesJson);
 
 const FIGURES_DATA = validateFigures(figuresJson);
 

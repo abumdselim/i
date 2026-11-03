@@ -15,6 +15,102 @@ Format:
 
 ---
 
+## 2026-11-03 — Photography, second pass: the set is art-directed, not generated
+
+**Why:** The first five sector frames read as clean but anonymous — the failure mode of generated
+stock. The owner set the bar at the level the best software-company sites hold: specific places, real
+clutter, one lens family, one grade, nothing staged.
+
+**Changed:**
+- `next-app/public/assets/img/sectors/*.jpg` — all five re-shot to one brief: a named room, available
+  light, 35 mm at f/2–f/2.8, film grain, off-centre framing, packaging and signage out of focus rather
+  than blank. Retail is a Chattogram electronics shop, legal a chamber desk with ribbon-tied files,
+  commerce a courier-bag packing table, offices an archive with dust in the light.
+- `next-app/public/assets/img/work/document-intake.jpg` — the ink band re-shot to the same brief at
+  21:9, after the first frame looked staged beside the new set.
+- `next-app/public/assets/img/work/chattametro.jpg` — 1440×810 capture of the live marketplace, not a
+  mock-up; the case section leads with it under a `LIVE PLATFORM / CHATTAMETRO.COM` bar.
+- `next-app/src/components/pages/home/Sections.tsx` + `globals.css` — the case figure and the ink band
+  figure, with mono captions; both are build assets, not studio copy (D-20).
+- `docs/DECISIONS.md` D-20 — the brief and the reject list now written down, so page heads and later
+  sections are shot to the same standard instead of a new one each time.
+
+**Verified:** `typecheck`, `lint`, `build` clean; all seven images load at their declared sizes
+(1200×750, 1600×686, 1440×810); desktop captures of the industries mosaic, the ink band and the case
+figure taken from the built export.
+## 2026-11-03 — Sector photography enters the home page
+
+**Why:** The owner asked for real visuals on a corporate-software level, the way Brain Station 23 and
+its peers use them, while keeping the rhythm. The industries grid was the honest place to start: one
+photograph per sector, each one the operation the card describes.
+
+**Changed:**
+- `next-app/public/assets/img/sectors/{retail,pharmacy,legal,commerce,offices}.jpg` — five 1200×750
+  frames, one grade (saturation .92, contrast 1.02), 67–131 KB each.
+- `next-app/data/figures.json` — `image` on every industry: path, alt, intrinsic size.
+- `next-app/src/lib/content/{types,schema}.ts` — `IndustryImage`, plus `picture()` which refuses a src
+  outside `/assets/` and a zero size.
+- `next-app/src/components/pages/home/Sections.tsx` — the card opens with the photograph; the icon row
+  it replaces is gone.
+- `next-app/src/styles/globals.css` — the card bleeds its figure to the cell edges, the number chip sits
+  on the image, and the blue CTA tile keeps its own padding.
+- `docs/DECISIONS.md` D-20 — photography as context, geometry still for architecture.
+
+**Verified:** `typecheck`, `lint`, `build` clean; in the built export all five files load at 1200×750 and
+render 401×251 in a 3-column grid (2 at 900px, 1 at 600px); desktop and 390px captured.
+
+## 2026-11-03 — The cookie notice: a corner card with a real choice
+
+**Why:** The owner asked for the consent pattern Brain Station 23 uses — one compact card in a
+corner, one sentence, one primary action — instead of a full-width bar. The reference offers only
+"ACCEPT"; this one also gives a second action and a settings panel, and stores the answer.
+
+**Changed:**
+- `next-app/src/components/CookieNotice.tsx` — new client component: `CookieNotice` plus
+  `CookieSettingsLink` for the footer. The stored answer is read through `useSyncExternalStore`
+  (the lint rule forbids `setState` in an effect), written to `intactic.consent` (v1) and mirrored to
+  `document.documentElement.dataset.consent` so a measurement script added later has one place to read.
+- `next-app/src/app/layout.tsx` — mounted once, after the footer, so every route carries it.
+- `next-app/src/components/SiteFooter.tsx` — "Cookie settings" in the bottom bar, beside Back to top.
+- `next-app/src/styles/globals.css` — `.cookie*` and `.foot__legal`: ink surface, mono label, the
+  site's clipped-corner buttons, `prefers-reduced-motion` opt-out.
+
+**Verified:** `typecheck`, `lint`, `build` clean. In the built export: first visit shows the card with
+Accept / Essential only; Cookie settings opens the panel with two rows and focus on the analytics
+switch (off); Save writes `{"v":1,"analytics":true,…}`, sets `data-consent="analytics"` and hides
+the card; a reload keeps it hidden; the footer link reopens it with the stored answer; at 390px the
+card is 362px wide and fits; light and dark both captured.
+
+## 2026-11-03 — Case studies: a live platform, three labelled engagements
+
+**Why:** The home page carried no evidence. The studio now runs one marketplace in production, so the
+page needed a section that shows it — and three representative engagements for the sectors that have
+a shape but no publishable client. The owner then asked for the placement Brain Station 23 uses: their
+case studies are the last content block before the close, and that is also the only slot in this page
+where the surface ladder allows paper (engagements is mist, the closing CTA is shell).
+
+**Changed:**
+- `next-app/data/case-studies.json` — new: head, closing card and four cases, one `live` with the
+  client's wordmark, three `illustrative` and labelled as such.
+- `next-app/src/lib/content/{types,schema,loader}.ts` — `CaseStudiesData`, `validateCaseStudies`,
+  `CASE_STUDIES`; the build refuses a malformed file.
+- `next-app/src/components/pages/home/{Sections,index}.tsx` — the section, mounted by the registry.
+- `next-app/data/sections.json` — the registry entry, last in the body: after Engagements, directly
+  above the closing CTA.
+- `next-app/src/styles/globals.css` — the case grid, card, ink media plate for the wordmark.
+- `next-app/public/assets/img/chattametro-logo.png` — the wordmark as the client supplied it.
+- `admin-app` — `api/case-studies/route.ts` (GET/PUT, validated, atomic write),
+  `content/case-studies/page.tsx`, `components/CaseStudiesEditor.tsx`, and `lib/{site,rules,types}.ts`.
+- `docs/PAGES.md` — the home order; `docs/DECISIONS.md` D-19 for the client-evidence rule.
+
+**Verified:** `typecheck`, `lint` and `build` clean in both apps; the export renders nine body sections
+with case studies last; the grid is two columns at 1440 and one at 390, and the closing card spans the
+full width as a banner — the first 3-up version stretched it to the height of the tallest card and left
+a 922px blue slab, which is why the grid is 2-up now; the wordmark loads at its declared 720×184 and
+draws 133×34. `npm run gate` now reports the two expected
+structural differences on `index.html` (a longer text run and one extra section) — the frozen
+reference has not been re-approved, which is the owner's call, not a side effect of this entry.
+
 ## 2026-11-03 — Studio v2: Changes replaces the build panel, and the panel goes responsive
 
 **Why:** The owner asked for the build panel to go (D-18): the studio's job is editing, the gate's job

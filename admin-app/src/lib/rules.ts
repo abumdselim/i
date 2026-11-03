@@ -1,5 +1,9 @@
 import type {
   CapabilityContent,
+  CaseStudiesData,
+  CaseStudy,
+  CaseStudyKind,
+  CaseStudyLogo,
   ContentType,
   PageEntry,
   ProductContent,
@@ -309,4 +313,128 @@ export function validateContent(
 
   if (issues.length > 0) throw new StudioValidationError(issues);
   return value as unknown as CapabilityContent | ProductContent;
+}
+
+/* ------------------------------------------------------------ case studies */
+
+/**
+ * The home case-study section, validated field by field so the editor can mark
+ * the card that caused a problem. The site's `content/schema.ts` validates the
+ * same file again at build time; this is the fast check before a write.
+ *
+ * Two rules are more than type checks: a `live` card must carry the client
+ * wordmark, and every logo `src` must be a local asset path — a remote logo
+ * would quietly reintroduce the CDN dependency the site forbids.
+ */
+export function validateCaseStudies(value: unknown): CaseStudiesData {
+  const issues: Issues = [];
+  if (!isRecord(value)) throw new StudioValidationError([{ path: 'case-studies', message: 'must be an object' }]);
+
+  const head = isRecord(value.head) ? value.head : {};
+  if (!isRecord(value.head)) issues.push({ path: 'head', message: 'must be an object' });
+  for (const field of ['eyebrow', 'title', 'lead'] as const) str(head[field], `head.${field}`, issues);
+
+  const cta = isRecord(value.cta) ? value.cta : {};
+  if (!isRecord(value.cta)) issues.push({ path: 'cta', message: 'must be an object' });
+  for (const field of ['title', 'body', 'label'] as const) str(cta[field], `cta.${field}`, issues);
+  const ctaHref = str(cta.href, 'cta.href', issues);
+  if (ctaHref && !/^(\/|https:\/\/)/.test(ctaHref)) {
+    issues.push({ path: 'cta.href', message: 'must be a site path or an https: link' });
+  }
+
+  const cases = arr(value.cases, 'cases', issues).map((entry, index) => {
+    const path = `cases[${index}]`;
+    if (!isRecord(entry)) {
+      issues.push({ path, message: 'must be an object' });
+      return null;
+    }
+
+    const kind = str(entry.kind, `${path}.kind`, issues);
+    if (kind && kind !== 'live' && kind !== 'illustrative') {
+      issues.push({ path: `${path}.kind`, message: 'must be live or illustrative' });
+    }
+
+    for (const field of ['id', 'num', 'client', 'line', 'icon'] as const) str(entry[field], `${path}.${field}`, issues);
+
+    let logo: CaseStudyLogo | null = null;
+    if (entry.logo === null || entry.logo === undefined) {
+      if (kind === 'live') issues.push({ path: `${path}.logo`, message: 'a live case needs the client wordmark' });
+    } else if (!isRecord(entry.logo)) {
+      issues.push({ path: `${path}.logo`, message: 'must be an object or empty' });
+    } else {
+      const src = str(entry.logo.src, `${path}.logo.src`, issues);
+      if (src && !src.startsWith('/assets/')) {
+        issues.push({ path: `${path}.logo.src`, message: 'must be a local path under /assets/' });
+      }
+      const alt = str(entry.logo.alt, `${path}.logo.alt`, issues);
+      const width = Number(entry.logo.width);
+      const height = Number(entry.logo.height);
+      if (!Number.isFinite(width) || width <= 0) issues.push({ path: `${path}.logo.width`, message: 'must be a positive number' });
+      if (!Number.isFinite(height) || height <= 0) issues.push({ path: `${path}.logo.height`, message: 'must be a positive number' });
+      logo = { src, alt, width: width || 0, height: height || 0 };
+    }
+
+    const summary = arr(entry.summary, `${path}.summary`, issues);
+    summary.forEach((paragraph, paragraphIndex) => str(paragraph, `${path}.summary[${paragraphIndex}]`, issues));
+    if (summary.length === 0) issues.push({ path: `${path}.summary`, message: 'needs at least one paragraph' });
+
+    if (typeof entry.note !== 'string') issues.push({ path: `${path}.note`, message: 'must be text (may be empty)' });
+
+    arr(entry.tags, `${path}.tags`, issues).forEach((tag, tagIndex) => str(tag, `${path}.tags[${tagIndex}]`, issues));
+
+    arr(entry.spec, `${path}.spec`, issues).forEach((row, rowIndex) => {
+      if (!isRecord(row)) {
+        issues.push({ path: `${path}.spec[${rowIndex}]`, message: 'must be an object' });
+        return;
+      }
+      str(row.label, `${path}.spec[${rowIndex}].label`, issues);
+      str(row.value, `${path}.spec[${rowIndex}].value`, issues);
+    });
+
+    const link = isRecord(entry.link) ? entry.link : {};
+    if (!isRecord(entry.link)) issues.push({ path: `${path}.link`, message: 'must be an object' });
+    const label = str(link.label, `${path}.link.label`, issues);
+    const href = str(link.href, `${path}.link.href`, issues);
+    if (href && !/^(\/|https:\/\/)/.test(href)) {
+      issues.push({ path: `${path}.link.href`, message: 'must be a site path or an https: link' });
+    }
+    if (typeof link.external !== 'boolean') {
+      issues.push({ path: `${path}.link.external`, message: 'must be true or false' });
+    }
+
+    return {
+      id: typeof entry.id === 'string' ? entry.id : '',
+      kind: (kind === 'illustrative' ? 'illustrative' : 'live') as CaseStudyKind,
+      num: typeof entry.num === 'string' ? entry.num : '',
+      client: typeof entry.client === 'string' ? entry.client : '',
+      line: typeof entry.line === 'string' ? entry.line : '',
+      icon: typeof entry.icon === 'string' ? entry.icon : '',
+      logo,
+      summary: Array.isArray(entry.summary) ? entry.summary.filter((p): p is string => typeof p === 'string') : [],
+      note: typeof entry.note === 'string' ? entry.note : '',
+      tags: Array.isArray(entry.tags) ? entry.tags.filter((t): t is string => typeof t === 'string') : [],
+      spec: Array.isArray(entry.spec)
+        ? entry.spec
+            .filter(isRecord)
+            .map((row) => ({ label: String(row.label ?? ''), value: String(row.value ?? '') }))
+        : [],
+      link: { label, href, external: link.external === true },
+    };
+  });
+
+  if (cases.length === 0) issues.push({ path: 'cases', message: 'needs at least one case' });
+  const ids = new Set<string>();
+  cases.forEach((card, index) => {
+    if (!card) return;
+    if (ids.has(card.id)) issues.push({ path: `cases[${index}].id`, message: `duplicate id "${card.id}"` });
+    ids.add(card.id);
+  });
+
+  if (issues.length > 0) throw new StudioValidationError(issues);
+
+  return {
+    head: { eyebrow: String(head.eyebrow), title: String(head.title), lead: String(head.lead) },
+    cta: { title: String(cta.title), body: String(cta.body), label: String(cta.label), href: ctaHref },
+    cases: cases as CaseStudy[],
+  };
 }

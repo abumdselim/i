@@ -2,6 +2,7 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import type {
   CapabilityContent,
+  CaseStudiesData,
   ContentType,
   PageEntry,
   PlannedSection,
@@ -25,7 +26,7 @@ import type {
 const SITE_ROOT = path.resolve(process.cwd(), '..', 'next-app');
 export const DATA_DIR = path.join(SITE_ROOT, 'data');
 
-type DataFile = 'pages.json' | 'sections.json' | 'site-config.json' | 'capabilities.json' | 'products.json';
+type DataFile = 'pages.json' | 'sections.json' | 'site-config.json' | 'capabilities.json' | 'products.json' | 'case-studies.json';
 
 async function readJson<T>(name: DataFile): Promise<T> {
   const file = path.join(DATA_DIR, name);
@@ -69,6 +70,10 @@ export function readProducts(): Promise<ProductContent[]> {
   return readJson<ProductContent[]>('products.json');
 }
 
+export function readCaseStudies(): Promise<CaseStudiesData> {
+  return readJson<CaseStudiesData>('case-studies.json');
+}
+
 export async function readContent(type: ContentType, slug: string): Promise<CapabilityContent | ProductContent> {
   const list = type === 'capability' ? await readCapabilities() : await readProducts();
   const found = list.find((entry) => entry.slug === slug);
@@ -92,6 +97,10 @@ export function writeCapabilities(capabilities: CapabilityContent[]): Promise<vo
 
 export function writeProducts(products: ProductContent[]): Promise<void> {
   return writeJson('products.json', products);
+}
+
+export function writeCaseStudies(data: CaseStudiesData): Promise<void> {
+  return writeJson('case-studies.json', data);
 }
 
 export async function writeContent(

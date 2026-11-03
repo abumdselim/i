@@ -25,6 +25,9 @@
 /products.html  /products  301
 /products  /products.html  200
 /products/  /products.html  200
+/case-studies.html  /case-studies  301
+/case-studies  /case-studies.html  200
+/case-studies/  /case-studies.html  200
 /custom-software.html  /custom-software  301
 /custom-software  /custom-software.html  200
 /custom-software/  /custom-software.html  200

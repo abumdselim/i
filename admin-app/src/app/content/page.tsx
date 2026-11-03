@@ -1,10 +1,14 @@
 import Link from 'next/link';
-import { readCapabilities, readProducts } from '@/lib/site';
+import { readCapabilities, readCaseStudies, readProducts } from '@/lib/site';
 
 export const dynamic = 'force-dynamic';
 
 export default async function ContentIndex() {
-  const [capabilities, products] = await Promise.all([readCapabilities(), readProducts()]);
+  const [capabilities, products, caseStudies] = await Promise.all([
+    readCapabilities(),
+    readProducts(),
+    readCaseStudies(),
+  ]);
 
   return (
     <div className="wrap">
@@ -18,6 +22,26 @@ export default async function ContentIndex() {
           </p>
         </div>
       </div>
+
+      <section className="card" style={{ marginBottom: 24 }}>
+        <div className="card__head">
+          <h2>Case studies</h2>
+          <span className="badge">{caseStudies.cases.length}</span>
+          <div className="spacer" />
+          <span className="mono" style={{ fontSize: 12 }}>
+            home · /#case-studies
+          </span>
+        </div>
+        <div className="card__body">
+          <p className="field__hint">
+            The home page&apos;s proof section — one live platform and the representative engagements. Every field of the
+            section is editable on its own screen, including the head, the closing card and the order of the cards.
+          </p>
+          <Link className="btn btn--sm" href="/content/case-studies">
+            Edit the section
+          </Link>
+        </div>
+      </section>
 
       <div className="split-2">
         <section className="card">

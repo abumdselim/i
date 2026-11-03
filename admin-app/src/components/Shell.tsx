@@ -45,7 +45,13 @@ const GROUPS: { label: string; links: Link[] }[] = [
       { href: '/footer', label: 'Footer', icon: 'footer', num: '05' },
     ],
   },
-  { label: 'Content', links: [{ href: '/content', label: 'Capabilities & products', icon: 'content', num: '06' }] },
+  {
+    label: 'Content',
+    links: [
+      { href: '/content', label: 'Capabilities & products', icon: 'content', num: '06' },
+      { href: '/content/case-studies', label: 'Case studies', icon: 'content', num: '07' },
+    ],
+  },
 ];
 
 const CRUMB_NAMES: Record<string, string> = {
@@ -53,6 +59,7 @@ const CRUMB_NAMES: Record<string, string> = {
   navigation: 'Navigation',
   footer: 'Footer',
   content: 'Content',
+  'case-studies': 'Case studies',
   changes: 'Changes',
 };
 
@@ -67,7 +74,9 @@ function crumbsFor(pathname: string): { label: string; href?: string }[] {
     let label = CRUMB_NAMES[part] ?? part;
     if (index === 1) {
       if (parts[0] === 'pages') label = part;
-      if (parts[0] === 'content') label = part === 'capability' ? 'Capabilities' : 'Products';
+      if (parts[0] === 'content') {
+        label = part === 'capability' ? 'Capabilities' : part === 'product' ? 'Products' : 'Case studies';
+      }
     }
     if (index === 2 && parts[0] === 'content') label = part;
     crumbs.push({ label, href: index === parts.length - 1 ? undefined : path });

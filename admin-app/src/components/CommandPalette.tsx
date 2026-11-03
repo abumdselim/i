@@ -25,13 +25,14 @@ const ACTIONS: Omit<Item, 'id'>[] = [
   { label: 'Navigation', hint: 'The seven primary links', href: '/navigation', group: 'Go to' },
   { label: 'Footer', hint: 'Brand block and four columns', href: '/footer', group: 'Go to' },
   { label: 'Capabilities & products', hint: 'The ten templated pages', href: '/content', group: 'Go to' },
+  { label: 'Case studies', hint: 'Home section: the proof cards', href: '/content/case-studies', group: 'Go to' },
   { label: 'Changes', hint: 'Working tree and recent commits', href: '/changes', group: 'Go to' },
 ];
 
 /**
  * ⌘K / Ctrl-K palette.
  *
- * It searches the six screens and all nineteen pages, opens with the keyboard,
+ * It searches the seven screens and all nineteen pages, opens with the keyboard,
  * and keeps the focus inside itself until it closes. The page list arrives from
  * the server layout, so opening it costs nothing and cannot disagree with the
  * sidebar.

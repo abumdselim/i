@@ -99,6 +99,17 @@
     "showCta": true
   },
   {
+    "slug": "case-studies",
+    "file": "case-studies.html",
+    "route": "/case-studies",
+    "title": "Case studies — Intactic",
+    "description": "The systems Intactic has put into production: a multi-vendor marketplace live in Chattogram, and representative engagements in distribution, diagnostics and freight.",
+    "robots": "index, follow",
+    "navKey": "",
+    "kind": "page",
+    "showCta": true
+  },
+  {
     "slug": "custom-software",
     "file": "custom-software.html",
     "route": "/custom-software",

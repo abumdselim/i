@@ -1,0 +1,106 @@
+{
+  "head": {
+    "eyebrow": "Case studies",
+    "title": "Systems in the field.",
+    "lead": "One marketplace running in production, and three representative engagements. Different sectors, the same order of work: understand the operation, design the system, then build what the team can run."
+  },
+  "cta": {
+    "title": "Your operation, next.",
+    "body": "If the work is repetitive, measured and owned by a team, it can be scoped. Tell us where it piles up.",
+    "label": "Start a conversation",
+    "href": "/contact"
+  },
+  "cases": [
+    {
+      "id": "chattametro",
+      "kind": "live",
+      "num": "CS/01",
+      "client": "Chattametro",
+      "line": "Multi-vendor marketplace, Chattogram",
+      "icon": "i-commerce",
+      "logo": {
+        "src": "/assets/img/chattametro-logo.png",
+        "alt": "Chattametro",
+        "width": 720,
+        "height": 184
+      },
+      "summary": [
+        "Chattametro is a multi-vendor marketplace for Chattogram: local shops and authorised brand stores selling through one storefront, with the platform carrying discovery, checkout, delivery and settlement.",
+        "The build covers both sides of the model. Buyers get twelve departments, official brand stores, reviews, coupons and order tracking. Sellers apply through a registration flow, are verified and activated within a day, then run catalogue, stock and offers from their own dashboard, while orders are collected from the shop by the platform's riders and payouts settle weekly to bank or mobile wallet.",
+        "Trust is part of the product: verified sellers, official warranties, a seven-day return window, and a delivery promise of 24 hours inside the Chattogram metro."
+      ],
+      "note": "Operator-published figures on chattametro.com: 1,200+ local shops, 10,000+ SKUs, 150,000+ orders delivered, 99.4% on-time delivery.",
+      "tags": ["Marketplace", "Seller portal", "Payments", "Logistics"],
+      "spec": [
+        { "label": "Sector", "value": "Retail and electronics" },
+        { "label": "Model", "value": "Multi-vendor marketplace" },
+        { "label": "Surfaces", "value": "Storefront, seller portal" },
+        { "label": "Live at", "value": "chattametro.com" }
+      ],
+      "link": { "label": "Visit chattametro.com", "href": "https://chattametro.com", "external": true }
+    },
+    {
+      "id": "distribution-erp",
+      "kind": "illustrative",
+      "num": "CS/02",
+      "client": "Regional distributor",
+      "line": "ERP consolidation, six branches",
+      "icon": "i-erp",
+      "logo": null,
+      "summary": [
+        "Purchasing, stock and receivables lived in separate spreadsheets, reconciled by hand at the end of every month. One item could sit in stock at three branches while the system called it out of stock.",
+        "We replaced the set with a single operations core: a shared item master, purchase orders that post to stock and payables in one movement, and a month-end that closes from the system instead of from a folder of exports."
+      ],
+      "note": "",
+      "tags": ["ERP", "Inventory", "Finance"],
+      "spec": [
+        { "label": "Sector", "value": "Distribution" },
+        { "label": "Scope", "value": "Purchasing, stock, receivables" },
+        { "label": "Shape", "value": "Platform build" }
+      ],
+      "link": { "label": "Read the ERP capability", "href": "/erp", "external": false }
+    },
+    {
+      "id": "diagnostics-booking",
+      "kind": "illustrative",
+      "num": "CS/03",
+      "client": "Diagnostic centre",
+      "line": "Booking and reporting platform",
+      "icon": "i-clock",
+      "logo": null,
+      "summary": [
+        "Appointments came by phone and reports left as email attachments. The schedule lived in a diary at the front desk, so the call centre and the desk could promise the same slot twice.",
+        "The platform books against real capacity, checks patients in at the desk, and publishes signed reports to a patient portal. Both teams work from one schedule, and every report keeps an audit trail from draft to release."
+      ],
+      "note": "",
+      "tags": ["Scheduling", "Patient portal", "Notifications"],
+      "spec": [
+        { "label": "Sector", "value": "Healthcare" },
+        { "label": "Scope", "value": "Scheduling, portal, reporting" },
+        { "label": "Shape", "value": "Platform build" }
+      ],
+      "link": { "label": "Read the custom software capability", "href": "/custom-software", "external": false }
+    },
+    {
+      "id": "freight-documents",
+      "kind": "illustrative",
+      "num": "CS/04",
+      "client": "Freight forwarder",
+      "line": "Document intake and reconciliation",
+      "icon": "i-doc",
+      "logo": null,
+      "summary": [
+        "Supplier invoices arrived as scans and were re-keyed into the ledger by hand. Volume was steady, but every month end depended on a small team reading documents for a week.",
+        "The intake reads each document, matches it to a shipment and proposes the ledger entry. Anything below the confidence threshold goes to a reviewer with the source page beside the extracted fields, so the machine carries volume and a person keeps judgement."
+      ],
+      "note": "",
+      "tags": ["Automation", "Document handling", "Review workflow"],
+      "spec": [
+        { "label": "Sector", "value": "Logistics" },
+        { "label": "Scope", "value": "Intake, matching, review" },
+        { "label": "Shape", "value": "Assessment and build" }
+      ],
+      "link": { "label": "Read the automation capability", "href": "/automation", "external": false }
+    }
+  ]
+}

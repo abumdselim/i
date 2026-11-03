@@ -24,7 +24,7 @@ Footer columns: brand + Capabilities (6) + Products (4 + all) + Studio (5) + Dir
 
 | # | File | Title | Purpose | Primary sections |
 |---|---|---|---|---|
-| 1 | `index.html` | Intactic — software engineering studio | The thesis, the six capabilities, the products, how we work, how to engage | Hero + plate, Capabilities, Intelligence (dark), Products, Industries, Stack, Process, Engagements + standards |
+| 1 | `index.html` | Intactic — software engineering studio | The thesis, the six capabilities, the products, how we work, how to engage | Hero + plate, Capabilities, Intelligence (dark), Products, Industries, Stack, Process, Engagements + standards, Case studies |
 | 2 | `services.html` | Capabilities — Intactic | Hub for the six disciplines | Six capability cards, three combinations, link-outs |
 | 3 | `custom-software.html` | Custom software — Intactic | Capability C/01 | Problem + system map, six deliverables, three rules, stack, related |
 | 4 | `ecommerce.html` | Multi-vendor commerce — Intactic | Capability C/02 | as above, commerce-specific |

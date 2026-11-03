@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Icon } from '@/components/Icon';
+import { IndustryIcon } from '@/components/IndustryIcon';
 import type { IconName } from '@/components/icons';
 import { Figure } from '@/components/sections/Figure';
 import { SectionHead } from '@/components/sections/Blocks';
@@ -158,7 +159,6 @@ const STACK_ICON: Record<string, IconName> = {
   'Data & storage': 'i-database',
   Infrastructure: 'i-plug',
 };
-
 /* --------------------------------------------------------------- sections */
 
 export function Capabilities() {
@@ -230,7 +230,6 @@ export function Intelligence() {
               Read our approach <Icon name="i-arrow" />
             </Link>
           </div>
-
           <div
             className="stack"
             data-reveal
@@ -253,6 +252,28 @@ export function Intelligence() {
             ))}
           </div>
         </div>
+
+        {/* The band is a build asset, not copy: the studio edits text, not
+            photographs (D-20). When the panel learns to upload figures this
+            becomes data like everything else. */}
+        <figure className="ink-figure" data-reveal style={css({ '--d': '.2s' })}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/assets/img/work/document-intake.jpg"
+            alt="A freight desk: a stack of shipping documents beside an open laptop, the material an intake would read."
+            width={1600}
+            height={686}
+            loading="lazy"
+            decoding="async"
+          />
+          <figcaption>
+            <span className="mono">Fig. 02</span>
+            <span>
+              The intake reads the document, matches it to a shipment and proposes the entry. Below the
+              confidence line the page and the review sit side by side, so the judgement stays with a person.
+            </span>
+          </figcaption>
+        </figure>
       </div>
     </section>
   );
@@ -306,14 +327,15 @@ export function Industries() {
         />
         <div className="inds" data-reveal>
           {INDUSTRIES.map((industry) => (
-            <div className="ind" key={industry.num}>
+            <article className="ind" key={industry.mark}>
               <div className="ind__top">
-                <Icon name={industry.icon as IconName} />
-                <span className="mono">{industry.num}</span>
+                <span className="ind__mark">
+                  <IndustryIcon name={industry.mark} />
+                </span>
               </div>
               <h3>{industry.title}</h3>
               <p>{industry.body}</p>
-            </div>
+            </article>
           ))}
           <div className="ind ind--cta">
             <div className="ind__top">

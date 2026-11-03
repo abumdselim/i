@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
 import '@/styles/globals.css';
 import { BOOTSTRAP } from '@/components/bootstrap-script';
+import { CookieNotice } from '@/components/CookieNotice';
 import { IconSprite } from '@/components/IconSprite';
 import { SiteFooter } from '@/components/SiteFooter';
 import { SiteHeader } from '@/components/SiteHeader';
@@ -43,6 +44,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <SiteHeader />
         {children}
         <SiteFooter />
+        <CookieNotice />
       </body>
     </html>
   );

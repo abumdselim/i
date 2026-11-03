@@ -3356,31 +3356,36 @@
       "num": "01",
       "icon": "i-commerce",
       "title": "Retail & wholesale",
-      "body": "Counters, stock, supplier dues and a daily profit figure, with or without a connection."
+      "body": "Counters, stock, supplier dues and a daily profit figure, with or without a connection.",
+      "mark": "store"
     },
     {
       "num": "02",
       "icon": "i-pulse",
       "title": "Pharmacy & healthcare",
-      "body": "Generic alternatives, DGDA checks and stock counted down to the piece."
+      "body": "Generic alternatives, DGDA checks and stock counted down to the piece.",
+      "mark": "capsule"
     },
     {
       "num": "03",
       "icon": "i-shield",
       "title": "Legal practice",
-      "body": "Cause lists, limitation dates and judgment summaries for chambers."
+      "body": "Cause lists, limitation dates and judgment summaries for chambers.",
+      "mark": "balance"
     },
     {
       "num": "04",
       "icon": "i-payout",
       "title": "Commerce & marketplaces",
-      "body": "Vendors, commissions, payouts and fulfilment that reconcile before the storefront is drawn."
+      "body": "Vendors, commissions, payouts and fulfilment that reconcile before the storefront is drawn.",
+      "mark": "parcel"
     },
     {
       "num": "05",
       "icon": "i-doc",
       "title": "Professional offices",
-      "body": "Contracts, filings and archives that must not leave the building."
+      "body": "Contracts, filings and archives that must not leave the building.",
+      "mark": "archive"
     }
   ],
   "stack": [

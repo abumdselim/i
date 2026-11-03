@@ -65,6 +65,14 @@
   },
   {
     "page": "/",
+    "id": "case-studies",
+    "title": "Case studies",
+    "kind": "grid",
+    "mount": "body",
+    "locked": false
+  },
+  {
+    "page": "/",
     "id": "cta",
     "title": "Closing call to action",
     "kind": "cta",
@@ -833,6 +841,22 @@
   },
   {
     "page": "/icounsel",
+    "id": "cta",
+    "title": "Closing call to action",
+    "kind": "cta",
+    "mount": "shell",
+    "locked": true
+  },
+  {
+    "page": "/case-studies",
+    "id": "head",
+    "title": "Page head",
+    "kind": "head",
+    "mount": "body",
+    "locked": true
+  },
+  {
+    "page": "/case-studies",
     "id": "cta",
     "title": "Closing call to action",
     "kind": "cta",

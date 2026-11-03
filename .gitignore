@@ -12,3 +12,4 @@ legacy/_build/_*.py
 # Studio write artefacts: the atomic write's temp file and the one backup it keeps.
 next-app/data/*.bak
 next-app/data/*.tmp
+__pycache__/

@@ -118,6 +118,50 @@ export interface ProductContent extends PageContent {
 
 export type ContentType = 'capability' | 'product';
 
+/* ------------------------------------------------------------ case studies */
+
+/** The home case-study section (next-app/data/case-studies.json). */
+export type CaseStudyKind = 'live' | 'illustrative';
+
+export interface CaseStudyLogo {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+}
+
+export interface CaseStudySpec {
+  label: string;
+  value: string;
+}
+
+export interface CaseStudyLink {
+  label: string;
+  href: string;
+  external: boolean;
+}
+
+export interface CaseStudy {
+  id: string;
+  kind: CaseStudyKind;
+  num: string;
+  client: string;
+  line: string;
+  icon: string;
+  logo: CaseStudyLogo | null;
+  summary: string[];
+  note: string;
+  tags: string[];
+  spec: CaseStudySpec[];
+  link: CaseStudyLink;
+}
+
+export interface CaseStudiesData {
+  head: { eyebrow: string; title: string; lead: string };
+  cta: { title: string; body: string; label: string; href: string };
+  cases: CaseStudy[];
+}
+
 export interface SpriteIcon {
   name: string;
   viewBox: string;

@@ -126,14 +126,73 @@ export interface PlateLayer {
   cells: PlateCell[];
 }
 
+/** The five sector marks drawn for the industries grid (components/IndustryIcon). */
+export type IndustryMark = 'store' | 'capsule' | 'balance' | 'parcel' | 'archive';
+
 export interface Industry {
   num: string;
   icon: string;
   title: string;
   body: string;
+  /** The sector's own silhouette; the grid shows it instead of a photograph. */
+  mark: IndustryMark;
 }
 
 export interface StackGroup {
   group: string;
   items: { label: string; slug: string }[];
+}
+
+/**
+ * The case-study section's content (data/case-studies.json).
+ *
+ * A card is either a `live` engagement — the platform is in production and the
+ * card may carry its wordmark — or an `illustrative` one: a representative
+ * shape of work, labelled as such on the page so no reader takes it for a
+ * client. There is one model because the studio edits one list.
+ */
+export type CaseStudyKind = 'live' | 'illustrative';
+
+export interface CaseStudyLogo {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+}
+
+export interface CaseStudySpec {
+  label: string;
+  value: string;
+}
+
+export interface CaseStudyLink {
+  label: string;
+  href: string;
+  /** `true` renders a plain anchor with target=_blank; `false` a Next Link. */
+  external: boolean;
+}
+
+export interface CaseStudy {
+  id: string;
+  kind: CaseStudyKind;
+  /** The card's mono index, e.g. "CS/01". */
+  num: string;
+  client: string;
+  /** One line under the client name: sector and shape of the engagement. */
+  line: string;
+  icon: IconName;
+  /** The client's wordmark, supplied by the client; null for illustrative cards. */
+  logo: CaseStudyLogo | null;
+  summary: string[];
+  /** Operator-published figures or an attribution line; empty renders nothing. */
+  note: string;
+  tags: string[];
+  spec: CaseStudySpec[];
+  link: CaseStudyLink;
+}
+
+export interface CaseStudiesData {
+  head: { eyebrow: string; title: string; lead: string };
+  cta: { title: string; body: string; label: string; href: string };
+  cases: CaseStudy[];
 }

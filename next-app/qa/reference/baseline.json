@@ -6,13 +6,13 @@
     {
       "route": "/",
       "file": "index.html",
-      "bytes": 280406,
-      "sha256": "234835c1917908a8cbefe983353123bb95c4501807f9a8d72aa83b11bdd85e2f",
+      "bytes": 267251,
+      "sha256": "53bbfc3d90f8cf30848121b0e6cd6af7708b106bd808db5cf962079159fd470d",
       "title": "Intactic - software engineering studio",
-      "text_length": 6545,
-      "text_sha256": "e81f0d06331496e174667d9ab65e954dd7e556f1b21eb561dfc52565d049121c",
-      "markup_elements": 1100,
-      "markup_sha256": "608ab186579b05ae86dc326e2ebb2d32d36c9b96b0f5dc68dcaf5a31ea9db035"
+      "text_length": 7678,
+      "text_sha256": "91bf6555177d78a83bfe0bff93720a98feff25551788e98b9a60ad4aa336b132",
+      "markup_elements": 1169,
+      "markup_sha256": "b831bd3f48b48dad5fe045f3d8f48a09c0957c3ddfd8ceb01ca382da0e1c7df9"
     },
     {
       "route": "/services",
@@ -211,6 +211,17 @@
       "text_sha256": "9aa14ba7d074d0952556483a342f906f478a26b6e37d18b3afdf98e0d4eb5b1d",
       "markup_elements": 225,
       "markup_sha256": "d56d9b6dba8e646015d43a6b54fcc5ed4913219aef7c040e6913ee1b70a7bd7b"
+    },
+    {
+      "route": "/case-studies",
+      "file": "case-studies.html",
+      "bytes": 121162,
+      "sha256": "ba725e461dd06e286378fb96bba2a95b0df9c681a063c52f1a8111fe3c88c4b7",
+      "title": "Case studies - Intactic",
+      "text_length": 3246,
+      "text_sha256": "8ce831655af4e526a2859b6f604e41e581a3d08cd34ed534f82a4c029d5ef8ca",
+      "markup_elements": 131,
+      "markup_sha256": "026e191cbf4277e6baf0ac950c8ada936af7b4408389ff3205b05f0ed635d6a2"
     }
   ],
   "approvals": [
@@ -223,6 +234,14 @@
       "approved_sha256": "a7fbbac41a15901a6d511761ea62767ae95c0a7749b3a6778632753356a61c19",
       "text": "2154 -> 2082 chars",
       "markup_elements": "153 -> 145"
+    },
+    {
+      "date": "2026-11-03",
+      "file": "index.html",
+      "route": "/",
+      "note": "Approved home revisions: the intelligence figure gains its Fig. 02 caption; the industry cards retire the mono numbers in favour of their own SVG marks; and the home carries the case-study teaser that links to the new /case-studies record. Capability and engagement card numbers (C/01-06, M/01-03) were missing from the port and are restored.",
+      "previous_sha256": "234835c1917908a8cbefe983353123bb95c4501807f9a8d72aa83b11bdd85e2f",
+      "approved_sha256": "53bbfc3d90f8cf30848121b0e6cd6af7708b106bd808db5cf962079159fd470d"
     }
   ]
 }

@@ -103,6 +103,10 @@
         "title": "Studio",
         "links": [
           {
+            "label": "Case studies",
+            "href": "/case-studies"
+          },
+          {
             "label": "About",
             "href": "/about"
           },
