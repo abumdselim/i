@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
-import { StudioValidationError, validateContent } from '@/lib/rules';
+import { validateContent } from '@/lib/rules';
+import { apiError } from '@/lib/api';
 import { readContent, writeContent } from '@/lib/site';
 import type { ContentType } from '@/lib/types';
 
@@ -7,10 +8,7 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 function fail(error: unknown) {
-  if (error instanceof StudioValidationError) {
-    return NextResponse.json({ ok: false, issues: error.issues }, { status: 400 });
-  }
-  return NextResponse.json({ ok: false, message: (error as Error).message }, { status: 500 });
+  return apiError(error);
 }
 
 function isType(value: string): value is ContentType {
@@ -34,8 +32,8 @@ export async function PUT(request: Request, { params }: { params: Promise<{ type
 
     const body = (await request.json()) as { content?: unknown };
     const content = validateContent(type, body.content, slug);
-    await writeContent(type, slug, content);
-    return NextResponse.json({ ok: true });
+    const saved = await writeContent(type, slug, content);
+    return NextResponse.json({ ok: true, commit: saved });
   } catch (error) {
     return fail(error);
   }

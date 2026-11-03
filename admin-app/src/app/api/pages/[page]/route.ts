@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
-import { StudioValidationError, validateConfig, validatePages } from '@/lib/rules';
+import { validateConfig, validatePages } from '@/lib/rules';
 import { routeForParam } from '@/lib/routes';
-import { readConfig, readPages, readSections, sectionPlan, writeConfig, writePages } from '@/lib/site';
+import { apiError } from '@/lib/api';
+import { commitData, readConfig, readPages, readSections, sectionPlan } from '@/lib/site';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -16,10 +17,7 @@ interface Payload {
 }
 
 function badRequest(error: unknown) {
-  if (error instanceof StudioValidationError) {
-    return NextResponse.json({ ok: false, issues: error.issues }, { status: 400 });
-  }
-  return NextResponse.json({ ok: false, message: (error as Error).message }, { status: 500 });
+  return apiError(error);
 }
 
 export async function GET(_request: Request, { params }: { params: Promise<{ page: string }> }) {
@@ -73,10 +71,17 @@ export async function PUT(request: Request, { params }: { params: Promise<{ page
     const nextConfig = { ...config, hidden, order };
     validateConfig(nextConfig, nextPages, sections);
 
-    await writePages(nextPages);
-    await writeConfig(nextConfig);
+    // One save spans two files — page meta and the section arrangement — so
+    // they travel together: one atomic write locally, one commit in the cloud.
+    const saved = await commitData(
+      [
+        { file: 'pages.json', value: nextPages },
+        { file: 'site-config.json', value: nextConfig },
+      ],
+      `studio: update ${route} page meta`,
+    );
 
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ ok: true, commit: saved });
   } catch (error) {
     return badRequest(error);
   }

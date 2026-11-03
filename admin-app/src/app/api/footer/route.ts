@@ -1,15 +1,13 @@
 import { NextResponse } from 'next/server';
-import { StudioValidationError, validateConfig } from '@/lib/rules';
-import { readConfig, readPages, readSections, writeConfig } from '@/lib/site';
+import { validateConfig } from '@/lib/rules';
+import { apiError } from '@/lib/api';
+import { commitData, readConfig, readPages, readSections } from '@/lib/site';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 function fail(error: unknown) {
-  if (error instanceof StudioValidationError) {
-    return NextResponse.json({ ok: false, issues: error.issues }, { status: 400 });
-  }
-  return NextResponse.json({ ok: false, message: (error as Error).message }, { status: 500 });
+  return apiError(error);
 }
 
 export async function PUT(request: Request) {
@@ -17,8 +15,8 @@ export async function PUT(request: Request) {
     const body = (await request.json()) as { footer?: unknown };
     const [config, pages, sections] = await Promise.all([readConfig(), readPages(), readSections()]);
     const next = validateConfig({ ...config, footer: body.footer }, pages, sections);
-    await writeConfig(next);
-    return NextResponse.json({ ok: true });
+    const saved = await commitData([{ file: 'site-config.json', value: next }], 'studio: update footer columns');
+    return NextResponse.json({ ok: true, commit: saved });
   } catch (error) {
     return fail(error);
   }

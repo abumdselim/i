@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
-import { StudioValidationError, validateCaseStudies } from '@/lib/rules';
+import { validateCaseStudies } from '@/lib/rules';
+import { apiError } from '@/lib/api';
 import { readCaseStudies, writeCaseStudies } from '@/lib/site';
 
 export const runtime = 'nodejs';
@@ -10,14 +11,10 @@ export const dynamic = 'force-dynamic';
  *
  * The whole collection travels as one document because the section is edited as
  * one screen: the head, the closing card and the ordered case list. Validation
- * runs before a byte is written, and the write itself is the studio's standard
- * atomic rename with a `.bak` — a half-valid file never reaches the build.
+ * runs before a byte is written, so a half-valid file never reaches the build.
  */
 function fail(error: unknown) {
-  if (error instanceof StudioValidationError) {
-    return NextResponse.json({ ok: false, issues: error.issues }, { status: 400 });
-  }
-  return NextResponse.json({ ok: false, message: (error as Error).message }, { status: 500 });
+  return apiError(error);
 }
 
 export async function GET() {
@@ -32,8 +29,8 @@ export async function PUT(request: Request) {
   try {
     const body = (await request.json()) as { data?: unknown };
     const data = validateCaseStudies(body.data);
-    await writeCaseStudies(data);
-    return NextResponse.json({ ok: true });
+    const saved = await writeCaseStudies(data, 'studio: update case studies');
+    return NextResponse.json({ ok: true, commit: saved });
   } catch (error) {
     return fail(error);
   }

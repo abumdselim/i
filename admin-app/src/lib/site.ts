@@ -1,5 +1,3 @@
-import { promises as fs } from 'node:fs';
-import path from 'node:path';
 import type {
   CapabilityContent,
   CaseStudiesData,
@@ -11,41 +9,51 @@ import type {
   SiteConfig,
   SpriteIcon,
 } from './types';
+import { CLOUD } from './mode';
+import { githubStore } from './github-store';
+import type { CommitFile, ContentStore, DataFile } from './store';
 
 /**
- * The site's data folder, and the only code in the studio that touches disk
- * (docs/admin.md §6.4). Reads are plain; writes are atomic and keep one
- * backup: the new text goes to `<file>.tmp`, the old file is copied to
- * `<file>.bak`, and only then is the temp renamed over the target. A failed
- * write therefore leaves the previous file intact.
+ * Everything the studio knows about the site's content, on top of a
+ * ContentStore. Local mode owns a checkout and writes `../next-app/data`
+ * directly (FsStore, dynamically imported so the deployed worker never
+ * bundles `node:fs`); cloud mode — the deployed studio (D-19) — commits
+ * through the GitHub API and the repository is the database.
  *
- * Every file name is from this module's whitelist — nothing from a request
- * path or a form field is ever joined onto the data directory.
+ * Validation stays here, before the store sees anything: an invalid file
+ * never reaches disk in local mode, and never becomes a commit in cloud
+ * mode. Every file name is from this module's whitelist — nothing from a
+ * request path or a form field is ever joined onto the data directory.
  */
 
-const SITE_ROOT = path.resolve(process.cwd(), '..', 'next-app');
-export const DATA_DIR = path.join(SITE_ROOT, 'data');
+let storePromise: Promise<ContentStore> | null = null;
 
-type DataFile = 'pages.json' | 'sections.json' | 'site-config.json' | 'capabilities.json' | 'products.json' | 'case-studies.json';
+function getStore(): Promise<ContentStore> {
+  if (!storePromise) {
+    storePromise = CLOUD
+      ? Promise.resolve(githubStore)
+      : import('./fs-store').then(({ fsStore }) => fsStore);
+  }
+  return storePromise;
+}
 
 async function readJson<T>(name: DataFile): Promise<T> {
-  const file = path.join(DATA_DIR, name);
+  const store = await getStore();
   try {
-    return JSON.parse(await fs.readFile(file, 'utf8')) as T;
+    return JSON.parse(await store.readJsonText(name)) as T;
   } catch (error) {
-    throw new Error(`studio: cannot read ${file} — ${(error as Error).message}`);
+    throw new Error(`studio: cannot read ${name} — ${(error as Error).message}`);
   }
 }
 
-async function writeJson(name: DataFile, value: unknown): Promise<void> {
-  const file = path.join(DATA_DIR, name);
-  const tmp = `${file}.tmp`;
-  const text = `${JSON.stringify(value, null, 2)}\n`;
-
-  await fs.mkdir(DATA_DIR, { recursive: true });
-  await fs.copyFile(file, `${file}.bak`).catch(() => undefined);
-  await fs.writeFile(tmp, text, 'utf8');
-  await fs.rename(tmp, file);
+/**
+ * The one write path. Validation happens in `rules.ts` at the caller before
+ * this runs; a save that spans two files (page meta + section arrangement)
+ * is one call so cloud mode can make it one commit.
+ */
+export async function commitData(files: CommitFile[], message: string) {
+  const store = await getStore();
+  return store.commit(files, message);
 }
 
 /* ------------------------------------------------------------------- reads */
@@ -83,45 +91,31 @@ export async function readContent(type: ContentType, slug: string): Promise<Capa
 
 /* ------------------------------------------------------------------ writes */
 
-export function writePages(pages: PageEntry[]): Promise<void> {
-  return writeJson('pages.json', pages);
+export function writePages(pages: PageEntry[], message: string) {
+  return commitData([{ file: 'pages.json', value: pages }], message);
 }
 
-export function writeConfig(config: SiteConfig): Promise<void> {
-  return writeJson('site-config.json', config);
-}
-
-export function writeCapabilities(capabilities: CapabilityContent[]): Promise<void> {
-  return writeJson('capabilities.json', capabilities);
-}
-
-export function writeProducts(products: ProductContent[]): Promise<void> {
-  return writeJson('products.json', products);
-}
-
-export function writeCaseStudies(data: CaseStudiesData): Promise<void> {
-  return writeJson('case-studies.json', data);
+export function writeConfig(config: SiteConfig, message: string) {
+  return commitData([{ file: 'site-config.json', value: config }], message);
 }
 
 export async function writeContent(
   type: ContentType,
   slug: string,
   content: CapabilityContent | ProductContent,
-): Promise<void> {
-  if (type === 'capability') {
-    const list = await readCapabilities();
-    const index = list.findIndex((entry) => entry.slug === slug);
-    if (index < 0) throw new Error(`studio: no capability "${slug}"`);
-    list[index] = content as CapabilityContent;
-    await writeCapabilities(list);
-    return;
-  }
-
-  const list = await readProducts();
+) {
+  const [file, list, label] =
+    type === 'capability'
+      ? (['capabilities.json', await readCapabilities(), `capability ${slug}`] as const)
+      : (['products.json', await readProducts(), `product ${slug}`] as const);
   const index = list.findIndex((entry) => entry.slug === slug);
-  if (index < 0) throw new Error(`studio: no product "${slug}"`);
-  list[index] = content as ProductContent;
-  await writeProducts(list);
+  if (index < 0) throw new Error(`studio: no ${type} "${slug}"`);
+  list[index] = content as CapabilityContent & ProductContent;
+  return commitData([{ file, value: list }], `studio: update ${label}`);
+}
+
+export function writeCaseStudies(data: CaseStudiesData, message: string) {
+  return commitData([{ file: 'case-studies.json', value: data }], message);
 }
 
 /* --------------------------------------------------------------- selectors */
@@ -172,8 +166,8 @@ export function sectionPlan(sections: SectionDefinition[], config: SiteConfig, r
  * file the site compiles. Read-only: nothing here writes to `icons.ts`.
  */
 export async function readIcons(): Promise<SpriteIcon[]> {
-  const file = path.join(SITE_ROOT, 'src', 'components', 'icons.ts');
-  const text = await fs.readFile(file, 'utf8');
+  const store = await getStore();
+  const text = await store.readIconsSource();
   const sprite = /SPRITE = `([\s\S]*?)`;/.exec(text)?.[1] ?? '';
 
   const icons: SpriteIcon[] = [];
@@ -182,6 +176,6 @@ export async function readIcons(): Promise<SpriteIcon[]> {
   while ((match = pattern.exec(sprite)) !== null) {
     icons.push({ name: match[1], viewBox: match[2], body: match[3] });
   }
-  if (icons.length === 0) throw new Error(`studio: could not read any icon from ${file}`);
+  if (icons.length === 0) throw new Error('studio: could not read any icon from the site sprite');
   return icons;
 }
