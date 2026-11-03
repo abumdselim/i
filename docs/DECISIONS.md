@@ -340,3 +340,57 @@ required to live under `/assets/`. A photograph never appears where the page is 
 architectural claim — figures stay drawn.
 
 **Supersedes:** the "avoids stock photography entirely" clause of D-05, for photography used as context.
+
+---
+
+## D-21 — In cloud mode the repository is the store
+
+**Decision:** The studio runs in one of two modes, chosen by the environment and nothing else:
+`GITHUB_TOKEN` present → cloud mode; absent → local. Local mode owns a checkout and writes
+`next-app/data/*.json` on disk exactly as before. Cloud mode has no filesystem: reads go through
+GitHub's contents API with a 30-second in-isolate cache, and a save becomes one atomic commit
+through the Git Data API (blobs → tree based on HEAD's tree → commit → ref update). If the ref
+moved since the read, GitHub refuses the fast-forward and the editor is told to reload instead of
+silently overwriting. The cloud store stays free of `node:fs` and child processes; the local
+store is loaded by dynamic import so the deployed worker never bundles it.
+
+**Why:** the owner wants to edit from anywhere, and the architecture rules out a runtime CMS
+(D-15). The repository is already the source of truth, git is already the history, and the site
+already builds from it — so the deployed studio needs no database, no write layer of its own and
+no second place where the truth could diverge. A save that spans two files (page meta + section
+order) must never land half-applied, which is why a cloud write is one commit, not one write per
+file.
+
+**Cost:** every save is a commit on `main`, and the commit is what the site's deployment follows;
+the 30-second cache means a save can take that long to reach another open editor; GitHub API
+latency sits between the editor and every screen.
+
+**Rules:** `mode.ts` is the only place the mode is decided; `site.ts` is the only consumer of the
+store; the file whitelist lives in `store.ts`, and nothing from a request path is ever joined onto
+a repo path. The conflict path is a 409 to the editor, never a force push.
+
+---
+
+## D-22 — The deployed studio sits behind one password and one signed cookie
+
+**Decision:** Locally the gate stands open exactly as before (D-15): the dev server binds
+`127.0.0.1`, no secrets exist, the middleware does nothing. Deployed, `STUDIO_SESSION_SECRET`
+present means every path except `/login` and `/api/auth` requires the `studio_session` cookie:
+`<expiry>.<hmac>` — a signed timestamp, no session store — HMAC-SHA-256 over a fixed context plus
+the expiry, seven days. The password is never stored: the server keeps `STUDIO_PASSWORD_SHA256`
+and compares digests timing-safely; a wrong answer costs a fixed 400 ms pause. The login screen
+lives in the `(gate)` route group with a data-free root layout, so a store outage can never take
+the sign-in form down with it.
+
+**Why:** an editor that can commit to the site's repository is exactly as sensitive as the
+repository — that is the middleware's own comment, and it is why the gate covers pages and API
+routes alike. A password and a cookie are the smallest thing that is honest about that: no OAuth
+app to register, no third party in the trust path, one secret to rotate if a credential leaks.
+The signed timestamp means there is no session store to keep in sync across isolates — revoking
+access means rotating `STUDIO_SESSION_SECRET`, which is the honest scope of this mechanism.
+
+**Cost:** no per-user accounts, no 2FA, and no rate limiting beyond the fixed pause — Cloudflare's
+edge is the first line, and a Turnstile challenge on `/api/auth` is the follow-up if the logs ever
+show guessing.
+
+**Supersedes:** the "no auth" clause of D-15, for the deployed studio only.

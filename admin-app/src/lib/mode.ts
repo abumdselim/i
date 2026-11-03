@@ -4,7 +4,7 @@
  * `local` — the original mode: this process owns a checkout of the repository
  * and writes the sibling `next-app/data` folder directly. The default.
  *
- * `cloud` — the deployed mode (D-19): there is no filesystem, so the repository
+ * `cloud` — the deployed mode (D-21): there is no filesystem, so the repository
  * itself is the store. Saves become commits through the GitHub API and the
  * site is rebuilt and deployed by CI. Set by providing GITHUB_TOKEN.
  */

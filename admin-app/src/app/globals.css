@@ -1953,3 +1953,50 @@ html[data-theme='dark'] .side__brand .logo--white {
 .case-row .badge {
   margin-left: auto;
 }
+
+/* ----------------------------------------------------------------- login */
+
+.login {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: var(--bg-2);
+}
+
+.login__card {
+  width: min(400px, 100%);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 28px;
+}
+
+.login__kicker {
+  margin: 0 0 6px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.login__title {
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  line-height: 1.2;
+}
+
+.login__lead {
+  margin: 0 0 20px;
+  color: var(--muted);
+  font-size: var(--text-sm);
+}
+
+.login__submit {
+  width: 100%;
+  min-height: 40px;
+  margin-top: 16px;
+}

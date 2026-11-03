@@ -1,8 +1,9 @@
-# Intactic Studio — the local admin panel
+# Intactic Studio — the admin panel
 
-A second application, beside the site, that edits the site's source. It runs on
-`http://127.0.0.1:3001`, writes `../next-app/data/*.json`, and triggers the site's own
-`npm run verify`. The site is still a static export; the panel never ships with it.
+A second application, beside the site, that edits the site's source. Locally it runs on
+`http://127.0.0.1:3001` and writes `../next-app/data/*.json`; deployed (D-21) it commits to the
+site's repository through the GitHub API. The site is still a static export; the panel never
+ships with it.
 
 Read `docs/admin.md` for the phase plan and the reasoning, and `docs/DECISIONS.md` D-15…D-17 for
 the three decisions this app rests on.
@@ -25,6 +26,23 @@ npm run dev          # http://localhost:3000
 The studio does not build or preview. `npm run verify` (export, parity gate, lint) and publishing are
 terminal commands in `next-app/` — D-18. `/changes` shows what is uncommitted and what the last
 commits were, read-only.
+
+## Deploy it (cloud mode, D-21/D-22)
+
+```powershell
+npm run deploy      # opennextjs-cloudflare build, then wrangler deploy — worker "studio"
+```
+
+Secrets, all set with `wrangler secret put` and never in the repository:
+
+| Secret | What it is |
+|---|---|
+| `GITHUB_TOKEN` | a fine-grained PAT on the site's repository, Contents: read & write — its presence is what switches the studio to cloud mode |
+| `STUDIO_SESSION_SECRET` | the HMAC key behind the session cookie; rotating it signs every session out |
+| `STUDIO_PASSWORD_SHA256` | sha256 hex of the one password; the plaintext never reaches the server |
+
+Local development ignores all three: `next dev` keeps the localhost studio of D-15, with the gate
+standing open exactly as it always did.
 
 ## What it edits
 
@@ -62,10 +80,12 @@ modules. Add a section to a page: a node in the page component plus an entry in 
 
 ## Limits
 
-- **Localhost only, no auth.** The dev server binds `127.0.0.1`. Moving it to a LAN or online needs
-  auth and a different write layer first (D-15).
-- **No build, preview or deploy.** The build panel and its preview frame were removed (D-18).
-  `npm run verify` runs in a terminal; pushing or calling a deploy hook waits for a host decision.
+- **Two modes, one gate.** Locally the dev server binds `127.0.0.1` with no auth (D-15). Deployed,
+  everything except `/login` and `/api/auth` needs the signed cookie (D-22), and a save becomes a
+  commit through the GitHub API (D-21).
+- **No build or preview panel.** The build panel and its preview frame were removed (D-18): the
+  studio edits, the gate judges, `npm run verify` runs in a terminal. Deploying the studio app
+  itself is `npm run deploy`; the site's deploy follows the commit, not the panel.
 - **No baseline approval button.** An intended copy change fails the gate until
   `next-app/scripts/approve.py` is run by hand; that is the design.
 - **No page add/delete.** Routes are the manifest; adding one is a code change with a redirect,

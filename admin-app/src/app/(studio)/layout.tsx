@@ -1,43 +1,26 @@
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
 import type { ReactNode } from 'react';
-import './globals.css';
+import '../globals.css';
 import { Shell } from '@/components/Shell';
 import { Toaster } from '@/components/Toaster';
+import { barlow, titillium } from '@/lib/fonts';
 import { paramForRoute } from '@/lib/routes';
 import { readPages } from '@/lib/site';
+import { BOOTSTRAP } from '@/lib/theme';
 
 /**
- * The studio's shell. Fonts are the site's files, copied into this package
- * (`src/fonts/`) and served locally — no CDN, no icon font, same voice.
+ * The studio app's root layout (`(studio)` group). Fonts are the site's
+ * files, copied into this package (`src/fonts/`) and served locally — no
+ * CDN, no icon font, same voice. They are shared with the `(gate)` group
+ * through `lib/fonts.ts`, so the login screen can never be taken down by a
+ * data read failing here.
  */
-const barlow = localFont({
-  src: [
-    { path: '../fonts/barlow-400.woff2', weight: '400', style: 'normal' },
-    { path: '../fonts/barlow-500.woff2', weight: '500', style: 'normal' },
-    { path: '../fonts/barlow-600.woff2', weight: '600', style: 'normal' },
-  ],
-  variable: '--font-barlow',
-  display: 'swap',
-});
-
-const titillium = localFont({
-  src: [
-    { path: '../fonts/titillium-web-600.woff2', weight: '600', style: 'normal' },
-    { path: '../fonts/titillium-web-700.woff2', weight: '700', style: 'normal' },
-  ],
-  variable: '--font-titillium',
-  display: 'swap',
-});
 
 export const metadata: Metadata = {
   title: 'Intactic Studio',
   description: 'The local admin panel for intactic.net — pages, sections, navigation, content and builds.',
   robots: { index: false, follow: false },
 };
-
-/** Runs before first paint so the chosen theme does not flash. */
-const BOOTSTRAP = `(function(){try{var t=localStorage.getItem('intactic-studio-theme');if(t==='dark'||t==='light'){document.documentElement.setAttribute('data-theme',t)}}catch(e){}})();`;
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const pages = await readPages();

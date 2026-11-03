@@ -15,6 +15,41 @@ Format:
 
 ---
 
+## 2026-11-03 — The studio deploys: the login gate, Workers wiring, the store decision recorded
+
+**Why:** The owner asked for the panel to be pushed and deployed. The cloud groundwork
+(`github-store`, session, middleware) was already in 6a0bc8c; what was missing was the login
+screen, the Workers wiring and the decision record — a deployed studio without a gate would have
+been an unauthenticated commit button on the public internet.
+
+**Changed:**
+- `admin-app/src/app/api/auth/route.ts` — POST only: the presented password is hashed and
+  compared timing-safely against `STUDIO_PASSWORD_SHA256`, a miss costs a fixed 400 ms pause, a
+  match sets the signed week-long cookie. The plaintext is never stored.
+- `admin-app/src/app/(gate)/` + `admin-app/src/components/LoginForm.tsx` — the login screen:
+  its own root layout in the `(gate)` group, which reads no data, so a store outage cannot take
+  the gate down with it. The app moved wholesale into the `(studio)` group; URLs are unchanged.
+- `admin-app/src/lib/fonts.ts`, `lib/theme.ts` — the font setup and the theme bootstrap, shared
+  by both root layouts.
+- `admin-app/wrangler.jsonc`, `open-next.config.ts`, `public/_headers`, `package.json`
+  (`preview`/`deploy`/`upload`/`cf-typegen`), `.gitignore` — OpenNext on Workers: worker
+  `studio`, `nodejs_compat`, assets binding, no Next cache (every screen is force-dynamic),
+  `X-Robots-Tag: noindex` on everything.
+- `admin-app/src/lib/mode.ts`, `lib/site.ts`, `src/middleware.ts` — the cloud-mode comments
+  cited D-19, which is the client-evidence decision; corrected to the new D-21/D-22.
+- `docs/DECISIONS.md` D-21, D-22; `docs/admin.md` phase 9; `admin-app/README.md`; this file.
+
+**Verified:** studio `npm run verify` — typecheck exit 0; build green with every route dynamic
+including `/login` and `/api/auth`; lint clean. `npm run preview` (OpenNext → wrangler dev, the
+Workers runtime): unauthenticated `/` redirects to `/login?next=%2F`, a wrong password gets 401
+with the message, the right one sets the cookie and passes the gate; unauthenticated `/api/*`
+gets 401. The dashboard's data reads are store work, not gate work: the token-less preview
+cannot read the sibling checkout from the worker sandbox, so the data screens get their proof
+against the real `GITHUB_TOKEN` in phase 9.5 of `docs/admin.md`. The site is untouched:
+`git status next-app/` shows only the pre-existing uncommitted page work.
+
+---
+
 ## 2026-11-03 — Photography, second pass: the set is art-directed, not generated
 
 **Why:** The first five sector frames read as clean but anonymous — the failure mode of generated

@@ -17,7 +17,7 @@ import type { CommitFile, ContentStore, DataFile } from './store';
  * Everything the studio knows about the site's content, on top of a
  * ContentStore. Local mode owns a checkout and writes `../next-app/data`
  * directly (FsStore, dynamically imported so the deployed worker never
- * bundles `node:fs`); cloud mode — the deployed studio (D-19) — commits
+ * bundles `node:fs`); cloud mode — the deployed studio (D-21) — commits
  * through the GitHub API and the repository is the database.
  *
  * Validation stays here, before the store sees anything: an invalid file

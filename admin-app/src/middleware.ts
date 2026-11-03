@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { SESSION_COOKIE, verifyToken } from '@/lib/session';
 
 /**
- * The studio's only gate. Deployed (D-19) it sits in front of everything —
+ * The studio's only gate. Deployed (D-22) it sits in front of everything —
  * pages and API routes alike — because an editor that can commit to the site's
  * repository is exactly as sensitive as the repository. Locally, where the
  * secrets are absent and the panel binds to 127.0.0.1, the gate stands open

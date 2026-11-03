@@ -1,0 +1,5 @@
+# The studio is a private tool: never indexed, static assets cached hard.
+/*
+  X-Robots-Tag: noindex, nofollow
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
